@@ -1,0 +1,27 @@
+{
+  "name": "fw15-backend",
+  "version": "1.0.0",
+  "description": "my first backend app",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hendris27/fw15-backend.git"
+  },
+  "keywords": [
+    "event-orgainizing",
+    "postgresql",
+    "javascript"
+  ],
+  "author": "hendri",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/hendris27/fw15-backend/issues"
+  },
+  "homepage": "https://github.com/hendris27/fw15-backend#readme",
+  "devDependencies": {
+    "eslint": "^8.37.0"
+  }
+}
