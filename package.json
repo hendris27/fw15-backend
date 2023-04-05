@@ -4,7 +4,8 @@
   "description": "my first backend app",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "strat":"node index.js",
+    "dev" : "nodemon index.js"
   },
   "repository": {
     "type": "git",
@@ -22,7 +23,8 @@
   },
   "homepage": "https://github.com/hendris27/fw15-backend#readme",
   "devDependencies": {
-    "eslint": "^8.37.0"
+    "eslint": "^8.37.0",
+    "nodemon": "^2.0.22"
   },
   "dependencies": {
     "dotenv": "^16.0.3",
