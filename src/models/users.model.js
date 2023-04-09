@@ -46,3 +46,13 @@ SELECT * FROM  "users" WHERE id=$1
     const {rows} = await db.query(query, values)
     return rows[0]
 }
+
+// exports.getEmail = async function(email){
+//     const query =`
+// SELECT * FROM  "users" WHERE email=$2
+// `
+//     const values = [email]
+//     const {rows} = await db.query(query, values)
+//     return rows[0]
+// }
+
