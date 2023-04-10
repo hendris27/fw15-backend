@@ -4,12 +4,23 @@ const errorHandler = require ("../helpers/errorHandler.helper")
 
 
 exports.getAllUsers= async(request, response)=>{
-    const data = await userModel.findAll()
-    return response.json({ 
-        succes : true,
-        message : "list of all users",
-        results : data
-    })
+    try{
+        const data = await userModel.findAll(
+            request.query.page,
+            request.query.limit,
+            request.query.search,
+            request.query.sort,
+            request.query.sortBy
+        )
+        return response.json({ 
+            succes : true,
+            message : "list of all users",
+            results : data
+        })
+    }catch (err) {
+        if (err) return errorHandler(err, response)
+    }
+
 }
 
 exports.getOneUser= async(request, response)=>{
@@ -37,16 +48,25 @@ exports.getOneUser= async(request, response)=>{
 exports.createUser = async (request, response) =>{
     
     try{  
+        const dataName=request.body.fullName
         const dataEmail= request.body.email
         const dataPassword=request.body.password
-        if (dataEmail == "" && dataPassword =="") {
+        
+        if (dataEmail == "" && dataPassword == "" && dataName == "") {
             throw Error("empty_field")
         }
-        if (!dataEmail.includes("@")) {
+        if (!dataEmail.includes("@") && dataEmail.indexOf("@") === -1 &&
+            dataEmail.indexOf("@") && dataEmail.lastIndexOf("@")) {
             throw Error("email_format")
         }
-        if (dataPassword.length < 8) {
+        if (!dataPassword == ("/[a-zA-Z]/")) {
+            throw Error("password_symbol_format")
+        }
+        if (dataPassword.length > 5) {
             throw Error("password_format")
+        }
+        if (!dataName == ("string")) {
+            throw Error("name_format")
         }
         const data = await userModel.insert(request.body) 
         return response.json({

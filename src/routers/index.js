@@ -6,6 +6,8 @@ router.get("/", (request, response) =>{
         message: "Backend is running"
     })
 })
+
+router.use("/admin", require("./admin.router"))
 router.use("*", (request, response) => {
     return response.status(404).json({
         succes:false,
@@ -13,6 +15,5 @@ router.use("*", (request, response) => {
     })
 })
 
-router.use("/admin", require("./admin.router"))
 
 module.exports = router
