@@ -37,12 +37,18 @@ exports.getOneUser= async(request, response)=>{
 exports.createUser = async (request, response) =>{
     
     try{  
-        const data = await userModel.insert(request.body) 
-        if (typeof request.params.email === "string" && !request.params.email.includes("@") && !request.params.body ==="") {
-            return response.status(400).json({
-                success: false,
-                message: "Error: Invalid email format" })
+        const dataEmail= request.body.email
+        const dataPassword=request.body.password
+        if (dataEmail == "" && dataPassword =="") {
+            throw Error("empty_field")
         }
+        if (!dataEmail.includes("@")) {
+            throw Error("email_format")
+        }
+        if (dataPassword.length < 8) {
+            throw Error("password_format")
+        }
+        const data = await userModel.insert(request.body) 
         return response.json({
             succes: true,
             message:`create user ${request.body.email} succesfully`,
@@ -80,14 +86,16 @@ exports.updateUser =async (request, response) =>{
 exports.deleteUser = async (request, response) => {
     try {
         const data = await userModel.destroy(request.params.id)
-        if(data)
+        if(data){
             return response.json({
                 success: true,
                 message: `Users ${request.params.id} deleted successfully`,
                 results: data,
             })
-        return response.json({
-            success: true,
+        }
+            
+        return response.status(404).json({
+            success: false,
             message: "Users not found",
        
         })
