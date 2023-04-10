@@ -7,191 +7,196 @@
 	},
 	"item": [
 		{
-			"name": "USERS",
+			"name": "ADMIN",
 			"item": [
 				{
-					"name": "GET ALL  USERS",
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
-					"request": {
-						"method": "GET",
-						"header": [],
-						"body": {
-							"mode": "urlencoded",
-							"urlencoded": []
-						},
-						"url": {
-							"raw": "{{url}}/users",
-							"host": [
-								"{{url}}"
-							],
-							"path": [
-								"users"
-							],
-							"query": [
-								{
-									"key": "email",
-									"value": "john",
-									"disabled": true
-								}
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "CREATE USERS",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "urlencoded",
-							"urlencoded": [
-								{
-									"key": "name",
-									"value": "asep",
-									"type": "text"
+					"name": "USERS",
+					"item": [
+						{
+							"name": "GET ALL  USERS",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": []
 								},
-								{
-									"key": "email",
-									"value": "samuel@main.com",
-									"type": "text"
-								},
-								{
-									"key": "password",
-									"value": "1234",
-									"type": "text"
+								"url": {
+									"raw": "{{url}}/admin/users",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"admin",
+										"users"
+									],
+									"query": [
+										{
+											"key": "email",
+											"value": "john",
+											"disabled": true
+										}
+									]
 								}
-							]
+							},
+							"response": []
 						},
-						"url": {
-							"raw": "{{url}}/users?",
-							"host": [
-								"{{url}}"
-							],
-							"path": [
-								"users"
-							],
-							"query": [
-								{
-									"key": "",
-									"value": null
-								}
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "UPDATE USERS",
-					"request": {
-						"method": "PATCH",
-						"header": [],
-						"body": {
-							"mode": "urlencoded",
-							"urlencoded": [
-								{
-									"key": "email",
-									"value": "hendri18@setiadi.com",
-									"type": "text"
+						{
+							"name": "CREATE USERS",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "email",
+											"value": "hendri@",
+											"type": "text"
+										},
+										{
+											"key": "password",
+											"value": "1111111111111111111111111111",
+											"type": "text"
+										},
+										{
+											"key": "fullName",
+											"value": "hendri",
+											"type": "text"
+										}
+									]
 								},
-								{
-									"key": "password",
-									"value": "77771",
-									"type": "text"
+								"url": {
+									"raw": "{{url}}/users",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"users"
+									]
 								}
-							]
+							},
+							"response": []
 						},
-						"url": {
-							"raw": "{{url}}/users/:id",
-							"host": [
-								"{{url}}"
-							],
-							"path": [
-								"users",
-								":id"
-							],
-							"query": [
-								{
-									"key": "email",
-									"value": "hendri2@mail.com",
-									"disabled": true
+						{
+							"name": "UPDATE USERS",
+							"request": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "email",
+											"value": "hendri18@setiadi.com",
+											"type": "text"
+										},
+										{
+											"key": "password",
+											"value": "7777",
+											"type": "text"
+										},
+										{
+											"key": "fullName",
+											"value": "joe",
+											"type": "text"
+										}
+									]
 								},
-								{
-									"key": "password",
-									"value": "1000",
-									"disabled": true
+								"url": {
+									"raw": "{{url}}/users/:id",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"users",
+										":id"
+									],
+									"query": [
+										{
+											"key": "email",
+											"value": "hendri2@mail.com",
+											"disabled": true
+										},
+										{
+											"key": "password",
+											"value": "1000",
+											"disabled": true
+										}
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "9"
+										}
+									]
 								}
-							],
-							"variable": [
-								{
-									"key": "id",
-									"value": "1"
-								}
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "DELETE USERS",
-					"request": {
-						"method": "DELETE",
-						"header": [],
-						"body": {
-							"mode": "urlencoded",
-							"urlencoded": []
+							},
+							"response": []
 						},
-						"url": {
-							"raw": "{{url}}/users/:id",
-							"host": [
-								"{{url}}"
-							],
-							"path": [
-								"users",
-								":id"
-							],
-							"variable": [
-								{
-									"key": "id",
-									"value": "2"
+						{
+							"name": "DELETE USERS",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": []
+								},
+								"url": {
+									"raw": "{{url}}/users/:id",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"users",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "12"
+										}
+									]
 								}
-							]
+							},
+							"response": []
+						},
+						{
+							"name": "DETAIL USERS",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/users/:id",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"users",
+										":id"
+									],
+									"query": [
+										{
+											"key": "email",
+											"value": "1",
+											"disabled": true
+										}
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "2"
+										}
+									]
+								}
+							},
+							"response": []
 						}
-					},
-					"response": []
-				},
-				{
-					"name": "DETAIL USERS",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{url}}/users/:id",
-							"host": [
-								"{{url}}"
-							],
-							"path": [
-								"users",
-								":id"
-							],
-							"query": [
-								{
-									"key": "email",
-									"value": "1",
-									"disabled": true
-								}
-							],
-							"variable": [
-								{
-									"key": "id",
-									"value": "2"
-								}
-							]
-						}
-					},
-					"response": []
+					]
 				}
 			]
 		},

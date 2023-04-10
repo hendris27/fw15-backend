@@ -2,16 +2,17 @@
 
 CREATE TABLE "users" (
         "id" INT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
+        "fullName" VARCHAR(80),
         "email" VARCHAR(255) UNIQUE,
         "password" VARCHAR(255),
         "createdAt" TIMESTAMP DEFAULT NOW(),
         "updatedAt" TIMESTAMP DEFAULT NULL
     );
 
-INSERT INTO "users" ( "email", "password")VALUES ('admin@mail.com', '1234');
-INSERT INTO "users" ( "email", "password")VALUES ('admin2@mail.com', '1234');
-INSERT INTO "users" ( "email", "password")VALUES ('fazz@mail.com', '1234');
-INSERT INTO "users" ( "email", "password")VALUES ('track@mail.com', '1234');
+INSERT INTO "users" ( "fullName", "email", "password")VALUES ('hendri1', 'admin@mail.com', '1234');
+INSERT INTO "users" ( "fullName", "email", "password")VALUES ('hendri2', 'admin2@mail.com', '1234');
+INSERT INTO "users" ( "fullName", "email", "password")VALUES ('hendri3', 'fazz@mail.com', '1234');
+INSERT INTO "users" ( "fullName", "email", "password")VALUES ('hendri4', 'track@mail.com', '1234');
 
 
 
