@@ -25,6 +25,7 @@ exports.getAllUsers= async(request, response)=>{
 
 exports.getOneUser= async(request, response)=>{
     try {
+
         const data = await userModel.findOne(request.params.id)
         if(data){return response.json({
             succes : true,

@@ -43,7 +43,7 @@ const errorHandler = (err, response) => {
             message:"Password must be include Symbol!"
         })
     }
-    if(err.message.includes("duplicate key")){
+    if(err.message?.includes("duplicate key")){
         return response.status(409).json({
             succes: false,
             message: "Error : email already used!"
@@ -55,13 +55,49 @@ const errorHandler = (err, response) => {
             message:"Wrong Email Format!"
         })
     }
-    if(err.message.includes("Cannot read properties of undefined (reading 'includes')")){
+    if(err?.message?.includes("password unmatch")){
+        return response.status(400).json({
+            succes: false,
+            message:"password and confirm password unmatch"
+        })
+    }
+    if(err?.message?.includes("wrong_credentials")){
+        return response.status(400).json({
+            succes: false,
+            message:"Wrong Name or email or password!"
+        })
+    }
+    if(err?.message?.includes("unauthorized")){
+        return response.status(400).json({
+            succes: false,
+            message:"unauthorized"
+        })
+    }
+    if(err?.message?.includes("jwt malformed")){
+        return response.status(401).json({
+            succes: false,
+            message:"token is invalid"
+        })
+    }
+    if(err?.message?.includes("invalid signature")){
+        return response.status(401).json({
+            succes: false,
+            message:"Token is Invalid signature"
+        })
+    }
+    if(err?.message?.includes("password unmatch")){
+        return response.status(400).json({
+            succes: false,
+            message:"password and confirm password unmatch"
+        })
+    }
+    if(err.message?.includes("Cannot read properties of undefined (reading 'includes')")){
         return response.status(409).json({
             succes: false,
             message: "Error : input id invalid"
         })
     }
-    if(err.message.includes("invalid input syntax for type integer")){
+    if(err.message?.includes("invalid input syntax for type integer")){
         return response.status(409).json({
             succes: false,
             message: "Error : input id wrong!"
