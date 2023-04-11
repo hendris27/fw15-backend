@@ -48,24 +48,33 @@ exports.getOneUser= async(request, response)=>{
 exports.createUser = async (request, response) =>{
     
     try{  
-        const dataName=request.body.fullName
-        const dataEmail= request.body.email
-        const dataPassword=request.body.password
-        
-        if (dataEmail == "" && dataPassword == "" && dataName == "") {
+        const {fullName, email, password}=request.body
+        const validasiAngka = /[0-9]/
+        const validasiHuruf = /[a-zA-Z]/
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+              
+        if (email == "" || password == "" || fullName == "") {
             throw Error("empty_field")
         }
-        if (!dataEmail.includes("@") && dataEmail.indexOf("@") === -1 &&
-            dataEmail.indexOf("@") && dataEmail.lastIndexOf("@")) {
+        if (email == "" && password == "" && fullName == "") {
+            throw Error("empty_field")
+        }
+        if (!email.includes("@") || !email.match(emailRegex) || email.startsWith("@") || email.endsWith("@"))  {
             throw Error("email_format")
         }
-        if (!dataPassword == ("/[a-zA-Z]/")) {
+        if ((email.match(/@/g) || []).length > 1)  {
+            throw Error("email_format")
+        }
+        if (password === fullName  || fullName === password) {
+            throw Error("not_same_format")
+        }
+        if (!validasiHuruf.test(password) || !validasiAngka.test(password)) {
             throw Error("password_symbol_format")
         }
-        if (dataPassword.length > 5) {
+        if (password.length <= 5) {
             throw Error("password_format")
         }
-        if (!dataName == ("string")) {
+        if (validasiAngka.test(fullName) ) {
             throw Error("name_format")
         }
         const data = await userModel.insert(request.body) 
@@ -84,6 +93,7 @@ exports.createUser = async (request, response) =>{
 
 exports.updateUser =async (request, response) =>{
     try{
+      
         const data = await userModel.update(request.params.id, request.body)
         if(data){
             return response.json({

@@ -13,6 +13,12 @@ const errorHandler = (err, response) => {
             message:"Email or Password or Name cannot be empty"
         })
     }
+    if(err?.message?.includes("not_same_format")){
+        return response.status(400).json({
+            succes: false,
+            message:"name or password don't same"
+        })
+    }
     if(err?.message?.includes("email_format")){
         return response.status(400).json({
             succes: false,

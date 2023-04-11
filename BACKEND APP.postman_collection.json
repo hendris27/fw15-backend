@@ -22,7 +22,38 @@
 								"header": [],
 								"body": {
 									"mode": "urlencoded",
-									"urlencoded": []
+									"urlencoded": [
+										{
+											"key": "page",
+											"value": "2",
+											"type": "text",
+											"disabled": true
+										},
+										{
+											"key": "limit",
+											"value": "2",
+											"type": "text",
+											"disabled": true
+										},
+										{
+											"key": "search",
+											"value": "",
+											"type": "text",
+											"disabled": true
+										},
+										{
+											"key": "sortBy",
+											"value": "DESC",
+											"type": "text",
+											"disabled": true
+										},
+										{
+											"key": "sort",
+											"value": "fullName",
+											"type": "text",
+											"disabled": true
+										}
+									]
 								},
 								"url": {
 									"raw": "{{url}}/admin/users",
@@ -53,28 +84,29 @@
 									"mode": "urlencoded",
 									"urlencoded": [
 										{
-											"key": "email",
-											"value": "hendri@",
+											"key": "fullName",
+											"value": "1",
 											"type": "text"
 										},
 										{
 											"key": "password",
-											"value": "1111111111111111111111111111",
+											"value": "1",
 											"type": "text"
 										},
 										{
-											"key": "fullName",
-											"value": "hendri",
+											"key": "email",
+											"value": "hendri1@mail.com",
 											"type": "text"
 										}
 									]
 								},
 								"url": {
-									"raw": "{{url}}/users",
+									"raw": "{{url}}/admin/users",
 									"host": [
 										"{{url}}"
 									],
 									"path": [
+										"admin",
 										"users"
 									]
 								}
@@ -107,11 +139,12 @@
 									]
 								},
 								"url": {
-									"raw": "{{url}}/users/:id",
+									"raw": "{{url}}/admin/users/:id",
 									"host": [
 										"{{url}}"
 									],
 									"path": [
+										"admin",
 										"users",
 										":id"
 									],
@@ -147,18 +180,19 @@
 									"urlencoded": []
 								},
 								"url": {
-									"raw": "{{url}}/users/:id",
+									"raw": "{{url}}/admin/users/:id",
 									"host": [
 										"{{url}}"
 									],
 									"path": [
+										"admin",
 										"users",
 										":id"
 									],
 									"variable": [
 										{
 											"key": "id",
-											"value": "12"
+											"value": "1"
 										}
 									]
 								}
@@ -171,11 +205,12 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{url}}/users/:id",
+									"raw": "{{url}}/admin/users/:id",
 									"host": [
 										"{{url}}"
 									],
 									"path": [
+										"admin",
 										"users",
 										":id"
 									],
@@ -189,7 +224,7 @@
 									"variable": [
 										{
 											"key": "id",
-											"value": "2"
+											"value": "1"
 										}
 									]
 								}
