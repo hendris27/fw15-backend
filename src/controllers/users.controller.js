@@ -1,6 +1,7 @@
 
 const userModel = require("../models/users.model")
 const errorHandler = require ("../helpers/errorHandler.helper")
+const argon = require ("argon2")
 
 
 exports.getAllUsers= async(request, response)=>{
@@ -78,11 +79,15 @@ exports.createUser = async (request, response) =>{
         if (validasiAngka.test(fullName) ) {
             throw Error("name_format")
         }
-        const data = await userModel.insert(request.body) 
+        const hash = await argon.hash(request.body.password)
+        const data = {
+            ...request.body, password : hash
+        }
+        const user = await userModel.insert(data)
         return response.json({
             succes: true,
             message:`create user ${request.body.email} succesfully`,
-            results: data
+            results: user
             
         })
     } catch (err) {

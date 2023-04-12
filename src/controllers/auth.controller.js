@@ -6,9 +6,13 @@ const argon = require ("argon2")
 
 exports.login = async (request, response) =>  {
     try{
-        const {fullName, email, password} =request.body
+        const {email, password} =request.body
         const user = await userModel.findOneByEmail(email)
-        if(!user || (password !== user?.password && fullName !== user?.fullName)){
+        if(!user){
+            throw Error ("wrong_credentials")
+        }
+        const verify = await argon.verify(user.password, password)
+        if (!verify) {
             throw Error ("wrong_credentials")
         }
         const token =jwt.sign({id : user.id}, APP_SECRET)
