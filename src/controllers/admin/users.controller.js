@@ -1,6 +1,6 @@
 
-const userModel = require("../models/users.model")
-const errorHandler = require ("../helpers/errorHandler.helper")
+const userModel = require("../../models/users.model")
+const errorHandler = require ("../../helpers/errorHandler.helper")
 const argon = require ("argon2")
 
 
@@ -50,38 +50,42 @@ exports.getOneUser= async(request, response)=>{
 exports.createUser = async (request, response) =>{
     
     try{  
-        const {fullName, email, password}=request.body
-        const validasiAngka = /[0-9]/
-        const validasiHuruf = /[a-zA-Z]/
-        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+        // const {fullName, email, password}=request.body
+        // const validasiAngka = /[0-9]/
+        // const validasiHuruf = /[a-zA-Z]/
+        // const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
               
-        if (email == "" || password == "" || fullName == "") {
-            throw Error("empty_field")
-        }
-        if (email == "" && password == "" && fullName == "") {
-            throw Error("empty_field")
-        }
-        if (!email.includes("@") || !email.match(emailRegex) || email.startsWith("@") || email.endsWith("@"))  {
-            throw Error("email_format")
-        }
-        if ((email.match(/@/g) || []).length > 1)  {
-            throw Error("email_format")
-        }
-        if (password === fullName  || fullName === password) {
-            throw Error("not_same_format")
-        }
-        if (!validasiHuruf.test(password) || !validasiAngka.test(password)) {
-            throw Error("password_symbol_format")
-        }
-        if (password.length <= 5) {
-            throw Error("password_format")
-        }
-        if (validasiAngka.test(fullName) ) {
-            throw Error("name_format")
-        }
+        // if (email == "" || password == "" || fullName == "") {
+        //     throw Error("empty_field")
+        // }
+        // if (email == "" && password == "" && fullName == "") {
+        //     throw Error("empty_field")
+        // }
+        // if (!email.includes("@") || !email.match(emailRegex) || email.startsWith("@") || email.endsWith("@"))  {
+        //     throw Error("email_format")
+        // }
+        // if ((email.match(/@/g) || []).length > 1)  {
+        //     throw Error("email_format")
+        // }
+        // if (password === fullName  || fullName === password) {
+        //     throw Error("not_same_format")
+        // }
+        // if (!validasiHuruf.test(password) || !validasiAngka.test(password)) {
+        //     throw Error("password_symbol_format")
+        // }
+        // if (password.length <= 5) {
+        //     throw Error("password_format")
+        // }
+        // if (validasiAngka.test(fullName) ) {
+        //     throw Error("name_format")
+        // }
+
         const hash = await argon.hash(request.body.password)
         const data = {
             ...request.body, password : hash
+        }
+        if(request.file){
+            data.picture = request.file.filename
         }
         const user = await userModel.insert(data)
         return response.json({
@@ -93,26 +97,24 @@ exports.createUser = async (request, response) =>{
     } catch (err) {
         if (err) return errorHandler(err, response)
     }
-    
-       
 }
 
 exports.updateUser =async (request, response) =>{
     try{
-      
-        const data = await userModel.update(request.params.id, request.body)
-        if(data){
+        const hash = await argon.hash(request.body.password)
+        const data = {
+            ...request.body, password : hash
+        }
+        const user = await userModel.update(request.params.id, data)
+        if(user) {
             return response.json({
                 succes: true,
                 message:"Update user succesfully",
-                results: data
+                results: user
             })
-        } return response.status(404).json({
-            succes : false,
-            message : "Error: user not found",
-        })
-    }
-   
+        }
+        throw Error ("validator")
+    }   
     catch (err) {
         if (err) return errorHandler(err, response)
     }

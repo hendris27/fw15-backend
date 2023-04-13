@@ -1,36 +1,99 @@
--- Active: 1680702373184@@127.0.0.1@5432@postgres@public
+CREATE TABLE "users"(
+    "id" INTEGER PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
+    "username" VARCHAR(255),
+    "email" VARCHAR (255) UNIQUE,
+    "password" VARCHAR(255),
+    "createdAt" TIMESTAMP DEFAULT NOW(),
+    "updatedAt" TIMESTAMP DEFAULT NULL
+);
+CREATE TABLE "profile"(
+    "id" INTEGER PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
+    "picture" VARCHAR(255),
+    "fullName" VARCHAR(255),
+    "phoneNumber" VARCHAR(255),
+    "gender" BOOLEAN,
+    "profession" VARCHAR(255),
+    "Nationality" VARCHAR(255),
+    "birthDate" DATE,
+    "createdAt" TIMESTAMP DEFAULT NOW(),
+    "updatedAt" TIMESTAMP DEFAULT NULL
+);
+CREATE TABLE "categories"(
+    "id" INTEGER PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
+    "name" VARCHAR(255),
+    "createdAt" TIMESTAMP DEFAULT NOW(),
+    "updatedAt" TIMESTAMP DEFAULT NULL
+);
+CREATE TABLE "cities"(
+    "id" INTEGER PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
+    "picture" VARCHAR(255),
+    "createdAt" TIMESTAMP DEFAULT NOW(),
+    "updatedAt" TIMESTAMP DEFAULT NULL
+);
+CREATE TABLE "events"(
+    "id" INTEGER PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
+    "pictures" VARCHAR(255),
+    "title" VARCHAR(255),
+    "date" DATE,
+    "cityId" INTEGER,
+    "descriptions" TEXT,
+    "createdAt" TIMESTAMP DEFAULT NOW(),
+    "updatedAt" TIMESTAMP DEFAULT NULL
+);
 
-CREATE TABLE "users" (
-        "id" INT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
-        "fullName" VARCHAR(80),
-        "email" VARCHAR(255) UNIQUE,
-        "password" VARCHAR(255),
-        "createdAt" TIMESTAMP DEFAULT NOW(),
-        "updatedAt" TIMESTAMP DEFAULT NULL
-    );
-
-INSERT INTO "users" ( "fullName", "email", "password")VALUES ('bob1', 'admin@mail.com', '1234');
-INSERT INTO "users" ( "fullName", "email", "password")VALUES ('bob2', 'admin2@mail.com', '1234');
-INSERT INTO "users" ( "fullName", "email", "password")VALUES ('bob3', 'fazz@mail.com', '1234');
-INSERT INTO "users" ( "fullName", "email", "password")VALUES ('bob4', 'track@mail.com', '1234');
-INSERT INTO "users" ( "fullName", "email", "password")VALUES ('bob5', 'track1@mail.com', '1234');
-INSERT INTO "users" ( "fullName", "email", "password")VALUES ('bob6', 'trac2k@mail.com', '1234');
-INSERT INTO "users" ( "fullName", "email", "password")VALUES ('john1', 'track3@mail.com', '1234');
-INSERT INTO "users" ( "fullName", "email", "password")VALUES ('john2', 'track4@mail.com', '1234');
-INSERT INTO "users" ( "fullName", "email", "password")VALUES ('john3', 'track5@mail.com', '1234');
-INSERT INTO "users" ( "fullName", "email", "password")VALUES ('john4', 'track6@mail.com', '1234');
-INSERT INTO "users" ( "fullName", "email", "password")VALUES ('john5', 'track7@mail.com', '1234');
-INSERT INTO "users" ( "fullName", "email", "password")VALUES ('john7', 'track8@mail.com', '1234');
-INSERT INTO "users" ( "fullName", "email", "password")VALUES ('john8', 'track9@mail.com', '1234');
-INSERT INTO "users" ( "fullName", "email", "password")VALUES ('john9', 'track10@mail.com', '1234');
-
-DELETE FROM users
-WHERE id IN (4, 7, 10, 13,14,15,16,17,18,19,20,22);
-
-
-UPDATE "users"SET "email" = 'admin@gmail.com' WHERE "id" = 1;
-DELETE from "users" WHERE "id"=2;
-ALTER TABLE users ADD name VARCHAR(255);
- DROP Table users;
-
-SELECT * FROM "users" ORDER BY "fullName" ASC LIMIT 5 OFFSET 5;
+CREATE TABLE "eventCategories"(
+    "id" INTEGER PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
+    "eventId" INTEGER,
+    "categoryId" INTEGER,
+    "createdAt" TIMESTAMP DEFAULT NOW(),
+    "updatedAt" TIMESTAMP DEFAULT NULL
+);
+CREATE TABLE "patners"(
+    "id" INTEGER PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
+    "pictures" VARCHAR(255),
+    "name" VARCHAR(255),
+    "createdAt" TIMESTAMP DEFAULT NOW(),
+    "updatedAt" TIMESTAMP DEFAULT NULL
+);CREATE TABLE "reservationSections"(
+    "id" INTEGER PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
+    "name" VARCHAR(255),
+    "price" VARCHAR(255),
+    "createdAt" TIMESTAMP DEFAULT NOW(),
+    "updatedAt" TIMESTAMP DEFAULT NULL
+);
+CREATE TABLE "reservationStatus"(
+    "id" INTEGER PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
+    "name" VARCHAR(255),
+    "createdAt" TIMESTAMP DEFAULT NOW(),
+    "updatedAt" TIMESTAMP DEFAULT NULL
+);
+CREATE TABLE "paymentMethod"(
+    "id" INTEGER PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
+    "name" VARCHAR(255),
+    "createdAt" TIMESTAMP DEFAULT NOW(),
+    "updatedAt" TIMESTAMP DEFAULT NULL
+);
+CREATE TABLE "reservation"(
+    "id" INTEGER PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
+    "eventId" INTEGER,
+    "userId" INTEGER,
+    "status" INTEGER,
+    "paymentMethodId" INTEGER,
+    "createdAt" TIMESTAMP DEFAULT NOW(),
+    "updatedAt" TIMESTAMP DEFAULT NULL
+);
+CREATE TABLE "reservationTickets"(
+    "id" INTEGER PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
+    "reservationId" INTEGER,
+    "sectionId" INTEGER,
+    "quantity" INTEGER,
+    "createdAt" TIMESTAMP DEFAULT NOW(),
+    "updatedAt" TIMESTAMP DEFAULT NULL
+);
+CREATE TABLE "wishList"(
+    "id" INTEGER PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
+    "eventId" INTEGER,
+    "userId" INTEGER,
+    "createdAt" TIMESTAMP DEFAULT NOW(),
+    "updatedAt" TIMESTAMP DEFAULT NULL
+);

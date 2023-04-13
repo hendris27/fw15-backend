@@ -10,6 +10,50 @@
 			"name": "ADMIN",
 			"item": [
 				{
+					"name": "CATEGORIES",
+					"item": []
+				},
+				{
+					"name": "CITIES",
+					"item": []
+				},
+				{
+					"name": "EVENTCATEGORIES",
+					"item": []
+				},
+				{
+					"name": "EVENTS",
+					"item": []
+				},
+				{
+					"name": "PATNERS",
+					"item": []
+				},
+				{
+					"name": "PAYMENTMETHOD",
+					"item": []
+				},
+				{
+					"name": "PROFILE",
+					"item": []
+				},
+				{
+					"name": "RESERVATION",
+					"item": []
+				},
+				{
+					"name": "RESERVATIONSECTIONS",
+					"item": []
+				},
+				{
+					"name": "RESERVATIONSTATUS",
+					"item": []
+				},
+				{
+					"name": "RESERVATIONTICKETS",
+					"item": []
+				},
+				{
 					"name": "USERS",
 					"item": [
 						{
@@ -25,9 +69,8 @@
 									"urlencoded": [
 										{
 											"key": "page",
-											"value": "2",
-											"type": "text",
-											"disabled": true
+											"value": "3",
+											"type": "text"
 										},
 										{
 											"key": "limit",
@@ -44,8 +87,7 @@
 										{
 											"key": "sortBy",
 											"value": "DESC",
-											"type": "text",
-											"disabled": true
+											"type": "text"
 										},
 										{
 											"key": "sort",
@@ -56,7 +98,7 @@
 									]
 								},
 								"url": {
-									"raw": "{{url}}/admin/users",
+									"raw": "{{url}}/admin/users?search=hendri",
 									"host": [
 										"{{url}}"
 									],
@@ -66,9 +108,8 @@
 									],
 									"query": [
 										{
-											"key": "email",
-											"value": "john",
-											"disabled": true
+											"key": "search",
+											"value": "hendri"
 										}
 									]
 								}
@@ -81,22 +122,27 @@
 								"method": "POST",
 								"header": [],
 								"body": {
-									"mode": "urlencoded",
-									"urlencoded": [
+									"mode": "formdata",
+									"formdata": [
 										{
 											"key": "fullName",
-											"value": "1",
-											"type": "text"
-										},
-										{
-											"key": "password",
-											"value": "1",
+											"value": "hendri2",
 											"type": "text"
 										},
 										{
 											"key": "email",
-											"value": "hendri1@mail.com",
+											"value": "satomi100@gmail.com",
 											"type": "text"
+										},
+										{
+											"key": "password",
+											"value": "1qaz2wsxsqSS.",
+											"type": "text"
+										},
+										{
+											"key": "picture",
+											"type": "file",
+											"src": "/C:/Users/hendri/Downloads/baner7.jpg"
 										}
 									]
 								},
@@ -232,6 +278,99 @@
 							"response": []
 						}
 					]
+				},
+				{
+					"name": "WISHLIST",
+					"item": []
+				}
+			]
+		},
+		{
+			"name": "AUTH",
+			"item": [
+				{
+					"name": "LOGIN",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "fullName",
+									"value": "",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "email",
+									"value": "admin@mail.com",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "password",
+									"value": "1234",
+									"type": "text",
+									"disabled": true
+								}
+							]
+						},
+						"url": {
+							"raw": "{{url}}/auth/login",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "REGISTER",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "fullName",
+									"value": "",
+									"type": "text"
+								},
+								{
+									"key": "email",
+									"value": "",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "hendriS2-",
+									"type": "text"
+								},
+								{
+									"key": "confirmPassword",
+									"value": "hendriS2.",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{url}}/auth/register",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"auth",
+								"register"
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		},
@@ -250,6 +389,16 @@
 			"response": []
 		}
 	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "{{token}}",
+				"type": "string"
+			}
+		]
+	},
 	"event": [
 		{
 			"listen": "prerequest",
