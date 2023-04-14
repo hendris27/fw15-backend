@@ -2,6 +2,7 @@
 const userModel = require("../../models/users.model")
 const errorHandler = require ("../../helpers/errorHandler.helper")
 const argon = require ("argon2")
+// const fileRemover = require ("../../helpers/fileRemover.helper")
 
 
 exports.getAllUsers= async(request, response)=>{
@@ -50,43 +51,13 @@ exports.getOneUser= async(request, response)=>{
 exports.createUser = async (request, response) =>{
     
     try{  
-        // const {fullName, email, password}=request.body
-        // const validasiAngka = /[0-9]/
-        // const validasiHuruf = /[a-zA-Z]/
-        // const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
-              
-        // if (email == "" || password == "" || fullName == "") {
-        //     throw Error("empty_field")
-        // }
-        // if (email == "" && password == "" && fullName == "") {
-        //     throw Error("empty_field")
-        // }
-        // if (!email.includes("@") || !email.match(emailRegex) || email.startsWith("@") || email.endsWith("@"))  {
-        //     throw Error("email_format")
-        // }
-        // if ((email.match(/@/g) || []).length > 1)  {
-        //     throw Error("email_format")
-        // }
-        // if (password === fullName  || fullName === password) {
-        //     throw Error("not_same_format")
-        // }
-        // if (!validasiHuruf.test(password) || !validasiAngka.test(password)) {
-        //     throw Error("password_symbol_format")
-        // }
-        // if (password.length <= 5) {
-        //     throw Error("password_format")
-        // }
-        // if (validasiAngka.test(fullName) ) {
-        //     throw Error("name_format")
-        // }
+     
 
         const hash = await argon.hash(request.body.password)
         const data = {
-            ...request.body, password : hash
+            ...request.body, password: hash
         }
-        if(request.file){
-            data.picture = request.file.filename
-        }
+      
         const user = await userModel.insert(data)
         return response.json({
             succes: true,
@@ -95,15 +66,20 @@ exports.createUser = async (request, response) =>{
             
         })
     } catch (err) {
+        // fileRemover(request.file)
+
         if (err) return errorHandler(err, response)
     }
 }
 
 exports.updateUser =async (request, response) =>{
     try{
-        const hash = await argon.hash(request.body.password)
         const data = {
-            ...request.body, password : hash
+            ...request.body
+        }
+        if(request.body.password){
+            data.password= await argon.hash(request.body.password)
+
         }
         const user = await userModel.update(request.params.id, data)
         if(user) {
@@ -116,6 +92,8 @@ exports.updateUser =async (request, response) =>{
         throw Error ("validator")
     }   
     catch (err) {
+        // fileRemover(request.file)
+
         if (err) return errorHandler(err, response)
     }
    

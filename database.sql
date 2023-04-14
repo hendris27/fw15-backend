@@ -97,3 +97,4 @@ CREATE TABLE "wishList"(
     "createdAt" TIMESTAMP DEFAULT NOW(),
     "updatedAt" TIMESTAMP DEFAULT NULL
 );
+ALTER TABLE "profile" ADD COLUMN "userId" INTEGER

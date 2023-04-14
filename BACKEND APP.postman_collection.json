@@ -23,7 +23,119 @@
 				},
 				{
 					"name": "EVENTS",
-					"item": []
+					"item": [
+						{
+							"name": "GET ALL EVENTS",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/admin/events",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"admin",
+										"events"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GET EVENTS",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/admin/events/:id",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"admin",
+										"events",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": null
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "CREATE EVENTS",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/admin/events",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"admin",
+										"events"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "UPDATE EVENTS",
+							"request": {
+								"method": "PATCH",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/admin/events/:id",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"admin",
+										"events",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": null
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "DELETE EVENTS",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/admin/events/:id",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"admin",
+										"events",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": null
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
 				},
 				{
 					"name": "PATNERS",
@@ -35,7 +147,152 @@
 				},
 				{
 					"name": "PROFILE",
-					"item": []
+					"item": [
+						{
+							"name": "GET ALL PROFILE",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/admin/profile",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"admin",
+										"profile"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GET PROFILE",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/admin/profile/:id",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"admin",
+										"profile",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": null
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "CREATE PROFILE",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "picture",
+											"type": "file",
+											"src": "/C:/Users/hendri/Downloads/baner3.jpg"
+										},
+										{
+											"key": "fullName",
+											"value": "hendri",
+											"type": "text"
+										},
+										{
+											"key": "phoneNumber",
+											"value": "11",
+											"type": "text"
+										},
+										{
+											"key": "gender",
+											"value": "1",
+											"type": "text"
+										},
+										{
+											"key": "profession",
+											"value": "farmer",
+											"type": "text"
+										},
+										{
+											"key": "nationality",
+											"value": "indonesia",
+											"type": "text"
+										},
+										{
+											"key": "birthDate",
+											"value": "1990-02-02",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{url}}/admin/profile",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"admin",
+										"profile"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "UPDATE PROFILE",
+							"request": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "fullName",
+											"value": "jonson",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{url}}/admin/profile/:id",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"admin",
+										"profile",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "1"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "DELETE PROFILE",
+							"request": {
+								"method": "DELETE",
+								"header": []
+							},
+							"response": []
+						}
+					]
 				},
 				{
 					"name": "RESERVATION",
@@ -125,8 +382,8 @@
 									"mode": "formdata",
 									"formdata": [
 										{
-											"key": "fullName",
-											"value": "hendri2",
+											"key": "username",
+											"value": "hendri",
 											"type": "text"
 										},
 										{
@@ -138,11 +395,6 @@
 											"key": "password",
 											"value": "1qaz2wsxsqSS.",
 											"type": "text"
-										},
-										{
-											"key": "picture",
-											"type": "file",
-											"src": "/C:/Users/hendri/Downloads/baner7.jpg"
 										}
 									]
 								},
@@ -168,18 +420,18 @@
 									"mode": "urlencoded",
 									"urlencoded": [
 										{
-											"key": "email",
-											"value": "hendri18@setiadi.com",
+											"key": "username",
+											"value": "admin",
 											"type": "text"
 										},
 										{
 											"key": "password",
-											"value": "7777",
+											"value": "Hendri@2.",
 											"type": "text"
 										},
 										{
-											"key": "fullName",
-											"value": "joe",
+											"key": "email",
+											"value": "joe@gmail.com",
 											"type": "text"
 										}
 									]
@@ -209,7 +461,7 @@
 									"variable": [
 										{
 											"key": "id",
-											"value": "9"
+											"value": "2"
 										}
 									]
 								}

@@ -19,6 +19,17 @@ const errorHandler = (err, response) => {
             message:"Id not found!"
         })
     }
+    if(err?.message?.includes("update_profile_failed")){
+        return response.status(400).json({
+            succes: false,
+            message:"Id not found!"
+        })
+    }if(err?.message?.includes("update_event_failed")){
+        return response.status(400).json({
+            succes: false,
+            message:"Id not found!"
+        })
+    }
     if(err?.message?.includes("not_same_format")){
         return response.status(400).json({
             succes: false,

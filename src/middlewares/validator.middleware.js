@@ -1,5 +1,7 @@
 const { body, query, param, validationResult } = require ("express-validator")
+const fileRemover = require("../helpers/fileRemover.helper")
 // const errorHandler = require("../helpers/errorHandler.helper")
+
 
 const strongPasword =  body("password").isStrongPassword().withMessage("Password must be strong")
 const emailFormat =   body("email").isEmail().withMessage ("Email is invalid")
@@ -10,12 +12,12 @@ const rules = {
         body ("password").isLength({min:1}).withMessage("Name length is invalid")
     ],
     createUser:[
-        body("fullName").isLength({min:3, max :80}).withMessage ("Name is length invalid"),
+        body("username").isLength({min:3, max :20}).withMessage ("username is length invalid"),
         emailFormat,
         strongPasword
     ],
     updateUser:[
-        body("fullName").isLength({min:3, max :80}).withMessage ("Name is length invalid"),
+        body("username").isLength({min:3, max :20}).withMessage ("username is length invalid"),
         emailFormat,
         strongPasword
     ],
@@ -31,7 +33,9 @@ const rules = {
 const validator = (request, response, next) => {
     const errors = validationResult(request)
     try{
+        
         if(!errors.isEmpty()){
+            fileRemover(request.file)
             // return response.status(400).json({ errors:errors.array() })
             throw Error ("validator")
         }
