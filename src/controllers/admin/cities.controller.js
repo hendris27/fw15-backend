@@ -1,13 +1,13 @@
 
-const eventsModel = require("../../models/events.model")
+const citiesModel = require("../../models/cities.model")
 const errorHandler = require ("../../helpers/errorHandler.helper")
-// const argon = require ("argon2")/
+// const argon = require ("argon2")
 const fileRemover = require ("../../helpers/fileRemover.helper")
 
 
-exports.getAllEvents= async(request, response)=>{
+exports.getAllCities= async(request, response)=>{
     try{
-        const data = await eventsModel.findAll(
+        const data = await citiesModel.findAll(
             request.query.page,
             request.query.limit,
             request.query.search,
@@ -16,7 +16,7 @@ exports.getAllEvents= async(request, response)=>{
         )
         return response.json({ 
             succes : true,
-            message : "list of all events",
+            message : "list of all Cities",
             results : data
         })
     }catch (err) {
@@ -24,18 +24,18 @@ exports.getAllEvents= async(request, response)=>{
     }
 }
 
-exports.getOneEvents= async(request, response)=>{
+exports.getOneCities= async(request, response)=>{
     try {
-        const data = await eventsModel.findOne(request.params.id)
+        const data = await citiesModel.findOne(request.params.id)
         if(data){return response.json({
             succes : true,
-            message : "Detail Events",
+            message : "Detail Cities",
             results : data
         })
         }
         return response.status(404).json({
             succes : false,
-            message : "Error: Events not found",
+            message : "Error:Cities not found",
         })
     }
     catch (err) {
@@ -45,7 +45,7 @@ exports.getOneEvents= async(request, response)=>{
 
 
 
-exports.createEvents = async (request, response) =>{
+exports.createCities = async (request, response) =>{
     
     try{  
         // const hash = await argon.hash(request.body.password)
@@ -56,11 +56,11 @@ exports.createEvents = async (request, response) =>{
             data.picture =request.file.filename
         }
 
-        const Events = await eventsModel.insert(data)
+        const Cities = await citiesModel.insert(data)
         return response.json({
             succes: true,
-            message:"create events succesfully",
-            results: Events
+            message:"create Cities succesfully",
+            results: Cities
             
         })
     } catch (err) {
@@ -69,23 +69,26 @@ exports.createEvents = async (request, response) =>{
     }
 }
 
-exports.updateEvents =async (request, response) =>{
+exports.updateCities =async (request, response) =>{
     try{
         const data = {
-            ...request.body}
-
+            ...request.body
+        }
+        // if(request.body.password){
+        //     data.password= await argon.hash(request.body.password)
+        // }
         if(request.file){
             data.picture =request.file.filename
         }
-        const Events = await eventsModel.update(request.params.id, data)
-        if(Events) {
+        const Cities = await citiesModel.update(request.params.id, data)
+        if(Cities) {
             return response.json({
                 succes: true,
-                message:"Update events succesfully",
-                results: Events
+                message:"Update profil succesfully",
+                results: Cities
             })
         }
-        throw Error ("update_event_failed")
+        throw Error ("update_Cities_failed")
     }   
     catch (err) {
         fileRemover(request.file)
@@ -94,20 +97,20 @@ exports.updateEvents =async (request, response) =>{
    
 }
 
-exports.deleteEvents = async (request, response) => {
+exports.deleteCities = async (request, response) => {
     try {
-        const data = await eventsModel.destroy(request.params.id)
+        const data = await citiesModel.destroy(request.params.id)
         if(data){
             return response.json({
                 success: true,
-                message: "Events deleted successfully",
+                message: "Cities  deleted successfully",
                 results: data,
             })
         }
             
         return response.status(404).json({
             success: false,
-            message: "Events not found",
+            message: "Cities not found",
        
         })
         

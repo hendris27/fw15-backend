@@ -24,7 +24,7 @@ const errorHandler = (err, response) => {
             succes: false,
             message:"Id not found!"
         })
-    }if(err?.message?.includes("update_event_failed")){
+    }if(err?.message?.includes("update_failed")){
         return response.status(400).json({
             succes: false,
             message:"Id not found!"

@@ -1,13 +1,13 @@
 
-const eventsModel = require("../../models/events.model")
+const patnersModel = require("../../models/patners.model")
 const errorHandler = require ("../../helpers/errorHandler.helper")
-// const argon = require ("argon2")/
+// const argon = require ("argon2")
 const fileRemover = require ("../../helpers/fileRemover.helper")
 
 
-exports.getAllEvents= async(request, response)=>{
+exports.getAllpatners= async(request, response)=>{
     try{
-        const data = await eventsModel.findAll(
+        const data = await patnersModel.findAll(
             request.query.page,
             request.query.limit,
             request.query.search,
@@ -16,7 +16,7 @@ exports.getAllEvents= async(request, response)=>{
         )
         return response.json({ 
             succes : true,
-            message : "list of all events",
+            message : "list of all patners",
             results : data
         })
     }catch (err) {
@@ -24,18 +24,18 @@ exports.getAllEvents= async(request, response)=>{
     }
 }
 
-exports.getOneEvents= async(request, response)=>{
+exports.getOnepatners= async(request, response)=>{
     try {
-        const data = await eventsModel.findOne(request.params.id)
+        const data = await patnersModel.findOne(request.params.id)
         if(data){return response.json({
             succes : true,
-            message : "Detail Events",
+            message : "Detail patners",
             results : data
         })
         }
         return response.status(404).json({
             succes : false,
-            message : "Error: Events not found",
+            message : "Error:patners not found",
         })
     }
     catch (err) {
@@ -45,7 +45,7 @@ exports.getOneEvents= async(request, response)=>{
 
 
 
-exports.createEvents = async (request, response) =>{
+exports.createpatners = async (request, response) =>{
     
     try{  
         // const hash = await argon.hash(request.body.password)
@@ -56,11 +56,11 @@ exports.createEvents = async (request, response) =>{
             data.picture =request.file.filename
         }
 
-        const Events = await eventsModel.insert(data)
+        const patners = await patnersModel.insert(data)
         return response.json({
             succes: true,
-            message:"create events succesfully",
-            results: Events
+            message:"create patners succesfully",
+            results: patners
             
         })
     } catch (err) {
@@ -69,23 +69,26 @@ exports.createEvents = async (request, response) =>{
     }
 }
 
-exports.updateEvents =async (request, response) =>{
+exports.updatepatners =async (request, response) =>{
     try{
         const data = {
-            ...request.body}
-
+            ...request.body
+        }
+        // if(request.body.password){
+        //     data.password= await argon.hash(request.body.password)
+        // }
         if(request.file){
             data.picture =request.file.filename
         }
-        const Events = await eventsModel.update(request.params.id, data)
-        if(Events) {
+        const patners = await patnersModel.update(request.params.id, data)
+        if(patners) {
             return response.json({
                 succes: true,
-                message:"Update events succesfully",
-                results: Events
+                message:"Update patners succesfully",
+                results: patners
             })
         }
-        throw Error ("update_event_failed")
+        throw Error ("update_failed")
     }   
     catch (err) {
         fileRemover(request.file)
@@ -94,20 +97,20 @@ exports.updateEvents =async (request, response) =>{
    
 }
 
-exports.deleteEvents = async (request, response) => {
+exports.deletepatners = async (request, response) => {
     try {
-        const data = await eventsModel.destroy(request.params.id)
+        const data = await patnersModel.destroy(request.params.id)
         if(data){
             return response.json({
                 success: true,
-                message: "Events deleted successfully",
+                message: "patners  deleted successfully",
                 results: data,
             })
         }
             
         return response.status(404).json({
             success: false,
-            message: "Events not found",
+            message: "patners not found",
        
         })
         
