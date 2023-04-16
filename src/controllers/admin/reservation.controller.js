@@ -1,13 +1,13 @@
 
-const categoriesModel = require("../../models/categories.model")
+const reservationModel = require("../../models/reservation.model")
 const errorHandler = require ("../../helpers/errorHandler.helper")
 // const argon = require ("argon2")
 // const fileRemover = require ("../../helpers/fileRemover.helper")
 
 
-exports.getAllCategories= async(request, response)=>{
+exports.getAllreservation= async(request, response)=>{
     try{
-        const data = await categoriesModel.findAll(
+        const data = await reservationModel.findAll(
             request.query.page,
             request.query.limit,
             request.query.search,
@@ -16,7 +16,7 @@ exports.getAllCategories= async(request, response)=>{
         )
         return response.json({ 
             succes : true,
-            message : "list of all categories",
+            message : "list of all reservation ",
             results : data
         })
     }catch (err) {
@@ -25,20 +25,20 @@ exports.getAllCategories= async(request, response)=>{
 
 }
 
-exports.getOneCategories= async(request, response)=>{
+exports.getOnereservation= async(request, response)=>{
     try {
 
-        const data = await categoriesModel.findOne(request.params.id)
+        const data = await reservationModel.findOne(request.params.id)
         if(data){return response.json({
             succes : true,
-            message : "Detail Categories",
+            message : "Detail reservation ",
             results : data
         })
         }
-  
+    
         return response.status(404).json({
             succes : false,
-            message : "Error: Categories not found",
+            message : "Error: reservation not found",
         })
     }
     catch (err) {
@@ -46,8 +46,7 @@ exports.getOneCategories= async(request, response)=>{
     }
 }
 
-
-exports.createCategories = async (request, response) =>{
+exports.createreservation = async (request, response) =>{
     
     try{ 
         // const hash = await argon.hash(request.body.password)
@@ -57,11 +56,11 @@ exports.createCategories = async (request, response) =>{
         const data = {
             ...request.body
         }
-        const Categories = await categoriesModel.insert(data)
+        const reservation = await reservationModel.insert(data)
         return response.json({
             succes: true,
-            message:"create categories succesfully",
-            results: Categories
+            message:"create reservation succesfully",
+            results: reservation
             
         })
     } catch (err) {
@@ -71,7 +70,7 @@ exports.createCategories = async (request, response) =>{
     }
 }
 
-exports.updateCategories =async (request, response) =>{
+exports.updatereservation =async (request, response) =>{
     try{
         const data = {
             ...request.body
@@ -80,12 +79,12 @@ exports.updateCategories =async (request, response) =>{
         //     data.password= await argon.hash(request.body.password)
 
         // }
-        const Categories = await categoriesModel.update(request.params.id, data)
-        if(Categories) {
+        const reservation = await reservationModel.update(request.params.id, data)
+        if(reservation) {
             return response.json({
                 succes: true,
-                message:"Update categories succesfully",
-                results: Categories
+                message:"Update reservation succesfully",
+                results: reservation
             })
         }
         throw Error ("validator")
@@ -96,19 +95,19 @@ exports.updateCategories =async (request, response) =>{
         if (err) return errorHandler(err, response)
     }
 }
-exports.deleteCategories = async (request, response) => {
+exports.deletereservation = async (request, response) => {
     try {
-        const data = await categoriesModel.destroy(request.params.id)
+        const data = await reservationModel.destroy(request.params.id)
         if(data){
             return response.json({
                 success: true,
-                message: `Categoriess ${request.params.id} deleted successfully`,
+                message: `reservation  ${request.params.id} deleted successfully`,
                 results: data,
             })
         } 
         return response.status(404).json({
             success: false,
-            message: "categories not found",
+            message: "reservation not found",
         })
         
     } catch (err) {

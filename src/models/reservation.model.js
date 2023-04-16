@@ -1,24 +1,21 @@
 const db = require("../helpers/db.helper")
 
-const table = "reservationStatus"
+const table = "reservation"
 
-exports.findAll = async (page, limit, search, sort, sortBy) => {
+exports.findAll = async (page, limit) => {
     page = parseInt(page) || 1
     limit = parseInt(limit) || 5
-    search = search || ""
-    sort = sort || "id"
-    sortBy = sortBy || "ASC"
+    // search = search || ""
+    // sort = sort || "id"
+    // sortBy = sortBy || "ASC"
 
     const offset = (page - 1) * limit
 
     const query = ` 
-   SELECT * FROM "${table}" 
-   WHERE "name" LIKE $3 
-   ORDER BY "${sort}" ${sortBy} 
-   LIMIT $1 OFFSET $2
+   SELECT * FROM "${table}" LIMIT $1 OFFSET $2
     `
 
-    const values = [limit, offset, `%${search}%`]
+    const values = [limit, offset]
 
     const { rows } = await db.query(query, values)
     return rows
@@ -35,10 +32,10 @@ exports.destroy = async function (id) {
 
 exports.insert = async function (data) {
     const query = `
-  INSERT INTO "${table}" ("name")
-  VALUES ($1) RETURNING *
+  INSERT INTO "${table}" ("eventId", "userId", "status", "paymentMethodId")
+  VALUES ($1, $2, $3, $4) RETURNING *
   `
-    const values = [data.name]
+    const values = [data.eventId, data.userId, data.status, data.paymentMethodId]
 
     const { rows } = await db.query(query, values)
     return rows[0]
@@ -46,11 +43,11 @@ exports.insert = async function (data) {
 exports.update = async function (id, data) {
     const query = `
   UPDATE "${table}" 
-  SET "name" = $2 
+  SET "eventId" = $2, "userId" =$3, "status" =$4, "paymentMethodId"=$5
   WHERE "id" = $1 
   RETURNING *
   `
-    const values = [id, data.name]
+    const values = [id, data.eventId, data.userId, data.status, data.paymentMethodId]
 
     const { rows } = await db.query(query, values)
     return rows[0]

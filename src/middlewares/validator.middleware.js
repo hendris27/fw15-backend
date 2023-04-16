@@ -4,28 +4,83 @@ const fileRemover = require("../helpers/fileRemover.helper")
 
 
 const strongPasword =  body("password").isStrongPassword().withMessage("Password must be strong")
-const emailFormat =   body("email").isEmail().withMessage ("Email is invalid")
+const emailFormat =   body("email").isEmail().withMessage ("Email format is invalid")
+const eventId = body("eventId").isNumeric().withMessage("eventId is invalid")
+    .isInt({min:1}).isNumeric().withMessage("eventId have to be more than 0")
+const userId = body("userId").isNumeric().withMessage("userId is invalid").isInt({min:1}).withMessage("userId have to be more than 0")
+const name = body("name").isLength({min:3, max :20}).withMessage ("username is length invalid")
+
+
 
 const rules = {
     authLogin: [
         emailFormat,
-        body ("password").isLength({min:1}).withMessage("Name length is invalid")
+        body ("password").isLength({min:1}).withMessage("Password length is invalid")
     ],
     createUser:[
         body("username").isLength({min:3, max :20}).withMessage ("username is length invalid"),
         emailFormat,
         strongPasword
     ],
+    createUpdateName:[
+        name
+    ],
+    createUpdateeventCat:[
+        eventId,
+        body("categoryId").isNumeric().withMessage("categoryId is invalid").isInt({min:1}).withMessage("categoryId have to be more than 0")
+    ],
+    createUpdatewishlist:[
+        eventId,
+        userId
+    ],
+    createUpdareservation:[
+        eventId,
+        userId,
+        body("status").isNumeric().withMessage("Status is invalid").isInt({min:1}).withMessage("Status have to be more than 0"),
+        body("paymentMethodId").isNumeric().withMessage("paymaentMethodId is invalid").isInt({min:1}).withMessage("ID have to be more than 0") 
+    ],
+    createUpdaresTickets:[
+        body("reservationId").isNumeric().withMessage("reservationId is invalid").isInt({min:1}).withMessage("reservationId have to be more than 0"),
+        body("sectionId").isNumeric().withMessage("sectionId is invalid").isInt({min:1}).withMessage("sectionId have to be more than 0"),
+        body("quantity").isNumeric().withMessage("Quantity is invalid").isInt({min:1}).withMessage("Quantity have to be more than 0")
+    ],
+    createUpdateEvent:[
+        body("tittle").isLength({min:3, max :20}).withMessage ("tittle is length invalid"),
+        body("date").isDate({format: "DD-MM-YYYY"}).withMessage("date format is invalid"),
+        body("cityId").isNumeric().withMessage("cityId is invalid").isInt({min:1}).withMessage("cityId have to be more than 0"),
+        body("descriptions").isLength({min:3, max :20}).withMessage ("Descriptions is length invalid")
+    ],
+    createUpdateProfil:[
+        body("fullName").isLength({min:3, max :20}).withMessage ("fullName is length invalid"),
+        body("phoneNumber").isNumeric().toInt().withMessage("phoneNumber is invalid"),
+        // body("gender").isBoolean().withMessage("Gender must be a boolean value"),
+        body("gender").isString().withMessage("Gender must be a string value").custom((value) => {
+            if (value.toLowerCase() === "male" || value.toLowerCase() === "female") {
+                return true 
+            }
+            throw new Error("Invalid gender value")
+        }),
+        body("profession").isLength({min:3, max :20}).withMessage ("profession is length invalid"),
+        body("nationality").isLength({min:3, max :20}).withMessage ("Nationality is length invalid"),
+        body("birthDate").isDate({format: "DD-MM-YYYY"}).withMessage("birthDate format is invalid"),
+        userId
+    ],
+    createUpdaresStatus:[
+        name
+    ],
+    createUpdaPaymentMethod:[
+        name
+    ],
     updateUser:[
         body("username").isLength({min:3, max :20}).withMessage ("username is length invalid"),
         emailFormat,
         strongPasword
     ],
-    getAllUsers:[
-        query("sortBy").isIn(["ASC", "DESC"]).withMessage("Sortby type is invalid")
+    getAll:[
+        query("sortBy").toUpperCase().isIn(["ASC", "DESC"]).withMessage("Sortby type is invalid")
     ],
     idParams:[
-        param("id").toInt().isDecimal().withMessage("id is invalid")
+        param("id").isNumeric().toInt().isDecimal().withMessage("id is invalid")
             .isInt({min: 1}).withMessage("ID have to be more than 0")
     ]
 }

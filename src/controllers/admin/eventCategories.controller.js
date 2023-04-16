@@ -1,13 +1,13 @@
 
-const categoriesModel = require("../../models/categories.model")
+const eventCategoriesModel = require("../../models/eventCategories.model")
 const errorHandler = require ("../../helpers/errorHandler.helper")
 // const argon = require ("argon2")
 // const fileRemover = require ("../../helpers/fileRemover.helper")
 
 
-exports.getAllCategories= async(request, response)=>{
+exports.getAlleventCategories= async(request, response)=>{
     try{
-        const data = await categoriesModel.findAll(
+        const data = await eventCategoriesModel.findAll(
             request.query.page,
             request.query.limit,
             request.query.search,
@@ -16,7 +16,7 @@ exports.getAllCategories= async(request, response)=>{
         )
         return response.json({ 
             succes : true,
-            message : "list of all categories",
+            message : "list of all event Categories",
             results : data
         })
     }catch (err) {
@@ -25,20 +25,20 @@ exports.getAllCategories= async(request, response)=>{
 
 }
 
-exports.getOneCategories= async(request, response)=>{
+exports.getOneeventCategories= async(request, response)=>{
     try {
 
-        const data = await categoriesModel.findOne(request.params.id)
+        const data = await eventCategoriesModel.findOne(request.params.id)
         if(data){return response.json({
             succes : true,
-            message : "Detail Categories",
+            message : "Detail event Categories",
             results : data
         })
         }
-  
+    
         return response.status(404).json({
             succes : false,
-            message : "Error: Categories not found",
+            message : "Error: event Categories not found",
         })
     }
     catch (err) {
@@ -46,22 +46,27 @@ exports.getOneCategories= async(request, response)=>{
     }
 }
 
-
-exports.createCategories = async (request, response) =>{
+exports.createeventCategories = async (request, response) =>{
     
-    try{ 
-        // const hash = await argon.hash(request.body.password)
-        // const data = {
-        //     ...request.body, password: hash
-        // }
+    try{
+         
+        const {eventId, categoryId}=request.body
+        const validasiAngka = /[0-9]/
+        const validasiHuruf = /[a-zA-Z]/
+        
+        if (validasiHuruf.test(eventId) || !validasiAngka.test(categoryId) ) {
+           
+            throw Error("id_format")
+        }
+     
         const data = {
             ...request.body
         }
-        const Categories = await categoriesModel.insert(data)
+        const eventCategories = await eventCategoriesModel.insert(data)
         return response.json({
             succes: true,
-            message:"create categories succesfully",
-            results: Categories
+            message:"create event Categories succesfully",
+            results: eventCategories
             
         })
     } catch (err) {
@@ -71,7 +76,7 @@ exports.createCategories = async (request, response) =>{
     }
 }
 
-exports.updateCategories =async (request, response) =>{
+exports.updateeventCategories =async (request, response) =>{
     try{
         const data = {
             ...request.body
@@ -80,12 +85,12 @@ exports.updateCategories =async (request, response) =>{
         //     data.password= await argon.hash(request.body.password)
 
         // }
-        const Categories = await categoriesModel.update(request.params.id, data)
-        if(Categories) {
+        const eventCategories = await eventCategoriesModel.update(request.params.id, data)
+        if(eventCategories) {
             return response.json({
                 succes: true,
-                message:"Update categories succesfully",
-                results: Categories
+                message:"Update event Categories succesfully",
+                results: eventCategories
             })
         }
         throw Error ("validator")
@@ -96,19 +101,19 @@ exports.updateCategories =async (request, response) =>{
         if (err) return errorHandler(err, response)
     }
 }
-exports.deleteCategories = async (request, response) => {
+exports.deleteeventCategories = async (request, response) => {
     try {
-        const data = await categoriesModel.destroy(request.params.id)
+        const data = await eventCategoriesModel.destroy(request.params.id)
         if(data){
             return response.json({
                 success: true,
-                message: `Categoriess ${request.params.id} deleted successfully`,
+                message: `event Categoriess ${request.params.id} deleted successfully`,
                 results: data,
             })
         } 
         return response.status(404).json({
             success: false,
-            message: "categories not found",
+            message: "event Categories not found",
         })
         
     } catch (err) {

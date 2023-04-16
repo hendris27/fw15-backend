@@ -42,10 +42,10 @@ const errorHandler = (err, response) => {
             message:"Wrong Email Format!"
         })
     }
-    if(err?.message?.includes("name_format")){
+    if(err?.message?.includes("id_format")){
         return response.status(400).json({
             succes: false,
-            message:"Wrong Name Format!"
+            message:"Wrong Id Format!"
         })
     }
     if(err?.message?.includes("password_format")){
