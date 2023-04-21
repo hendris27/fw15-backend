@@ -19,6 +19,36 @@ const errorHandler = (err, response) => {
             message:"Id not found!"
         })
     }
+    if(err?.message?.includes("forgot_failed")){
+        return response.status(400).json({
+            succes: false,
+            message:"forgot failed"
+        })
+    }
+    if(err?.message?.includes("profil Not Found!")){
+        return response.status(400).json({
+            succes: false,
+            message:"email not found"
+        })
+    }
+    if(err?.message?.includes("User Not Found!")){
+        return response.status(400).json({
+            succes: false,
+            message:"User not found"
+        })
+    }
+    if(err?.message?.includes("no_forgot_password_request")){
+        return response.status(400).json({
+            succes: false,
+            message:"no_forgot_password_request"
+        })
+    }
+    if(err?.message?.includes("no_find_forgot_password_request")){
+        return response.status(400).json({
+            succes: false,
+            message:"code for forgot password has used!"
+        })
+    }
     if(err?.message?.includes("update_profile_failed")){
         return response.status(400).json({
             succes: false,

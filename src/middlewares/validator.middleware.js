@@ -7,7 +7,7 @@ const strongPasword =  body("password").isStrongPassword().withMessage("Password
 const emailFormat =   body("email").isEmail().withMessage ("Email format is invalid")
 const eventId = body("eventId").isNumeric().withMessage("eventId is invalid")
     .isInt({min:1}).isNumeric().withMessage("eventId have to be more than 0")
-const userId = body("userId").isNumeric().withMessage("userId is invalid").isInt({min:1}).withMessage("userId have to be more than 0")
+const userId = body("userId").optional().isNumeric().withMessage("userId is invalid").isInt({min:1}).withMessage("userId have to be more than 0")
 const name = body("name").isLength({min:3, max :20}).withMessage ("username is length invalid")
 
 
@@ -50,7 +50,22 @@ const rules = {
         body("cityId").isNumeric().withMessage("cityId is invalid").isInt({min:1}).withMessage("cityId have to be more than 0"),
         body("descriptions").isLength({min:3, max :20}).withMessage ("Descriptions is length invalid")
     ],
-    createUpdateProfil:[
+    UpdateProfil:[
+        body("fullName").optional().isLength({min:3, max :20}).withMessage ("fullName is length invalid"),
+        body("phoneNumber").optional().isNumeric().toInt().withMessage("phoneNumber is invalid"),
+        // body("gender").isBoolean().withMessage("Gender must be a boolean value"),
+        body("gender").optional().isString().withMessage("Gender must be a string value").custom((value) => {
+            if (value.toLowerCase() === "male" || value.toLowerCase() === "female") {
+                return true 
+            }
+            throw new Error("Invalid gender value")
+        }),
+        body("profession").optional().isLength({min:3, max :20}).withMessage ("profession is length invalid"),
+        body("nationality").optional().isLength({min:3, max :20}).withMessage ("Nationality is length invalid"),
+        body("birthDate").optional().isDate({format: "DD-MM-YYYY"}).withMessage("birthDate format is invalid"),
+        userId
+    ],
+    createProfil:[
         body("fullName").isLength({min:3, max :20}).withMessage ("fullName is length invalid"),
         body("phoneNumber").isNumeric().toInt().withMessage("phoneNumber is invalid"),
         // body("gender").isBoolean().withMessage("Gender must be a boolean value"),
@@ -82,6 +97,11 @@ const rules = {
     idParams:[
         param("id").isNumeric().toInt().isDecimal().withMessage("id is invalid")
             .isInt({min: 1}).withMessage("ID have to be more than 0")
+    ],
+    resetPassword:[
+        body ("confirmPassword").custom((value, {req}) => {
+            return value === req.body.password
+        }).withMessage("Confrim password unmatch")
     ]
 }
 

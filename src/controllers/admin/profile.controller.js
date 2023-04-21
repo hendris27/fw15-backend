@@ -3,6 +3,7 @@ const profileModel = require("../../models/profile.model")
 const errorHandler = require ("../../helpers/errorHandler.helper")
 // const argon = require ("argon2")
 const fileRemover = require ("../../helpers/fileRemover.helper")
+const fs = require("fs")
 
 
 exports.getAllProfile= async(request, response)=>{
@@ -50,10 +51,11 @@ exports.createProfile = async (request, response) =>{
     try{  
         // const hash = await argon.hash(request.body.password)
         const data = {
-            ...request.body}
+            ...request.body
+        }
 
         if(request.file){
-            data.picture =request.file.filename
+            data.picture = request.file.filename
         }
 
         const profile = await profileModel.insert(data)
@@ -71,15 +73,26 @@ exports.createProfile = async (request, response) =>{
 
 exports.updateProfile =async (request, response) =>{
     try{
+        // const {id} =request.user
         const data = {
             ...request.body
         }
-        // if(request.body.password){
-        //     data.password= await argon.hash(request.body.password)
-        // }
+       
         if(request.file){
-            data.picture =request.file.filename
+            data.picture = request.file.filename
         }
+
+        const pictures = await profileModel.findPict(request.params.id)
+        console.log(pictures)
+        const fileName = `uploads/${pictures.picture}`
+        if(fileName){
+            fs.unlink(fileName, (response, err) => {
+                if(err){
+                    return errorHandler(response, err)
+                }
+            })
+        }
+
         const profile = await profileModel.update(request.params.id, data)
         if(profile) {
             return response.json({
@@ -91,7 +104,6 @@ exports.updateProfile =async (request, response) =>{
         throw Error ("update_profile_failed")
     }   
     catch (err) {
-        fileRemover(request.file)
         if (err) return errorHandler(err, response)
     }
    
