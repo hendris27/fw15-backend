@@ -55,7 +55,19 @@ exports.update = async function(id, data){
     const {rows} = await db.query(query, values)
     return rows[0]
 }
+exports.updateById = async function(id, data){
+    const query = `
+UPDATE "${table}" 
+SET 
+"name" = COALESCE(NULLIF($2, ''), "name")
+WHERE "id" = $1 
+RETURNING *
+`
+    const values= [id, data.name]
 
+    const {rows} = await db.query(query, values)
+    return rows[0]
+}
 
 
 exports.findOne = async function(id){

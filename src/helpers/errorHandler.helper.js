@@ -13,6 +13,12 @@ const errorHandler = (err, response) => {
             message:"Email or Password or Name cannot be empty"
         })
     }
+    if(err?.message?.includes("update_category_failed")){
+        return response.status(400).json({
+            succes: false,
+            message:"category not found"
+        })
+    }
     if(err?.message?.includes("validator")){
         return response.status(400).json({
             succes: false,
@@ -52,9 +58,16 @@ const errorHandler = (err, response) => {
     if(err?.message?.includes("update_profile_failed")){
         return response.status(400).json({
             succes: false,
-            message:"Id not found!"
+            message:"Profil not found!"
         })
-    }if(err?.message?.includes("update_failed")){
+    }
+    if(err?.message?.includes("Profile Not Found!")){
+        return response.status(400).json({
+            succes: false,
+            message:"Profil not found!"
+        })
+    }
+    if(err?.message?.includes("update_failed")){
         return response.status(400).json({
             succes: false,
             message:"Id not found!"

@@ -10,9 +10,9 @@ exports.updateProfil = async (req, res) => {
             ...req.body
         }
         if(req.file){
-            // if(user.picture){
-            //     fileRemover(user.picture)
-            // }
+        // if(user.picture){
+        // fileRemover(user.picture)
+        // }
             data.picture = req.file.filename
         }
    
@@ -31,3 +31,21 @@ exports.updateProfil = async (req, res) => {
     }
  
 }
+exports.getProfile = async (req, res) => {
+    try{
+        const {id} = req.user
+        const profile = await profileModel.findOneByUserId(id)
+        if(!profile){
+            throw Error ("Profile Not Found!")
+        }
+        return res.json({
+            succes :true,
+            message : "Detail Profle",
+            results:profile
+        })
+    }catch (err) {
+        if (err) return errorHandler(err, res)
+    }
+
+}
+    

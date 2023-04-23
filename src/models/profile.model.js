@@ -118,7 +118,21 @@ SELECT * FROM  "${table}" WHERE id=$1
 }
 exports.findOneByUserId = async function(userId){
     const query =`
-SELECT * FROM  "${table}" WHERE "userId"=$1
+SELECT 
+"u"."id",
+"p"."fullName",
+"u"."username",
+"u"."email",
+"p"."phoneNumber",
+"p"."gender",
+"p"."profession",
+"p"."Nationality",
+"p"."birthDate",
+"p"."createdAt",
+"p"."updatedAt"
+FROM  "${table}" "p"
+JOIN "users" "u" ON u."id" = "p"."userId"
+WHERE "p"."userId"=$1
 `
     const values = [userId]
     const {rows} = await db.query(query, values)
