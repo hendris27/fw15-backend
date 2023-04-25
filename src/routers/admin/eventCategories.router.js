@@ -6,8 +6,8 @@ const validate = require("../../middlewares/validator.middleware")
 
 eventCategoriesRouter.get("/", validate("getAll"),eventCategoriesController.getAlleventCategories)
 eventCategoriesRouter.get("/:id",validate("idParams"), eventCategoriesController.getOneeventCategories)
-eventCategoriesRouter.post("/",validate("createUpdateeventCat"), eventCategoriesController.createeventCategories)
-eventCategoriesRouter.patch("/:id",  validate("idParams"),validate("createUpdateeventCat"),eventCategoriesController.updateeventCategories)
+eventCategoriesRouter.post("/",validate("createEventCat"), eventCategoriesController.createeventCategories)
+eventCategoriesRouter.patch("/:id",  validate("idParams"),validate("updateEventCat"),eventCategoriesController.updateeventCategories)
 eventCategoriesRouter.delete("/:id", validate("idParams"),eventCategoriesController.deleteeventCategories)
 
 

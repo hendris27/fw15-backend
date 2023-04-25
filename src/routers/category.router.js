@@ -3,6 +3,6 @@ const categoryRouter = require ("express").Router()
 // const uploadMiddleware = require("../middlewares/upload.middleware")
 const categoryController = require("../controllers/category.controller")
 
-categoryRouter.post("/", categoryController.updateCategory)
+categoryRouter.get("/", categoryController.getCategory)
 
 module.exports = categoryRouter

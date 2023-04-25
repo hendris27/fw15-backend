@@ -6,8 +6,8 @@ const validate = require("../../middlewares/validator.middleware")
 
 reservationTicketsRouter.get("/", validate("getAll"),reservationTicketsController.getAllreservationTickets)
 reservationTicketsRouter.get("/:id", validate("idParams"),reservationTicketsController.getOnereservationTickets)
-reservationTicketsRouter.post("/",validate("createUpdaresTickets") ,reservationTicketsController.createreservationTickets)
-reservationTicketsRouter.patch("/:id", validate("createUpdaresTickets"),validate("idParams"), reservationTicketsController.updatereservationTickets)
+reservationTicketsRouter.post("/",validate("createResTickets") ,reservationTicketsController.createreservationTickets)
+reservationTicketsRouter.patch("/:id", validate("updateResTickets"),validate("idParams"), reservationTicketsController.updatereservationTickets)
 reservationTicketsRouter.delete("/:id", validate("idParams"),reservationTicketsController.deletereservationTickets)
 
 

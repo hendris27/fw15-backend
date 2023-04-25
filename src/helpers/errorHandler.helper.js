@@ -55,6 +55,12 @@ const errorHandler = (err, response) => {
             message:"code for forgot password has used!"
         })
     }
+    if(err?.message?.includes("Patners Not Found!")){
+        return response.status(400).json({
+            succes: false,
+            message:"Patners Not Found!"
+        })
+    }
     if(err?.message?.includes("update_profile_failed")){
         return response.status(400).json({
             succes: false,

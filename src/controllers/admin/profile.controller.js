@@ -79,20 +79,21 @@ exports.updateProfile =async (request, response) =>{
         }
        
         if(request.file){
+            const pictures = await profileModel.findPict(request.params.id)
+            const fileName = `uploads/${pictures.picture}`
+            if(fileName){
+                fs.unlink(fileName, (response, err) => {
+                    if(err){
+                        return errorHandler(response, err)
+                    }
+                })
+            }
+
             data.picture = request.file.filename
+            
         }
 
-        const pictures = await profileModel.findPict(request.params.id)
-        console.log(pictures)
-        const fileName = `uploads/${pictures.picture}`
-        if(fileName){
-            fs.unlink(fileName, (response, err) => {
-                if(err){
-                    return errorHandler(response, err)
-                }
-            })
-        }
-
+        
         const profile = await profileModel.update(request.params.id, data)
         if(profile) {
             return response.json({

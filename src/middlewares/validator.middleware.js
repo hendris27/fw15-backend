@@ -25,9 +25,19 @@ const rules = {
     createUpdateName:[
         name
     ],
-    createUpdateeventCat:[
+    createUpdaresStatus:[
+        name
+    ],
+    createUpdaPaymentMethod:[
+        name
+    ],
+    createEventCat:[
         eventId,
         body("categoryId").isNumeric().withMessage("categoryId is invalid").isInt({min:1}).withMessage("categoryId have to be more than 0")
+    ],
+    updateEventCat:[
+        eventId,
+        body("categoryId").optional().isNumeric().withMessage("categoryId is invalid").isInt({min:1}).withMessage("categoryId have to be more than 0")
     ],
     createUpdatewishlist:[
         eventId,
@@ -39,16 +49,27 @@ const rules = {
         body("status").isNumeric().withMessage("Status is invalid").isInt({min:1}).withMessage("Status have to be more than 0"),
         body("paymentMethodId").isNumeric().withMessage("paymaentMethodId is invalid").isInt({min:1}).withMessage("ID have to be more than 0") 
     ],
-    createUpdaresTickets:[
+    createResTickets:[
         body("reservationId").isNumeric().withMessage("reservationId is invalid").isInt({min:1}).withMessage("reservationId have to be more than 0"),
         body("sectionId").isNumeric().withMessage("sectionId is invalid").isInt({min:1}).withMessage("sectionId have to be more than 0"),
         body("quantity").isNumeric().withMessage("Quantity is invalid").isInt({min:1}).withMessage("Quantity have to be more than 0")
     ],
-    createUpdateEvent:[
+    updateResTickets:[
+        body("reservationId").optional().isNumeric().withMessage("reservationId is invalid").isInt({min:1}).withMessage("reservationId have to be more than 0"),
+        body("sectionId").optional().isNumeric().withMessage("sectionId is invalid").isInt({min:1}).withMessage("sectionId have to be more than 0"),
+        body("quantity").optional().isNumeric().withMessage("Quantity is invalid").isInt({min:1}).withMessage("Quantity have to be more than 0")
+    ],
+    createEvent:[
         body("tittle").isLength({min:3, max :20}).withMessage ("tittle is length invalid"),
         body("date").isDate({format: "DD-MM-YYYY"}).withMessage("date format is invalid"),
         body("cityId").isNumeric().withMessage("cityId is invalid").isInt({min:1}).withMessage("cityId have to be more than 0"),
         body("descriptions").isLength({min:3, max :20}).withMessage ("Descriptions is length invalid")
+    ],
+    updateEvent:[
+        body("tittle").optional().isLength({min:3, max :20}).withMessage ("tittle is length invalid"),
+        body("date").optional().isDate({format: "DD-MM-YYYY"}).withMessage("date format is invalid"),
+        body("cityId").optional().isNumeric().withMessage("cityId is invalid").isInt({min:1}).withMessage("cityId have to be more than 0"),
+        body("descriptions").optional().isLength({min:3, max :20}).withMessage ("Descriptions is length invalid")
     ],
     UpdateProfil:[
         body("fullName").optional().isLength({min:3, max :20}).withMessage ("fullName is length invalid"),
@@ -80,12 +101,7 @@ const rules = {
         body("birthDate").isDate({format: "DD-MM-YYYY"}).withMessage("birthDate format is invalid"),
         userId
     ],
-    createUpdaresStatus:[
-        name
-    ],
-    createUpdaPaymentMethod:[
-        name
-    ],
+    
     updateUser:[
         body("username").isLength({min:3, max :20}).withMessage ("username is length invalid"),
         emailFormat,

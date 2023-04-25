@@ -46,7 +46,9 @@ exports.insert = async function(data){
 exports.update = async function(id, data){
     const query = `
   UPDATE "${table}" 
-  SET "name" = $2 
+  SET 
+  "name" = COALESCE(NULLIF($2, ''), "name")
+
   WHERE "id" = $1 
   RETURNING *
   `

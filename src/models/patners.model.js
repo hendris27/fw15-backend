@@ -68,4 +68,12 @@ SELECT * FROM  "${table}" WHERE id=$1
     const {rows} = await db.query(query, values)
     return rows[0]
 }
+exports.findById = async function(){
+    const query =`
+SELECT * FROM  "${table}"
+`
+  
+    const {rows} = await db.query(query)
+    return rows
+}
 

@@ -6,8 +6,8 @@ const uploadMiddleware = require("../../middlewares/upload.middleware")
 
 eventsRouter.get("/", validate("getAll"),eventsController.getAllEvents)
 eventsRouter.get("/:id", validate("idParams"),eventsController.getOneEvents)
-eventsRouter.post("/", uploadMiddleware("picture"),validate("createUpdateEvent"), eventsController.createEvents)
-eventsRouter.patch("/:id", uploadMiddleware("picture"),validate("createUpdateEvent"),validate("idParams"), eventsController.updateEvents)
+eventsRouter.post("/", uploadMiddleware("picture"),validate("createEvent"), eventsController.createEvents)
+eventsRouter.patch("/:id", uploadMiddleware("picture"),validate("updateEvent"),validate("idParams"), eventsController.updateEvents)
 eventsRouter.delete("/:id",validate("idParams"), eventsController.deleteEvents)
 
 

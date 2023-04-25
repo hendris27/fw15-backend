@@ -2,26 +2,20 @@
 const categoryModel = require("../models/categories.model")
 const errorHandler = require("../helpers/errorHandler.helper")
 
-exports.updateCategory = async (req, res) => {
+exports.getCategory = async (req, res) => {
     try{
-        const {id} = req.user
-        const data = {
-            ...req.body
-        }
-      
-   
-        const category = await categoryModel.updateById(id, data)
+        
+        const category = await categoryModel.findCategory()
         if(!category){
-            throw Error ("update_category_failed")
+            throw Error ("Category Not Found!")
         }
-
         return res.json({
-            succes:true,
-            message:"update category succesfully",
-            results: category
+            succes :true,
+            message : "Detail Category",
+            results:category
         })
-    } catch (err) {
+    }catch (err) {
         if (err) return errorHandler(err, res)
     }
- 
+
 }
