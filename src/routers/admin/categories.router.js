@@ -6,8 +6,8 @@ const validate = require("../../middlewares/validator.middleware")
 
 categoriesRouter.get("/", validate("getAll"),categoriesController.getAllCategories)
 categoriesRouter.get("/:id", validate("idParams"),categoriesController.getOneCategories)
-categoriesRouter.post("/",validate("createUpdateName"), categoriesController.createCategories)
-categoriesRouter.patch("/:id", validate("idParams"),validate("createUpdateName"),categoriesController.updateCategories)
+categoriesRouter.post("/",validate("createCategory"), categoriesController.createCategories)
+categoriesRouter.patch("/:id", validate("idParams"),validate("updateCategory"),categoriesController.updateCategories)
 categoriesRouter.delete("/:id",validate("idParams"),  categoriesController.deleteCategories)
 
 

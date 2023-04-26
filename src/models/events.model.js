@@ -44,8 +44,8 @@ exports.update = async function(id, data){
   UPDATE "${table}"  SET 
   "picture" = COALESCE(NULLIF($2, ''), "picture"),
   "tittle" = COALESCE(NULLIF($3, ''), "tittle"),    
-  "date" = $4,
-  "cityId" = $5,
+  "date" = COALESCE(NULLIF($4::DATE, NULL), "date"),    
+  "cityId" = COALESCE(NULLIF($5::INTEGER, NULL), "cityId"), 
   "descriptions" = COALESCE(NULLIF($6, ''), "descriptions")
      WHERE "id" = $1 
   RETURNING *

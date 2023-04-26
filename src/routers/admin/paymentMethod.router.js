@@ -6,8 +6,8 @@ const validate = require("../../middlewares/validator.middleware")
 
 paymentMethodRouter.get("/",validate("getAll"), paymentMethodController.getAllpaymentMethod)
 paymentMethodRouter.get("/:id",validate("idParams"), paymentMethodController.getOnepaymentMethod)
-paymentMethodRouter.post("/",validate("createUpdaPaymentMethod"), paymentMethodController.createpaymentMethod)
-paymentMethodRouter.patch("/:id", validate("createUpdaPaymentMethod"),validate("idParams"), paymentMethodController.updatepaymentMethod)
+paymentMethodRouter.post("/",validate("createPaymentMethod"), paymentMethodController.createpaymentMethod)
+paymentMethodRouter.patch("/:id", validate("updatePaymentMethod"),validate("idParams"), paymentMethodController.updatepaymentMethod)
 paymentMethodRouter.delete("/:id", validate("idParams"), paymentMethodController.deletepaymentMethod)
 
 

@@ -13,6 +13,7 @@ router.use("/admin", autMiddleware, require("../routers/admin/admin.router"))
 router.use("/profile", autMiddleware, require("./profile.router"))
 router.use("/category", autMiddleware, require("./category.router"))
 router.use("/patners", autMiddleware, require("./patners.router"))
+router.use("/city", autMiddleware, require("./city.router"))
 
 router.use("*", (request, response) => {
     return response.status(404).json({

@@ -6,8 +6,8 @@ const validate = require("../../middlewares/validator.middleware")
 
 reservationStatusRouter.get("/", validate("getAll"),reservationStatusController.getAllreservationStatus)
 reservationStatusRouter.get("/:id", validate("idParams"), reservationStatusController.getOnereservationStatus)
-reservationStatusRouter.post("/", validate("createUpdaresStatus"),reservationStatusController.createreservationStatus)
-reservationStatusRouter.patch("/:id", validate("createUpdaresStatus"),validate("idParams"), reservationStatusController.updatereservationStatus)
+reservationStatusRouter.post("/", validate("createResStatus"),reservationStatusController.createreservationStatus)
+reservationStatusRouter.patch("/:id", validate("updateResStatus"),validate("idParams"), reservationStatusController.updatereservationStatus)
 reservationStatusRouter.delete("/:id", validate("idParams"), reservationStatusController.deletereservationStatus)
 
 

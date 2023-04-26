@@ -5,10 +5,16 @@ const fileRemover = require("../helpers/fileRemover.helper")
 
 const strongPasword =  body("password").isStrongPassword().withMessage("Password must be strong")
 const emailFormat =   body("email").isEmail().withMessage ("Email format is invalid")
-const eventId = body("eventId").isNumeric().withMessage("eventId is invalid")
+const createEventId = body("eventId").isNumeric().withMessage("eventId is invalid")
     .isInt({min:1}).isNumeric().withMessage("eventId have to be more than 0")
-const userId = body("userId").optional().isNumeric().withMessage("userId is invalid").isInt({min:1}).withMessage("userId have to be more than 0")
-const name = body("name").isLength({min:3, max :20}).withMessage ("username is length invalid")
+const createUserId =body("userId").optional().isNumeric().withMessage("userId is invalid")
+    .isInt({min:1}).withMessage("userId have to be more than 0")
+const updateEventId = body("eventId").isNumeric().withMessage("eventId is invalid")
+    .isInt({min:1}).isNumeric().withMessage("eventId have to be more than 0")
+const updateUserId =body("userId").optional().isNumeric().withMessage("userId is invalid")
+    .isInt({min:1}).withMessage("userId have to be more than 0")
+const nameCreate = body("name").isLength({min:3, max :20}).withMessage ("username is length invalid")
+const nameUpdate = body("name").optional().isLength({min:3, max :20}).withMessage ("username is length invalid")
 
 
 
@@ -22,30 +28,49 @@ const rules = {
         emailFormat,
         strongPasword
     ],
-    createUpdateName:[
-        name
+    createResStatus:[
+        nameCreate
     ],
-    createUpdaresStatus:[
-        name
+    updateResStatus:[
+        nameUpdate
     ],
-    createUpdaPaymentMethod:[
-        name
+    createCategory:[
+        nameCreate
+    ],
+    updateCategory:[
+        nameUpdate
+    ],
+    createPaymentMethod:[
+        nameCreate
+    ],
+    updatePaymentMethod:[
+        nameUpdate
     ],
     createEventCat:[
-        eventId,
+        createEventId,
         body("categoryId").isNumeric().withMessage("categoryId is invalid").isInt({min:1}).withMessage("categoryId have to be more than 0")
     ],
     updateEventCat:[
-        eventId,
+        updateEventId,
         body("categoryId").optional().isNumeric().withMessage("categoryId is invalid").isInt({min:1}).withMessage("categoryId have to be more than 0")
     ],
-    createUpdatewishlist:[
-        eventId,
-        userId
+    createWishlist:[
+        createEventId,
+        createUserId
     ],
-    createUpdareservation:[
-        eventId,
-        userId,
+    updateWishlist:[
+        updateEventId,
+        updateUserId
+    ],
+    createReservation:[
+        createEventId,
+        createUserId,
+        body("status").isNumeric().withMessage("Status is invalid").isInt({min:1}).withMessage("Status have to be more than 0"),
+        body("paymentMethodId").isNumeric().withMessage("paymaentMethodId is invalid").isInt({min:1}).withMessage("ID have to be more than 0") 
+    ],
+    updateReservation:[
+        updateEventId,
+        updateUserId,
         body("status").isNumeric().withMessage("Status is invalid").isInt({min:1}).withMessage("Status have to be more than 0"),
         body("paymentMethodId").isNumeric().withMessage("paymaentMethodId is invalid").isInt({min:1}).withMessage("ID have to be more than 0") 
     ],
@@ -71,6 +96,15 @@ const rules = {
         body("cityId").optional().isNumeric().withMessage("cityId is invalid").isInt({min:1}).withMessage("cityId have to be more than 0"),
         body("descriptions").optional().isLength({min:3, max :20}).withMessage ("Descriptions is length invalid")
     ],
+    createResSection:[
+        body("name").isLength({min:5, max :20}).withMessage ("name is length invalid"),
+        body("price").isNumeric().withMessage("Price is invalid").isInt({min:1}).withMessage("Price have to be more than 0"),
+    ],
+    updateResSection:[
+        body("name").optional().isLength({min:5, max :20}).withMessage ("name is length invalid"),
+        body("price").optional().isNumeric().withMessage("Price is invalid").isInt({min:1}).withMessage("Price have to be more than 0"),
+    ],
+
     UpdateProfil:[
         body("fullName").optional().isLength({min:3, max :20}).withMessage ("fullName is length invalid"),
         body("phoneNumber").optional().isNumeric().toInt().withMessage("phoneNumber is invalid"),
@@ -84,7 +118,7 @@ const rules = {
         body("profession").optional().isLength({min:3, max :20}).withMessage ("profession is length invalid"),
         body("nationality").optional().isLength({min:3, max :20}).withMessage ("Nationality is length invalid"),
         body("birthDate").optional().isDate({format: "DD-MM-YYYY"}).withMessage("birthDate format is invalid"),
-        userId
+        updateUserId
     ],
     createProfil:[
         body("fullName").isLength({min:3, max :20}).withMessage ("fullName is length invalid"),
@@ -99,7 +133,7 @@ const rules = {
         body("profession").isLength({min:3, max :20}).withMessage ("profession is length invalid"),
         body("nationality").isLength({min:3, max :20}).withMessage ("Nationality is length invalid"),
         body("birthDate").isDate({format: "DD-MM-YYYY"}).withMessage("birthDate format is invalid"),
-        userId
+        updateUserId
     ],
     
     updateUser:[

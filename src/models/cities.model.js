@@ -65,3 +65,10 @@ SELECT * FROM  "${table}" WHERE id=$1
     return rows[0]
 }
 
+exports.findCity = async function(){
+    const query =`
+SELECT * FROM  "${table}" 
+`
+    const {rows} = await db.query(query)
+    return rows
+}
