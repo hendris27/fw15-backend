@@ -104,8 +104,9 @@
 									"urlencoded": [
 										{
 											"key": "name",
-											"value": "drist",
-											"type": "text"
+											"value": "",
+											"type": "text",
+											"disabled": true
 										}
 									]
 								},
@@ -736,8 +737,9 @@
 										},
 										{
 											"key": "quantity",
-											"value": "3",
-											"type": "text"
+											"value": "",
+											"type": "text",
+											"disabled": true
 										}
 									]
 								},
@@ -1369,13 +1371,19 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{url}}/admin/patners",
+									"raw": "{{url}}/admin/patners?sortBy=asc",
 									"host": [
 										"{{url}}"
 									],
 									"path": [
 										"admin",
 										"patners"
+									],
+									"query": [
+										{
+											"key": "sortBy",
+											"value": "asc"
+										}
 									]
 								}
 							},
@@ -1412,11 +1420,16 @@
 								"method": "POST",
 								"header": [],
 								"body": {
-									"mode": "urlencoded",
-									"urlencoded": [
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "picture",
+											"type": "file",
+											"src": "/C:/Users/hendri/Downloads/baner7.jpg"
+										},
 										{
 											"key": "name",
-											"value": "animation",
+											"value": "Honda",
 											"type": "text"
 										}
 									]
@@ -1677,7 +1690,7 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{url}}/admin/profile?sortBy=asc",
+									"raw": "{{url}}/admin/profile?sortBy=desc",
 									"host": [
 										"{{url}}"
 									],
@@ -1688,7 +1701,7 @@
 									"query": [
 										{
 											"key": "sortBy",
-											"value": "asc"
+											"value": "desc"
 										}
 									]
 								}
@@ -1731,49 +1744,42 @@
 										{
 											"key": "picture",
 											"type": "file",
-											"src": "/C:/Users/hendri/Downloads/baner3.jpg"
+											"src": "/C:/Users/hendri/Downloads/tks.png"
 										},
 										{
 											"key": "fullName",
-											"value": "hendri",
-											"type": "text",
-											"disabled": true
+											"value": "duloh",
+											"type": "text"
 										},
 										{
 											"key": "phoneNumber",
-											"value": "11",
-											"type": "text",
-											"disabled": true
+											"value": "1111111111111111111",
+											"type": "text"
 										},
 										{
 											"key": "gender",
-											"value": "male",
-											"type": "text",
-											"disabled": true
+											"value": "female",
+											"type": "text"
 										},
 										{
 											"key": "profession",
-											"value": "fsihing",
-											"type": "text",
-											"disabled": true
+											"value": "mekanik",
+											"type": "text"
 										},
 										{
 											"key": "nationality",
-											"value": "indonesia",
-											"type": "text",
-											"disabled": true
+											"value": "wakanda",
+											"type": "text"
 										},
 										{
 											"key": "birthDate",
-											"value": "02-02-1998",
-											"type": "text",
-											"disabled": true
+											"value": "02-02-1999",
+											"type": "text"
 										},
 										{
 											"key": "userId",
-											"value": "1",
-											"type": "text",
-											"disabled": true
+											"value": "20",
+											"type": "text"
 										}
 									]
 								},
@@ -1801,49 +1807,42 @@
 										{
 											"key": "picture",
 											"type": "file",
-											"src": "/C:/Users/hendri/Downloads/baner7.jpg",
-											"disabled": true
+											"src": "/C:/Users/hendri/Downloads/baner5.jpg"
 										},
 										{
 											"key": "fullName",
-											"value": "rudi",
+											"value": "samson",
 											"type": "text"
 										},
 										{
 											"key": "phoneNumber",
-											"value": "0909090909",
-											"type": "text",
-											"disabled": true
+											"value": "123456",
+											"type": "text"
 										},
 										{
 											"key": "profession",
 											"value": "programmer",
-											"type": "text",
-											"disabled": true
+											"type": "text"
 										},
 										{
 											"key": "nationality",
 											"value": "singapura",
-											"type": "text",
-											"disabled": true
+											"type": "text"
 										},
 										{
 											"key": "birthDate",
 											"value": "02-02-1995",
-											"type": "text",
-											"disabled": true
+											"type": "text"
 										},
 										{
 											"key": "userId",
 											"value": "12",
-											"type": "text",
-											"disabled": true
+											"type": "text"
 										},
 										{
 											"key": "gender",
 											"value": "male",
-											"type": "text",
-											"disabled": true
+											"type": "text"
 										}
 									]
 								},
@@ -1860,7 +1859,7 @@
 									"variable": [
 										{
 											"key": "id",
-											"value": "2"
+											"value": "22"
 										}
 									]
 								}
@@ -1922,7 +1921,7 @@
 									]
 								},
 								"url": {
-									"raw": "{{url}}/admin/users?sortBy=ASC",
+									"raw": "{{url}}/admin/users?sortBy=ASC&page=2",
 									"host": [
 										"{{url}}"
 									],
@@ -1933,12 +1932,16 @@
 									"query": [
 										{
 											"key": "search",
-											"value": "hendri",
+											"value": "babyjonson",
 											"disabled": true
 										},
 										{
 											"key": "sortBy",
 											"value": "ASC"
+										},
+										{
+											"key": "page",
+											"value": "2"
 										}
 									]
 								}
@@ -1951,21 +1954,21 @@
 								"method": "POST",
 								"header": [],
 								"body": {
-									"mode": "formdata",
-									"formdata": [
+									"mode": "urlencoded",
+									"urlencoded": [
 										{
 											"key": "username",
-											"value": "",
+											"value": "john",
 											"type": "text"
 										},
 										{
 											"key": "email",
-											"value": "satomi100@gmail.com",
+											"value": "johnwix@gmail.com",
 											"type": "text"
 										},
 										{
 											"key": "password",
-											"value": "1qaz2wsxsqSS.",
+											"value": "Hendri@1.#",
 											"type": "text"
 										}
 									]
@@ -2124,12 +2127,12 @@
 								},
 								{
 									"key": "email",
-									"value": "babyjonson3@gmail.com",
+									"value": "deni@gmail.com",
 									"type": "text"
 								},
 								{
 									"key": "password",
-									"value": "Jn1@",
+									"value": "Jn1.",
 									"type": "text"
 								}
 							]
@@ -2157,12 +2160,12 @@
 							"urlencoded": [
 								{
 									"key": "fullName",
-									"value": "samuel",
+									"value": "doni1",
 									"type": "text"
 								},
 								{
 									"key": "email",
-									"value": "babyjonson1@gmail.com",
+									"value": "deni1@gmail.com",
 									"type": "text"
 								},
 								{
@@ -2200,7 +2203,7 @@
 							"urlencoded": [
 								{
 									"key": "email",
-									"value": "babyjonson4@gmail.com",
+									"value": "babyjonson6@gmail.com",
 									"type": "text"
 								}
 							]
@@ -2228,22 +2231,22 @@
 							"urlencoded": [
 								{
 									"key": "code",
-									"value": "797620",
+									"value": "934080",
 									"type": "text"
 								},
 								{
 									"key": "email",
-									"value": "babyjonson3@gmail.com",
+									"value": "babyjonson6@gmail.com",
 									"type": "text"
 								},
 								{
 									"key": "password",
-									"value": "Jn1.",
+									"value": "Jn1@s1",
 									"type": "text"
 								},
 								{
 									"key": "confirmPassword",
-									"value": "Jn1.",
+									"value": "Jn1@s1",
 									"type": "text"
 								}
 							]
@@ -2264,6 +2267,237 @@
 			]
 		},
 		{
+			"name": "PROFILE",
+			"item": [
+				{
+					"name": "EDIT PROFILE",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "fullName",
+									"value": "joseph",
+									"type": "text"
+								},
+								{
+									"key": "picture",
+									"type": "file",
+									"src": "/C:/Users/hendri/Downloads/baner5.jpg"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{url}}/profile",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"profile"
+							],
+							"query": [
+								{
+									"key": null,
+									"value": "",
+									"description": "lll",
+									"disabled": true
+								},
+								{
+									"key": "id",
+									"value": "23",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET PROFILE",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/profile",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"profile"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "CATEGORY",
+			"item": [
+				{
+					"name": "GET CATEGORY",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": []
+						},
+						"url": {
+							"raw": "{{url}}/category",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"category"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "PATNERS",
+			"item": [
+				{
+					"name": "GET PATNERS",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/patners",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"patners"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "CITY",
+			"item": [
+				{
+					"name": "GET CITY",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/city",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"city"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "CHANGE PASSWORD",
+			"item": [
+				{
+					"name": "UPDATE CHANGE PASSWORD",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "oldPassword",
+									"value": "",
+									"type": "text"
+								},
+								{
+									"key": "newPassword",
+									"value": "",
+									"type": "text"
+								},
+								{
+									"key": "confirmNewPassword",
+									"value": "",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{url}}/changePassword",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"changePassword"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "WISHLIST",
+			"item": [
+				{
+					"name": "GET WISHLIST",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/wishlist",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"wishlist"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UPDATE WISHLIST",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "eventId",
+									"value": "",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{url}}/wishlist",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"wishlist"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
 			"name": "TEST CONNECTION",
 			"request": {
 				"method": "GET",
@@ -2274,6 +2508,14 @@
 						"{{url}}"
 					]
 				}
+			},
+			"response": []
+		},
+		{
+			"name": "New Request",
+			"request": {
+				"method": "GET",
+				"header": []
 			},
 			"response": []
 		}

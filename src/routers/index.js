@@ -14,6 +14,7 @@ router.use("/profile", autMiddleware, require("./profile.router"))
 router.use("/category", autMiddleware, require("./category.router"))
 router.use("/patners", autMiddleware, require("./patners.router"))
 router.use("/city", autMiddleware, require("./city.router"))
+router.use("/wishlist", autMiddleware, require("./wishlist.router"))
 router.use("/changePassword", autMiddleware, require("./changePassword.router"))
 
 router.use("*", (request, response) => {

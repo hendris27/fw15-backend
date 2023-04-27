@@ -54,6 +54,16 @@ exports.update = async function (id, data) {
     const { rows } = await db.query(query, values)
     return rows[0]
 }
+exports.updateById = async function (id, data) {
+    const query = `
+    INSERT INTO "${table}" ("eventId")
+    VALUES ($1) RETURNING *
+`
+    const values = [data.eventId]
+
+    const { rows } = await db.query(query, values)
+    return rows[0]
+}
 
 exports.findOne = async function (id) {
     const query = `
@@ -64,11 +74,10 @@ SELECT * FROM  "${table}" WHERE id=$1
     return rows[0]
 }
 
-exports.findOneByEmail = async function (email) {
-    const query = `
-SELECT * FROM  "${table}" WHERE email=$1
+exports.findOneById = async function(){
+    const query =`
+SELECT * FROM  "${table}"
 `
-    const values = [email]
-    const { rows } = await db.query(query, values)
-    return rows[0]
+    const {rows} = await db.query(query)
+    return rows
 }

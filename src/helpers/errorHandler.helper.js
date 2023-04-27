@@ -61,6 +61,18 @@ const errorHandler = (err, response) => {
             message:"Patners Not Found!"
         })
     }
+    if(err?.message?.includes("cant_same_password")){
+        return response.status(400).json({
+            succes: false,
+            message:"new password can't same with old password"
+        })
+    }
+    if(err?.message?.includes("password_unmatch")){
+        return response.status(400).json({
+            succes: false,
+            message:"new password and confirm new password must be same"
+        })
+    }
     if(err?.message?.includes("update_profile_failed")){
         return response.status(400).json({
             succes: false,
