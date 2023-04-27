@@ -79,4 +79,12 @@ SELECT * FROM  "${table}" WHERE code=$1
     const {rows} = await db.query(query, values)
     return rows[0]
 }
+exports.findOneById = async function(){
+    const query =`
+SELECT * FROM  "${table}" 
+`
+  
+    const {rows} = await db.query(query)
+    return rows
+}
 

@@ -54,7 +54,7 @@ exports.update = async function (id, data) {
     const { rows } = await db.query(query, values)
     return rows[0]
 }
-exports.updateById = async function (id, data) {
+exports.createById = async function (id, data) {
     const query = `
     INSERT INTO "${table}" ("eventId")
     VALUES ($1) RETURNING *

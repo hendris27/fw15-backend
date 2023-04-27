@@ -19,24 +19,20 @@ exports.getWishlist = async (req, res) => {
     }
 
 }
-exports.updateWishlist = async (req, res) => {
+exports.createWishlist = async (req, res) => {
     try{
         const {id} = req.body
         const data = {
             ...req.body
         }
-        const wishlist = await wishlistModel.findOneById(id)
-        if(!wishlist){
-            throw Error ("update_wishlist_failed")
-        }
-        const updatedwishlist = await wishlistModel.updateById(id, data)
+        const updatedwishlist = await wishlistModel.createById(id, data)
         if(!updatedwishlist){
-            throw Error ("update_wishlist_failed")
+            throw Error ("create_wishlist_failed")
         }
 
         return res.json({
             succes:true,
-            message:"update wishlist succesfully",
+            message:"Add wishlist succesfully",
             results: updatedwishlist
         })
     } catch (err) {

@@ -135,11 +135,15 @@ const rules = {
         body("birthDate").isDate({format: "DD-MM-YYYY"}).withMessage("birthDate format is invalid"),
         updateUserId
     ],
-    
+   
     updateUser:[
         body("username").isLength({min:3, max :20}).withMessage ("username is length invalid"),
         emailFormat,
         strongPasword
+    ],
+    addWishlist:[
+        body("eventId").isNumeric().withMessage("eventId is invalid").isInt({min:1}).withMessage("eventId have to be more than 0"),
+      
     ],
     getAll:[
         query("sortBy").toUpperCase().isIn(["ASC", "DESC"]).withMessage("Sortby type is invalid")
