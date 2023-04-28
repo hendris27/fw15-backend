@@ -1,5 +1,6 @@
 // const fileRemover = require("../helpers/fileRemover.helper")
 const wishlistModel = require("../models/wishlist.model")
+const eventModel = require("../models/events.model")
 const errorHandler = require("../helpers/errorHandler.helper")
 
 exports.getWishlist = async (req, res) => {
@@ -21,11 +22,16 @@ exports.getWishlist = async (req, res) => {
 }
 exports.createWishlist = async (req, res) => {
     try{
-        const {id} = req.body
-        const data = {
-            ...req.body
+       
+        const wishlistEvent = await eventModel.findOne(req.body.eventId)
+        if(!wishlistEvent){
+            throw Error ("wishlistEvent not found!")
         }
-        const updatedwishlist = await wishlistModel.createById(id, data)
+        const updatedwishlist = await wishlistModel.createById({
+            eventId:req.body.eventId,
+            userId:req.user.id
+
+        })
         if(!updatedwishlist){
             throw Error ("create_wishlist_failed")
         }

@@ -47,5 +47,4 @@ const uploadMiddleware = (field) => {
 
     }
 }
-
 module.exports = uploadMiddleware

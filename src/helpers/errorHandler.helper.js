@@ -19,6 +19,18 @@ const errorHandler = (err, response) => {
             message:"category not found"
         })
     }
+    if(err?.message?.includes("eventId_not_found")){
+        return response.status(400).json({
+            succes: false,
+            message:"eventId not found"
+        })
+    }
+    if(err?.message?.includes("userId_not_found")){
+        return response.status(400).json({
+            succes: false,
+            message:"userId not found"
+        })
+    }
     if(err?.message?.includes("validator")){
         return response.status(400).json({
             succes: false,

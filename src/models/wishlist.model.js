@@ -54,12 +54,12 @@ exports.update = async function (id, data) {
     const { rows } = await db.query(query, values)
     return rows[0]
 }
-exports.createById = async function (id, data) {
+exports.createById = async function (data) {
     const query = `
-    INSERT INTO "${table}" ("eventId")
-    VALUES ($1) RETURNING *
+    INSERT INTO "${table}" ("eventId", "userId")
+    VALUES ($1, $2) RETURNING *
 `
-    const values = [data.eventId]
+    const values = [data.eventId, data.userId]
 
     const { rows } = await db.query(query, values)
     return rows[0]
@@ -70,6 +70,14 @@ exports.findOne = async function (id) {
 SELECT * FROM  "${table}" WHERE id=$1
 `
     const values = [id]
+    const { rows } = await db.query(query, values)
+    return rows[0]
+}
+exports.findEventId = async function (eventId) {
+    const query = `
+SELECT * FROM  "${table}" WHERE eventId=$2
+`
+    const values = [eventId]
     const { rows } = await db.query(query, values)
     return rows[0]
 }

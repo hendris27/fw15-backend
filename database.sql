@@ -97,4 +97,16 @@ CREATE TABLE "wishList"(
     "createdAt" TIMESTAMP DEFAULT NOW(),
     "updatedAt" TIMESTAMP DEFAULT NULL
 );
-ALTER TABLE "profile" ADD COLUMN "userId" INTEGER
+ALTER TABLE "profile" ADD COLUMN "userId" INTEGER;
+
+ALTER TABLE "patners" RENAME COLUMN "pictures" TO "picture";
+ALTER TABLE "events" RENAME COLUMN "title" TO "tittle";
+ ALTER TABLE "profile" ALTER COLUMN "gender" TYPE VARCHAR(25);
+
+ CREATE TABLE "forgotRequest" (
+    "id" INTEGER PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
+    "email" VARCHAR(255),
+    "code" VARCHAR(255),
+    "createdAt" TIMESTAMP DEFAULT NOW(),
+    "updatedAt" TIMESTAMP DEFAULT NULL
+ )

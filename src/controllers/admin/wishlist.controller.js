@@ -1,5 +1,6 @@
 
 const wishlistModel = require("../../models/wishlist.model")
+const eventModel = require("../../models/events.model")
 const errorHandler = require ("../../helpers/errorHandler.helper")
 // const argon = require ("argon2")
 // const fileRemover = require ("../../helpers/fileRemover.helper")
@@ -49,23 +50,31 @@ exports.getOnewishlist= async(request, response)=>{
 exports.createwishlist = async (request, response) =>{
     
     try{ 
-        // const hash = await argon.hash(request.body.password)
-        // const data = {
-        //     ...request.body, password: hash
-        // }
-        const data = {
-            ...request.body
-        }
-        const wishlist = await wishlistModel.insert(data)
-        return response.json({
-            succes: true,
-            message:"create wishlist succesfully",
-            results: wishlist
-            
-        })
-    } catch (err) {
-        // fileRemover(request.file)
+        
 
+        const wishlistEvent = await eventModel.findOne(request.body.eventId)
+        if(!wishlistEvent){
+            throw Error ("eventId_not_found!")
+        }
+        const wishlistUserId = await eventModel.findOne(request.body.userId)
+        if(!wishlistUserId){
+            throw Error ("userId_not_found!")
+        }
+        const updatedwishlist = await wishlistModel.createById({
+            eventId:request.body.eventId,
+            userId:request.body.userId
+        })
+        if(!updatedwishlist){
+            throw Error ("create_wishlist_failed")
+        }
+
+        return response.json({
+            succes:true,
+            message:"Add wishlist succesfully",
+            results: updatedwishlist
+        })
+
+    } catch (err) {
         if (err) return errorHandler(err, response)
     }
 }
@@ -75,10 +84,7 @@ exports.updatewishlist =async (request, response) =>{
         const data = {
             ...request.body
         }
-        // if(request.body.password){
-        //     data.password= await argon.hash(request.body.password)
 
-        // }
         const wishlist = await wishlistModel.update(request.params.id, data)
         if(wishlist) {
             return response.json({
