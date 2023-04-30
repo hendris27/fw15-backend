@@ -1,8 +1,9 @@
 
+const eventModel = require("../../models/events.model")
+const usersModel = require("../../models/users.model")
+const paymentModel = require("../../models/paymentMethod.model")
 const reservationModel = require("../../models/reservation.model")
 const errorHandler = require ("../../helpers/errorHandler.helper")
-// const argon = require ("argon2")
-// const fileRemover = require ("../../helpers/fileRemover.helper")
 
 
 exports.getAllreservation= async(request, response)=>{
@@ -49,36 +50,58 @@ exports.getOnereservation= async(request, response)=>{
 exports.createreservation = async (request, response) =>{
     
     try{ 
-        // const hash = await argon.hash(request.body.password)
-        // const data = {
-        //     ...request.body, password: hash
-        // }
+
+
+        const EventId = await eventModel.findOne(request.body.eventId)
+        if(!EventId){
+            throw Error ("eventId_not_found!")
+        }
+        const usersId = await usersModel.findOne(request.body.userId)
+        if(!usersId){
+            throw Error ("userId_not_found!")
+        }
+        const paymentId = await paymentModel.findOne(request.body.paymentMethodId)
+        if(!paymentId){
+            throw Error ("Payment_not_found!")
+        }
         const data = {
             ...request.body
         }
-        const reservation = await reservationModel.insert(data)
+        const eventCategories = await reservationModel.insert(data)
+        if(!eventCategories){
+            throw Error ("create_eventcategory_failed")
+        }
+      
         return response.json({
             succes: true,
             message:"create reservation succesfully",
-            results: reservation
+            results: eventCategories
             
         })
     } catch (err) {
-        // fileRemover(request.file)
-
         if (err) return errorHandler(err, response)
     }
 }
 
 exports.updatereservation =async (request, response) =>{
     try{
+        const EventId = await eventModel.findOne(request.body.eventId)
+        if(!EventId){
+            throw Error ("eventId_not_found!")
+        }
+        const usersId = await usersModel.findOne(request.body.userId)
+        if(!usersId){
+            throw Error ("userId_not_found!")
+        }
+        const paymentId = await paymentModel.findOne(request.body.paymentMethodId)
+        if(!paymentId){
+            throw Error ("Payment_not_found!")
+        }
+
         const data = {
             ...request.body
         }
-        // if(request.body.password){
-        //     data.password= await argon.hash(request.body.password)
-
-        // }
+       
         const reservation = await reservationModel.update(request.params.id, data)
         if(reservation) {
             return response.json({

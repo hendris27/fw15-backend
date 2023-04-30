@@ -5,7 +5,7 @@ const errorHandler = require("../helpers/errorHandler.helper")
 exports.createEvent = async (req, res) => {
     try{
         const {id} = req.user
-        const user = await eventModel.findOneByUserId(id)
+        const user = await eventModel.findOneById(id)
         const data = {
             ...req.body
         }
@@ -51,7 +51,7 @@ exports.getEvent = async (req, res) => {
 exports.updateEvent = async (req, res) => {
     try{
         const {id} = req.user
-        const event = await eventModel.findOneByUserId(id)
+        const event = await eventModel.findOneById(id)
         if(!event){
             throw Error ("event Not Found!")
         }

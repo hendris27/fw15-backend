@@ -1,7 +1,6 @@
 
 const patnersModel = require("../../models/patners.model")
 const errorHandler = require ("../../helpers/errorHandler.helper")
-// const argon = require ("argon2")
 const fileRemover = require ("../../helpers/fileRemover.helper")
 
 
@@ -48,7 +47,6 @@ exports.getOnepatners= async(request, response)=>{
 exports.createpatners = async (request, response) =>{
     
     try{  
-        // const hash = await argon.hash(request.body.password)
         const data = {
             ...request.body}
 
@@ -74,9 +72,7 @@ exports.updatepatners =async (request, response) =>{
         const data = {
             ...request.body
         }
-        // if(request.body.password){
-        //     data.password= await argon.hash(request.body.password)
-        // }
+       
         if(request.file){
             data.picture =request.file.filename
         }

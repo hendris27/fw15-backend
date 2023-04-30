@@ -19,16 +19,52 @@ const errorHandler = (err, response) => {
             message:"category not found"
         })
     }
+    if(err?.message?.includes("categoryId_not_found")){
+        return response.status(400).json({
+            succes: false,
+            message:"categorId not found"
+        })
+    }
     if(err?.message?.includes("eventId_not_found")){
         return response.status(400).json({
             succes: false,
             message:"eventId not found"
         })
     }
+    if(err?.message?.includes("cityId_not_found!")){
+        return response.status(400).json({
+            succes: false,
+            message:"cityId not found"
+        })
+    }
+    if(err?.message?.includes("Payment_not_found!")){
+        return response.status(400).json({
+            succes: false,
+            message:"paymentMethodId not found"
+        })
+    }
+    if(err?.message?.includes("wishlistEvent not found!")){
+        return response.status(400).json({
+            succes: false,
+            message:"wishlist not found"
+        })
+    }
     if(err?.message?.includes("userId_not_found")){
         return response.status(400).json({
             succes: false,
             message:"userId not found"
+        })
+    }
+    if(err?.message?.includes("reservationId_not_found!")){
+        return response.status(400).json({
+            succes: false,
+            message:"reservationId_not_found!"
+        })
+    }
+    if(err?.message?.includes("sectionId_not_found!")){
+        return response.status(400).json({
+            succes: false,
+            message:"sectionId_not_found!!"
         })
     }
     if(err?.message?.includes("validator")){

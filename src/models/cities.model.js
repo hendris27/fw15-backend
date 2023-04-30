@@ -22,25 +22,26 @@ exports.findAll = async function(page, limit, search, sort, sortBy){
 exports.insert = async function(data){
     const query =`
   INSERT INTO "${table}"
-   ("picture"
+   ("picture","name"
     
    )
-  VALUES ($1) RETURNING *
+  VALUES ($1, $2) RETURNING *
   `
     const values=[
-        data.picture]
+        data.picture, data.name]
     const {rows} = await db.query(query, values)
     return rows[0]
 }
 exports.update = async function(id, data){
     const query = `
   UPDATE "${table}"  SET 
-  "picture" = COALESCE(NULLIF($2, ''), "picture")
+  "picture" = COALESCE(NULLIF($2, ''), "picture"),
+  "name" = COALESCE(NULLIF($3, ''), "name")
      WHERE "id" = $1 
   RETURNING *
   `
     const values=[id, 
-        data.picture]
+        data.picture, data.name]
 
     const {rows} = await db.query(query, values)
     return rows[0]

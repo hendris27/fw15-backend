@@ -1,8 +1,6 @@
 
 const reservationStatusModel = require("../../models/reservationStatus.model")
 const errorHandler = require ("../../helpers/errorHandler.helper")
-// const argon = require ("argon2")
-// const fileRemover = require ("../../helpers/fileRemover.helper")
 
 
 exports.getAllreservationStatus= async(request, response)=>{
@@ -49,10 +47,7 @@ exports.getOnereservationStatus= async(request, response)=>{
 exports.createreservationStatus = async (request, response) =>{
     
     try{ 
-        // const hash = await argon.hash(request.body.password)
-        // const data = {
-        //     ...request.body, password: hash
-        // }
+       
         const data = {
             ...request.body
         }

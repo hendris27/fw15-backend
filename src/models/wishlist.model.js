@@ -82,10 +82,20 @@ SELECT * FROM  "${table}" WHERE eventId=$2
     return rows[0]
 }
 
-exports.findOneById = async function(){
+exports.findOneById = async function(id){
+    // return console.log(id)
     const query =`
-SELECT * FROM  "${table}"
-`
-    const {rows} = await db.query(query)
+    SELECT
+    "e"."tittle",
+    "e"."date",
+    "c"."name" AS "location",
+    "w"."userId"
+    FROM "${table}" "w"
+    JOIN "events" "e" ON "e"."id" = "w"."eventId"
+    JOIN "cities" "c" ON "c"."id" = "e"."cityId"
+    WHERE "userId" = $1
+    `   
+    const values = [id]
+    const {rows} = await db.query(query, values)
     return rows
 }

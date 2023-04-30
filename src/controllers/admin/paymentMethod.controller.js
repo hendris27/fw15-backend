@@ -49,10 +49,7 @@ exports.getOnepaymentMethod= async(request, response)=>{
 exports.createpaymentMethod = async (request, response) =>{
     
     try{ 
-        // const hash = await argon.hash(request.body.password)
-        // const data = {
-        //     ...request.body, password: hash
-        // }
+        
         const data = {
             ...request.body
         }
@@ -64,8 +61,7 @@ exports.createpaymentMethod = async (request, response) =>{
             
         })
     } catch (err) {
-        // fileRemover(request.file)
-
+      
         if (err) return errorHandler(err, response)
     }
 }

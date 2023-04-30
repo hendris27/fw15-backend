@@ -1,6 +1,7 @@
 
 const wishlistModel = require("../../models/wishlist.model")
 const eventModel = require("../../models/events.model")
+const usersModel = require("../../models/users.model")
 const errorHandler = require ("../../helpers/errorHandler.helper")
 // const argon = require ("argon2")
 // const fileRemover = require ("../../helpers/fileRemover.helper")
@@ -56,22 +57,22 @@ exports.createwishlist = async (request, response) =>{
         if(!wishlistEvent){
             throw Error ("eventId_not_found!")
         }
-        const wishlistUserId = await eventModel.findOne(request.body.userId)
+        const wishlistUserId = await usersModel.findOne(request.body.userId)
         if(!wishlistUserId){
             throw Error ("userId_not_found!")
         }
-        const updatedwishlist = await wishlistModel.createById({
+        const createwishlist = await wishlistModel.createById({
             eventId:request.body.eventId,
             userId:request.body.userId
         })
-        if(!updatedwishlist){
+        if(!createwishlist){
             throw Error ("create_wishlist_failed")
         }
 
         return response.json({
             succes:true,
             message:"Add wishlist succesfully",
-            results: updatedwishlist
+            results: createwishlist
         })
 
     } catch (err) {
@@ -80,9 +81,21 @@ exports.createwishlist = async (request, response) =>{
 }
 
 exports.updatewishlist =async (request, response) =>{
-    try{
+    try{ const wishlistEvent = await eventModel.findOne(request.body.eventId)
+        if(!wishlistEvent){
+            throw Error ("eventId_not_found!")
+        }
+        const wishlistUserId = await usersModel.findOne(request.body.userId)
+        if(!wishlistUserId){
+            throw Error ("userId_not_found!")
+        }
         const data = {
             ...request.body
+        }
+
+        const createwishlist = await wishlistModel.createById(data)
+        if(!createwishlist){
+            throw Error ("create_wishlist_failed")
         }
 
         const wishlist = await wishlistModel.update(request.params.id, data)
@@ -96,8 +109,7 @@ exports.updatewishlist =async (request, response) =>{
         throw Error ("validator")
     }   
     catch (err) {
-        // fileRemover(request.file)
-
+      
         if (err) return errorHandler(err, response)
     }
 }

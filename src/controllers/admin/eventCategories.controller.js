@@ -1,5 +1,7 @@
 
 const eventCategoriesModel = require("../../models/eventCategories.model")
+const eventModel = require("../../models/events.model")
+const categoryModel = require("../../models/categories.model")
 const errorHandler = require ("../../helpers/errorHandler.helper")
 // const argon = require ("argon2")
 // const fileRemover = require ("../../helpers/fileRemover.helper")
@@ -49,20 +51,21 @@ exports.getOneeventCategories= async(request, response)=>{
 exports.createeventCategories = async (request, response) =>{
     
     try{
-         
-        const {eventId, categoryId}=request.body
-        const validasiAngka = /[0-9]/
-        const validasiHuruf = /[a-zA-Z]/
-        
-        if (validasiHuruf.test(eventId) || !validasiAngka.test(categoryId) ) {
-           
-            throw Error("id_format")
+        const EventId = await eventModel.findOne(request.body.eventId)
+        if(!EventId){
+            throw Error ("eventId_not_found!")
         }
-     
-        const data = {
+        const categoriesId = await categoryModel.findOne(request.body.categoryId)
+        if(!categoriesId){
+            throw Error ("categoryId_not_found!")
+        }
+        const data ={
             ...request.body
         }
         const eventCategories = await eventCategoriesModel.insert(data)
+        if(!eventCategories){
+            throw Error ("create_eventcategory_failed")
+        }
         return response.json({
             succes: true,
             message:"create event Categories succesfully",
@@ -70,30 +73,34 @@ exports.createeventCategories = async (request, response) =>{
             
         })
     } catch (err) {
-        // fileRemover(request.file)
-
         if (err) return errorHandler(err, response)
     }
 }
 
 exports.updateeventCategories =async (request, response) =>{
     try{
+        const EventId = await eventModel.findOne(request.body.eventId)
+        if(!EventId){
+            throw Error ("eventId_not_found!")
+        }
+        const categoriesId = await categoryModel.findOne(request.body.categoryId)
+        if(!categoriesId){
+            throw Error ("categoryId_not_found!")
+        }
         const data = {
             ...request.body
         }
-        // if(request.body.password){
-        //     data.password= await argon.hash(request.body.password)
-
-        // }
+    
         const eventCategories = await eventCategoriesModel.update(request.params.id, data)
-        if(eventCategories) {
-            return response.json({
-                succes: true,
-                message:"Update event Categories succesfully",
-                results: eventCategories
-            })
+        if(!eventCategories) {
+            throw Error ("update event category failed!")
         }
-        throw Error ("validator")
+        return response.json({
+            succes: true,
+            message:"Update event Category succesfully",
+            results: eventCategories
+        })
+      
     }   
     catch (err) {
         // fileRemover(request.file)

@@ -49,7 +49,7 @@ exports.getOneProfile= async(request, response)=>{
 exports.createProfile = async (request, response) =>{
     
     try{  
-        // const hash = await argon.hash(request.body.password)
+       
         const data = {
             ...request.body
         }
@@ -73,7 +73,6 @@ exports.createProfile = async (request, response) =>{
 
 exports.updateProfile =async (request, response) =>{
     try{
-        // const {id} =request.user
         const data = {
             ...request.body
         }

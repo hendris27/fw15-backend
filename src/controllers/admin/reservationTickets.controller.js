@@ -1,8 +1,8 @@
 
+const reservationModel = require("../../models/reservation.model")
+const sectionModel = require("../../models/reservationSection.model")
 const reservationTicketsModel = require("../../models/reservationTickets.model")
 const errorHandler = require ("../../helpers/errorHandler.helper")
-// const argon = require ("argon2")
-// const fileRemover = require ("../../helpers/fileRemover.helper")
 
 
 exports.getAllreservationTickets= async(request, response)=>{
@@ -49,14 +49,24 @@ exports.getOnereservationTickets= async(request, response)=>{
 exports.createreservationTickets = async (request, response) =>{
     
     try{ 
-        // const hash = await argon.hash(request.body.password)
-        // const data = {
-        //     ...request.body, password: hash
-        // }
+        
+        const reservationId = await reservationModel.findOne(request.body.reservationId)
+        if(!reservationId){
+            throw Error ("reservationId_not_found!")
+        }
+        const sectionId = await sectionModel.findOne(request.body.sectionId)
+        if(!sectionId){
+            throw Error ("sectionId_not_found!")
+        }
+     
         const data = {
             ...request.body
         }
         const reservationTickets = await reservationTicketsModel.insert(data)
+        if(!reservationTickets){
+            throw Error ("create_resservation Tickeet_failed")
+        }
+    
         return response.json({
             succes: true,
             message:"create Reservation Tickets succesfully",
@@ -64,21 +74,25 @@ exports.createreservationTickets = async (request, response) =>{
             
         })
     } catch (err) {
-        // fileRemover(request.file)
-
+       
         if (err) return errorHandler(err, response)
     }
 }
 
 exports.updatereservationTickets =async (request, response) =>{
     try{
+        const reservationId = await reservationModel.findOne(request.body.reservationId)
+        if(!reservationId){
+            throw Error ("reservationId_not_found!")
+        }
+        const sectionId = await sectionModel.findOne(request.body.sectionId)
+        if(!sectionId){
+            throw Error ("sectionId_not_found!")
+        }
         const data = {
             ...request.body
         }
-        // if(request.body.password){
-        //     data.password= await argon.hash(request.body.password)
-
-        // }
+       
         const reservationTickets = await reservationTicketsModel.update(request.params.id, data)
         if(reservationTickets) {
             return response.json({
@@ -90,8 +104,6 @@ exports.updatereservationTickets =async (request, response) =>{
         throw Error ("validator")
     }   
     catch (err) {
-        // fileRemover(request.file)
-
         if (err) return errorHandler(err, response)
     }
 }

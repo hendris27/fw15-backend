@@ -34,6 +34,12 @@ const rules = {
     updateResStatus:[
         nameUpdate
     ],
+    createCity:[
+        nameCreate
+    ],
+    updateCity:[
+        nameUpdate
+    ],
     createCategory:[
         nameCreate
     ],
@@ -50,6 +56,7 @@ const rules = {
         createEventId,
         body("categoryId").isNumeric().withMessage("categoryId is invalid").isInt({min:1}).withMessage("categoryId have to be more than 0")
     ],
+    
     updateEventCat:[
         updateEventId,
         body("categoryId").optional().isNumeric().withMessage("categoryId is invalid").isInt({min:1}).withMessage("categoryId have to be more than 0")
@@ -72,7 +79,7 @@ const rules = {
         updateEventId,
         updateUserId,
         body("status").isNumeric().withMessage("Status is invalid").isInt({min:1}).withMessage("Status have to be more than 0"),
-        body("paymentMethodId").isNumeric().withMessage("paymaentMethodId is invalid").isInt({min:1}).withMessage("ID have to be more than 0") 
+        body("paymentMethodId").optional().isNumeric().withMessage("paymaentMethodId is invalid").isInt({min:1}).withMessage("ID have to be more than 0") 
     ],
     createResTickets:[
         body("reservationId").isNumeric().withMessage("reservationId is invalid").isInt({min:1}).withMessage("reservationId have to be more than 0"),

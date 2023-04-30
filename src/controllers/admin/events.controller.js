@@ -1,5 +1,6 @@
 
 const eventsModel = require("../../models/events.model")
+const cityModel = require("../../models/cities.model")
 const errorHandler = require ("../../helpers/errorHandler.helper")
 // const argon = require ("argon2")/
 const fileRemover = require ("../../helpers/fileRemover.helper")
@@ -48,7 +49,10 @@ exports.getOneEvents= async(request, response)=>{
 exports.createEvents = async (request, response) =>{
     
     try{  
-        // const hash = await argon.hash(request.body.password)
+        const cityId = await cityModel.findOne(request.body.cityId)
+        if(!cityId){
+            throw Error ("cityId_not_found!")
+        }
         const data = {
             ...request.body}
 
@@ -57,6 +61,9 @@ exports.createEvents = async (request, response) =>{
         }
 
         const Events = await eventsModel.insert(data)
+        if(!Events){
+            throw Error ("create events failed")
+        }
         return response.json({
             succes: true,
             message:"create events succesfully",
@@ -71,6 +78,10 @@ exports.createEvents = async (request, response) =>{
 
 exports.updateEvents =async (request, response) =>{
     try{
+        const cityId = await cityModel.findOne(request.body.cityId)
+        if(!cityId){
+            throw Error ("cityId_not_found!")
+        }
         const data = {
             ...request.body}
 

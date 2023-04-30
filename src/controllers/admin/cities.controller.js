@@ -48,7 +48,6 @@ exports.getOneCities= async(request, response)=>{
 exports.createCities = async (request, response) =>{
     
     try{  
-        // const hash = await argon.hash(request.body.password)
         const data = {
             ...request.body}
 
@@ -74,9 +73,7 @@ exports.updateCities =async (request, response) =>{
         const data = {
             ...request.body
         }
-        // if(request.body.password){
-        //     data.password= await argon.hash(request.body.password)
-        // }
+        
         if(request.file){
             data.picture =request.file.filename
         }
