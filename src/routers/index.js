@@ -17,6 +17,7 @@ router.use("/city", autMiddleware, require("./city.router"))
 router.use("/wishlist", autMiddleware, require("./wishlist.router"))
 router.use("/changePassword", autMiddleware, require("./changePassword.router"))
 router.use("/event", autMiddleware, require("./event.router"))
+router.use("/reservation", autMiddleware, require("./reservation.router"))
 
 router.use("*", (request, response) => {
     return response.status(404).json({

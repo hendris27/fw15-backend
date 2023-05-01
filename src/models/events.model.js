@@ -79,14 +79,58 @@ SELECT * FROM  "${table}" WHERE code=$1
     const {rows} = await db.query(query, values)
     return rows[0]
 }
-exports.findOneById = async function(){
+exports.findOneById = async function(id){
+    // return console.log(id)
     const query =`
-SELECT * FROM  "${table}" 
+    SELECT
+"e"."id",
+"e"."tittle",
+"e"."date",
+"c"."name" as "category",
+"ci"."name" as "location"
+FROM "eventCategories" "ec"
+JOIN "events" "e" ON "e"."id" = "ec"."eventId"
+JOIN "categories" "c" ON "c"."id" = "ec"."categoryId"
+JOIN "cities" "ci" ON "ci"."id" = "e"."cityId"
+WHERE "e"."id"=$1
+
 `
-  
-    const {rows} = await db.query(query)
+    const values = [id]
+    const {rows} = await db.query(query, values)
     return rows
 }
+exports.findAllEvent = async function(page, limit, searchByName,searchByCategory,searchByLocation, sort, sortBy){
+    page = parseInt(page) || 1
+    limit =parseInt(limit) || 10
+    searchByName = searchByName || ""
+    searchByCategory = searchByCategory || ""
+    searchByLocation = searchByLocation || ""
+    sort = sort || "id"
+    sortBy = sortBy || "DESC"
+
+    const offset = (page - 1) * limit
+
+    const query =`
+    SELECT
+"e"."id",
+"e".picture,
+"e"."tittle",
+"e"."date",
+"c"."name" as "category",
+"ci"."name" as "location"
+FROM "eventCategories" "ec"
+JOIN "events" "e" ON "e"."id" = "ec"."eventId"
+JOIN "categories" "c" ON "c"."id" = "ec"."categoryId"
+JOIN "cities" "ci" ON "ci"."id" = "e"."cityId"
+WHERE "e"."tittle" LIKE $3 AND "c"."name" LIKE $4 AND "ci"."name" LIKE $5
+ ORDER BY "${sort}" ${sortBy} LIMIT $1 OFFSET $2
+`
+    const values= [limit, offset, `%${searchByName}%`,`%${searchByCategory}%`,`%${searchByLocation}%`]
+
+    const {rows} = await db.query(query, values)
+    return rows 
+}
+
 
 
 exports.findOne = async function(id){
@@ -97,3 +141,46 @@ SELECT * FROM  "${table}" WHERE id=$1
     const {rows} = await db.query(query, values)
     return rows[0]
 }
+
+exports.findOwnedEvent = async function(createdBy){
+    const query =`
+  SELECT * FROM  "${table}" WHERE "createdBy" = $1
+  `
+    const values = [createdBy]
+    const {rows} = await db.query(query, values)
+    return rows
+}
+
+exports.findOneByIdAndUserId = async function(eventId, createdBy){
+    const query =`
+    SELECT * FROM  "${table}" WHERE "id"=$1 AND "createdBy" = $2
+    `
+    const values = [eventId, createdBy]
+    const {rows} = await db.query(query, values)
+    return rows[0]
+}
+
+exports.createEvents = async function(data){
+    // return console.log(data) 
+    const query =`
+INSERT INTO "${table}"
+ ("picture",
+  "tittle", 
+  "date", 
+  "cityId", 
+  "descriptions",
+  "createdBy"
+ )
+VALUES ($1, $2,$3,$4, $5, $6) RETURNING *
+`
+    const values=[
+        data.picture, 
+        data.tittle,
+        data.date,
+        data.cityId,
+        data.descriptions,
+        data.createdBy]
+    const {rows} = await db.query(query, values)
+    return rows[0]
+}
+

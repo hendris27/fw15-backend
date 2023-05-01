@@ -86,6 +86,7 @@ exports.findOneById = async function(id){
     // return console.log(id)
     const query =`
     SELECT
+    "w"."id",
     "e"."tittle",
     "e"."date",
     "c"."name" AS "location",

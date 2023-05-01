@@ -3,13 +3,6 @@ const eventRouter = require ("express").Router()
 const uploadMiddleware = require("../middlewares/upload.middleware")
 const eventController = require("../controllers/event.controller")
 
-eventRouter.get("/manage", eventController.getOwnedEvent)
-eventRouter.get("/:id", eventController.getEvent)
-eventRouter.get("/", eventController.getAllEvents)
-
-
-eventRouter.get("/manage/:id", eventController.getDetailEvent)
 eventRouter.post("/managecreate", uploadMiddleware("picture"), eventController.createEvents)
-eventRouter.patch("/manageupdate/:id", uploadMiddleware("picture"),eventController.updateEvent)
 
 module.exports = eventRouter

@@ -5,5 +5,6 @@ const wishlistController = require("../controllers/wishlist.controller")
 
 wishlistRouter.get("/", wishlistController.getWishlist)
 wishlistRouter.post("/", validate("addWishlist"),wishlistController.createWishlist)
+wishlistRouter.delete("/managedeleted/:id", wishlistController.delWishlist)
 
 module.exports = wishlistRouter

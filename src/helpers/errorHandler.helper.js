@@ -46,7 +46,7 @@ const errorHandler = (err, response) => {
     if(err?.message?.includes("wishlistEvent not found!")){
         return response.status(400).json({
             succes: false,
-            message:"wishlist not found"
+            message:"EventId not found"
         })
     }
     if(err?.message?.includes("userId_not_found")){
@@ -223,11 +223,11 @@ const errorHandler = (err, response) => {
             message: "Error : input id invalid"
         })
     }
-    if(err.message?.includes("invalid input syntax for type integer")){
-        return response.status(409).json({
-            succes: false,
-            message: "Error : input id wrong!"
-        })}
+    // if(err.message?.includes("invalid input syntax for type integer")){
+    //     return response.status(409).json({
+    //         succes: false,
+    //         message: "Error : input wrong!"
+    //     })}
     console.log(err)
     return response.status(500).json({
         succes: false,  

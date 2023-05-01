@@ -75,3 +75,13 @@ SELECT * FROM  "${table}" WHERE email=$1
     const { rows } = await db.query(query, values)
     return rows[0]
 }
+exports.createReservation = async function (data) {
+    const query = `
+INSERT INTO "${table}" ("eventId", "userId", "status", "paymentMethodId")
+VALUES ($1, $2, $3, $4) RETURNING *
+`
+    const values = [data.eventId, data.userId, data.status, data.paymentMethodId]
+
+    const { rows } = await db.query(query, values)
+    return rows[0]
+}

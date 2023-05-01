@@ -78,6 +78,14 @@ SELECT * FROM  "${table}" WHERE id=$1
     const {rows} = await db.query(query, values)
     return rows[0]
 }
+exports.findOneCategory = async function(id){
+    const query =`
+SELECT * FROM  "${table}" WHERE id=$1
+`
+    const values = [id]
+    const {rows} = await db.query(query, values)
+    return rows[0]
+}
 
 exports.findCategory = async function(){
     const query =`
