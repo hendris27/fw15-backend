@@ -322,7 +322,7 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{url}}/admin/wishlist?sortBy=ASC",
+									"raw": "{{url}}/admin/wishlist?sortBy=ASCv",
 									"host": [
 										"{{url}}"
 									],
@@ -333,7 +333,7 @@
 									"query": [
 										{
 											"key": "sortBy",
-											"value": "ASC"
+											"value": "ASCv"
 										}
 									]
 								}
@@ -375,7 +375,7 @@
 									"urlencoded": [
 										{
 											"key": "eventId",
-											"value": "",
+											"value": "1s",
 											"type": "text"
 										},
 										{
@@ -542,7 +542,7 @@
 										},
 										{
 											"key": "paymentMethodId",
-											"value": "0",
+											"value": "1",
 											"type": "text"
 										}
 									]
@@ -941,13 +941,19 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{url}}/admin/reservationSection",
+									"raw": "{{url}}/admin/reservationSection?sortBy=asc",
 									"host": [
 										"{{url}}"
 									],
 									"path": [
 										"admin",
 										"reservationSection"
+									],
+									"query": [
+										{
+											"key": "sortBy",
+											"value": "asc"
+										}
 									]
 								}
 							},
@@ -1283,7 +1289,12 @@
 										{
 											"key": "picture",
 											"type": "file",
-											"src": "/C:/Users/hendri/Downloads/baner7.jpg"
+											"src": "/C:/Users/hendri/Downloads/baner5.jpg"
+										},
+										{
+											"key": "name",
+											"value": "karawang",
+											"type": "text"
 										}
 									]
 								},
@@ -1311,7 +1322,7 @@
 										{
 											"key": "picture",
 											"type": "file",
-											"src": "/C:/Users/hendri/Downloads/baner3.jpg"
+											"src": "/C:/Users/hendri/Downloads/baner4.jpg"
 										}
 									]
 								},
@@ -2160,12 +2171,12 @@
 							"urlencoded": [
 								{
 									"key": "fullName",
-									"value": "doni1",
+									"value": "hendri",
 									"type": "text"
 								},
 								{
 									"key": "email",
-									"value": "deni1@gmail.com",
+									"value": "deni11@gmail.com",
 									"type": "text"
 								},
 								{
@@ -2469,7 +2480,7 @@
 					"response": []
 				},
 				{
-					"name": "UPDATE WISHLIST",
+					"name": "CREATE WISHLIST",
 					"request": {
 						"method": "POST",
 						"header": [],
@@ -2478,7 +2489,7 @@
 							"urlencoded": [
 								{
 									"key": "eventId",
-									"value": "",
+									"value": "90",
 									"type": "text"
 								}
 							]
@@ -2490,6 +2501,284 @@
 							],
 							"path": [
 								"wishlist"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DELETED WISHLIST",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/wishlist/managedeleted/:id",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"wishlist",
+								"managedeleted",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": null
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "EVENT",
+			"item": [
+				{
+					"name": "MANAGE EVENT",
+					"item": [
+						{
+							"name": "CREATE EVENT",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "picture",
+											"type": "file",
+											"src": "/C:/Users/hendri/Downloads/WhatsApp Image 2023-04-18 at 11.57.20.jpeg"
+										},
+										{
+											"key": "tittle",
+											"value": "naruto",
+											"type": "text"
+										},
+										{
+											"key": "date",
+											"value": "02-02-2022",
+											"type": "text"
+										},
+										{
+											"key": "cityId",
+											"value": "6",
+											"type": "text"
+										},
+										{
+											"key": "descriptions",
+											"value": "manga",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{url}}/event/managecreate",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"event",
+										"managecreate"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "UPDATE EVENT",
+							"request": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "picture",
+											"type": "file",
+											"src": "/C:/Users/hendri/Downloads/WhatsApp Image 2023-04-18 at 11.57.20.jpeg"
+										},
+										{
+											"key": "tittle",
+											"value": "Peterpan",
+											"type": "text"
+										},
+										{
+											"key": "date",
+											"value": "02-02",
+											"type": "text"
+										},
+										{
+											"key": "cityId",
+											"value": "1",
+											"type": "text"
+										},
+										{
+											"key": "descriptions",
+											"value": "music POP",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{url}}/event/manageupdate/:id",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"event",
+										"manageupdate",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": null
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GET DETAIL EVENT",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/event/manage/:id",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"event",
+										"manage",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": null
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GET ALL EVENTS",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/event/manage",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"event",
+										"manage"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "DELETE EVENTS",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/event/:id",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"event",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": null
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "ALL EVENTS",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/event",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"event"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1",
+									"disabled": true
+								},
+								{
+									"key": "searchByName",
+									"value": "Pameran",
+									"disabled": true
+								},
+								{
+									"key": "searchByCategory",
+									"value": "Music",
+									"disabled": true
+								},
+								{
+									"key": "searchByLocation",
+									"value": "Jakarta",
+									"disabled": true
+								},
+								{
+									"key": "sort",
+									"value": "location",
+									"disabled": true
+								},
+								{
+									"key": "sortBy",
+									"value": "ASC",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET EVENT",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/event/:id",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"event",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "1"
+								}
 							]
 						}
 					},
@@ -2555,6 +2844,12 @@
 			"key": "url",
 			"value": "http://localhost:8888",
 			"type": "string"
+		},
+		{
+			"key": "url",
+			"value": "\nhttps://aggressive-plum-ant.cyclic.app",
+			"type": "string",
+			"disabled": true
 		}
 	]
 }
