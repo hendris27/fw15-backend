@@ -9,9 +9,12 @@ const argon = require ("argon2")
 
 exports.register = async (request, response) => {
     try{
-        const {fullName, password, confirmPassword} = request.body
+        const {termAndConditions, fullName, password, confirmPassword} = request.body
         if(password !== confirmPassword){
             throw Error ("password unmatch")
+        }
+        if(termAndConditions !== 1){
+            throw Error ("termAndConditions must be ceklis")
         }
         const hash = await argon.hash(password)
         const data = {

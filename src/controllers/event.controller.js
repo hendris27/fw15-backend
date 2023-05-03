@@ -105,7 +105,6 @@ exports.getEvent = async (req, res) => {
 exports.getOwnedEvent = async (req, res) => {
     try{
         const {id} = req.user
-        console.log(id)
         const event = await eventModel.findOwnedEvent(id)
         if(!event){
             throw Error ("event Not Found!")
@@ -158,6 +157,27 @@ exports.getAllEvents= async(request, response)=>{
             results : data
         })
     }catch (err) {
+        if (err) return errorHandler(err, response)
+    }
+}
+exports.deletedEvent = async (request, response) => {
+    try {
+        const data = await eventModel.destroy(request.params.id)
+        if(data){
+            return response.json({
+                success: true,
+                message: "Deleted wishlist successfully",
+                results: data,
+            })
+        }
+        
+        return response.status(404).json({
+            success: false,
+            message: "wishlist not found",
+   
+        })
+    
+    } catch (err) {
         if (err) return errorHandler(err, response)
     }
 }

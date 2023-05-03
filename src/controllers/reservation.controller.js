@@ -1,46 +1,66 @@
 const fileRemover = require("../helpers/fileRemover.helper")
-const reservationModel = require("../models/reservations.model")
-const cityModel = require("../models/cities.model")
-// const categoryModel = require("../models/categories.model")
+const reservationModel = require("../models/reservation.model")
+const reservationTicketsModel = require("../models/reservationTickets.model")
+const reservationSectionModel = require("../models/reservationSection.model")
 const errorHandler = require("../helpers/errorHandler.helper")
 
 
-exports.createEvents = async (request, response) =>{
-  try{
-      const {id} = request.user
+exports.createreservations = async (request, response) =>{
+    try{
+        const {id} = request.user
+        const status = 1
+        const paymentMethod = 4
 
-      const data = {
-          ...request.body, createdBy:id}
-      const dataNew = {
-          ...data
-      }
-      // return    console.log(request.file)
-      if(request.file){
-          data.picture = request.file.filename
-      }
-      // return console.log(dataNew)
-      const cityId = await cityModel.findOnecity(data.cityId)
-      if(!cityId){
-          throw Error ("cityId_not_found!")
-      }
+        const sectionId = await reservationSectionModel.findOne(request.body.sectionId)
+        if(!sectionId){
+            throw Error ("sectionId not found")
+        }
+
+
+        const data = {...request.body,
+            userId:id,
+            statusId:status,
+            paymentMethodId:paymentMethod        
+        }
     
-      // const categoryId = await categoryModel.findOneCategory(data.categoryId)
-      // if(!categoryId){
-      //     throw Error ("categoryId_not_found!")
-      // }
-    
-      const Events = await eventModel.createEvents(dataNew)
-      if(!Events){
-          throw Error ("create events failed")
-      }
-      return response.json({
-          succes: true,
-          message:"create events succesfully",
-          results: Events
+        const reservation = await reservationModel.insert(data)
+        if(!reservation){
+            throw Error ("create reservation failed")
+        }
+
+
+        const dataTickets={...request.body,
+            reservationId:reservation.id,
+        }
+        const reservationTickets = await reservationTicketsModel.insert(dataTickets)
         
-      })
-  } catch (err) {
-      fileRemover(request.file)
-      if (err) return errorHandler(err, response)
-  }
+        
+
+        const section = reservationTickets.sectionId
+        const quantity = reservationTickets.quantity
+
+        const trueSection = await reservationSectionModel.findOne(section)
+        const price = trueSection.price
+        const sections = trueSection.name
+        // console.log(typeof(price))
+        // console.log(typeof(price))
+        const totalPayment = "Rp." + parseInt(price) * parseInt(quantity) +",-"
+
+        // console.log(totalPayment)
+        const results = {
+            sections, quantity, totalPayment
+        }
+        return response.json({
+            succes: true,
+            message:"create reservation succesfully",
+            results: results
+        })
+
+       
+    } 
+    
+    catch (err) {
+        fileRemover(request.file)
+        if (err) return errorHandler(err, response)
+    }
 }

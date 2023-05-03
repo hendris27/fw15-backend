@@ -11,7 +11,7 @@ exports.findAll = async function(page, limit, search, sort, sortBy){
 
     const offset = (page - 1) * limit
 
-    const query = ` SELECT * FROM "${table}" WHERE "picture" LIKE $3 ORDER BY "${sort}" ${sortBy} LIMIT $1 OFFSET $2`
+    const query = ` SELECT * FROM "${table}" WHERE "name" LIKE $3 ORDER BY "${sort}" ${sortBy} LIMIT $1 OFFSET $2`
   
     const values= [limit, offset, `%${search}%`]
 

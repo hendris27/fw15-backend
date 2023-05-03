@@ -3,7 +3,6 @@ const patnersRouter = require ("express").Router()
 const patnersController = require("../controllers/patners.controller")
 
 patnersRouter.get("/", patnersController.getPatners)
-patnersRouter.get("/", patnersController.getPatners)
-patnersRouter.get("/", patnersController.getPatners)
+
 
 module.exports = patnersRouter

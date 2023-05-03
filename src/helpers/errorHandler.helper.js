@@ -49,6 +49,12 @@ const errorHandler = (err, response) => {
             message:"EventId not found"
         })
     }
+    if(err?.message?.includes("sectionId not found")){
+        return response.status(400).json({
+            succes: false,
+            message:"SectionId not found"
+        })
+    }
     if(err?.message?.includes("userId_not_found")){
         return response.status(400).json({
             succes: false,

@@ -1,11 +1,11 @@
-const changePasswordModel = require("../models/users.model")
+const usersModel = require("../models/users.model")
 const errorHandler = require("../helpers/errorHandler.helper")
 const argon = require ("argon2")
 
 exports.index = async (request, response) => {
     try{
         const {id} = request.user
-        const user = await changePasswordModel.findOneByUserId(id)
+        const user = await usersModel.findOne(id)
         const {oldPassword, newPassword, confirmNewPassword} = request.body
 
         const verify =await argon.verify(user.password, oldPassword)
@@ -24,7 +24,7 @@ exports.index = async (request, response) => {
         const data = {
             password: await argon.hash(newPassword)
         }
-        const updatePassword = await changePasswordModel.changePasswordUser(user.id, data)
+        const updatePassword = await usersModel.update(user.id, data)
         if(!updatePassword){
             throw Error ("change_Password_failed, try_again!")
         }

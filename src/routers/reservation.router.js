@@ -1,8 +1,8 @@
-const eventRouter = require ("express").Router()
+const reservationRouter = require ("express").Router()
 // const validate = require("../middlewares/validator.middleware")
 const uploadMiddleware = require("../middlewares/upload.middleware")
-const eventController = require("../controllers/event.controller")
+const reservationController = require("../controllers/reservation.controller")
 
-eventRouter.post("/managecreate", uploadMiddleware("picture"), eventController.createEvents)
+reservationRouter.post("/", uploadMiddleware("picture"), reservationController.createreservations)
 
-module.exports = eventRouter
+module.exports = reservationRouter
