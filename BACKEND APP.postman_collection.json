@@ -1818,42 +1818,43 @@
 										{
 											"key": "picture",
 											"type": "file",
-											"src": "/C:/Users/hendri/Downloads/baner5.jpg"
+											"src": "/C:/Users/hendri/Downloads/baner7.jpg",
+											"disabled": true
 										},
 										{
 											"key": "fullName",
 											"value": "samson",
-											"type": "text"
+											"type": "text",
+											"disabled": true
 										},
 										{
 											"key": "phoneNumber",
-											"value": "123456",
-											"type": "text"
+											"value": "+628521990990",
+											"type": "text",
+											"disabled": true
 										},
 										{
 											"key": "profession",
 											"value": "programmer",
-											"type": "text"
+											"type": "text",
+											"disabled": true
 										},
 										{
-											"key": "nationality",
-											"value": "singapura",
+											"key": "Nationality",
+											"value": "Singapura",
 											"type": "text"
 										},
 										{
 											"key": "birthDate",
-											"value": "02-02-1995",
-											"type": "text"
-										},
-										{
-											"key": "userId",
-											"value": "12",
-											"type": "text"
+											"value": "05-07-1999",
+											"type": "text",
+											"disabled": true
 										},
 										{
 											"key": "gender",
 											"value": "male",
-											"type": "text"
+											"type": "text",
+											"disabled": true
 										}
 									]
 								},
@@ -1870,7 +1871,7 @@
 									"variable": [
 										{
 											"key": "id",
-											"value": "22"
+											"value": "3"
 										}
 									]
 								}
@@ -2138,12 +2139,12 @@
 								},
 								{
 									"key": "email",
-									"value": "deni@gmail.com",
+									"value": "hendri1@gmail.com",
 									"type": "text"
 								},
 								{
 									"key": "password",
-									"value": "Jn1.",
+									"value": "Hendri1.",
 									"type": "text"
 								}
 							]
@@ -2188,6 +2189,12 @@
 									"key": "confirmPassword",
 									"value": "Jn1.",
 									"type": "text"
+								},
+								{
+									"key": "termAndConditions",
+									"value": "1",
+									"type": "text",
+									"disabled": true
 								}
 							]
 						},
@@ -2660,7 +2667,7 @@
 									"variable": [
 										{
 											"key": "id",
-											"value": null
+											"value": "9"
 										}
 									]
 								}
@@ -2761,7 +2768,7 @@
 					"response": []
 				},
 				{
-					"name": "GET EVENT",
+					"name": "DETAIL EVENT",
 					"request": {
 						"method": "GET",
 						"header": [],
@@ -2787,18 +2794,129 @@
 			]
 		},
 		{
-			"name": "TEST CONNECTION",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "{{url}}",
-					"host": [
-						"{{url}}"
-					]
+			"name": "RESERVATION",
+			"item": [
+				{
+					"name": "CREATE RESERVATION",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "eventId",
+									"value": "1",
+									"type": "text"
+								},
+								{
+									"key": "sectionId",
+									"value": "5",
+									"type": "text"
+								},
+								{
+									"key": "quantity",
+									"value": "10",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{url}}/reservation",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"reservation"
+							]
+						}
+					},
+					"response": []
 				}
-			},
-			"response": []
+			]
+		},
+		{
+			"name": "PAYMENT",
+			"item": [
+				{
+					"name": "CREATE PAYMENT",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "reservationId",
+									"value": "28",
+									"type": "text"
+								},
+								{
+									"key": "paymentMethodId",
+									"value": "1",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{url}}/payment",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"payment"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "HISTORY",
+			"item": [
+				{
+					"name": "GET HISTORY",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/history",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"history"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DETAIL WISHLIST",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/history/:id",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"history",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "28"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
 		},
 		{
 			"name": "New Request",
