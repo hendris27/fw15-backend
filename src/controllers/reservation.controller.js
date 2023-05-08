@@ -9,7 +9,7 @@ exports.createreservations = async (request, response) =>{
     try{
         const {id} = request.user
         const status = 1
-        const paymentMethod = 4
+        const paymentMethod = 5
 
         const sectionId = await reservationSectionModel.findOne(request.body.sectionId)
         if(!sectionId){

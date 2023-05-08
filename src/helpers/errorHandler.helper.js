@@ -97,6 +97,12 @@ const errorHandler = (err, response) => {
             message:"User not found"
         })
     }
+    if(err?.message?.includes("paymnentid_not_found")){
+        return response.status(400).json({
+            succes: false,
+            message:"paymnentid_not_found"
+        })
+    }
     if(err?.message?.includes("no_forgot_password_request")){
         return response.status(400).json({
             succes: false,
