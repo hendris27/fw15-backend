@@ -1,105 +1,104 @@
-const db = require ("../helpers/db.helper")
+const db = require("../helpers/db.helper")
 const table = "categories"
 
-exports.findAll = async(page, limit, search, sort, sortBy) => {
-    page = parseInt(page) || 1
-    limit =parseInt(limit) || 5
-    search = search || ""
-    sort = sort || "id"
-    sortBy = sortBy || "ASC"
+exports.findAll = async (page, limit, search, sort, sortBy) => {
+  page = parseInt(page) || 1
+  limit = parseInt(limit) || 10
+  search = search || ""
+  sort = sort || "id"
+  sortBy = sortBy || "ASC"
 
-    const offset = (page - 1) * limit
+  const offset = (page - 1) * limit
 
-    const query = ` 
+  const query = ` 
     SELECT * FROM "${table}" 
     WHERE "name" LIKE $3 
     ORDER BY "${sort}" ${sortBy} 
     LIMIT $1 OFFSET $2
     `
 
-    const values= [limit, offset, `%${search}%`]
+  const values = [limit, offset, `%${search}%`]
 
-    const {rows} = await db.query(query, values)
-    return rows 
+  const { rows } = await db.query(query, values)
+  return rows
 }
-exports.destroy = async function(id){
-    const query = `
+exports.destroy = async function (id) {
+  const query = `
   DELETE from "${table}" WHERE "id"=$1 RETURNING *
 `
-    const values = [id]
+  const values = [id]
 
-    const {rows} = await db.query(query, values)
-    return rows[0]
+  const { rows } = await db.query(query, values)
+  return rows[0]
 }
 
-exports.insert = async function(data){
-    const query =`
+exports.insert = async function (data) {
+  const query = `
   INSERT INTO "${table}" ("name")
   VALUES ($1) RETURNING *
   `
-    const values= [data.name]
+  const values = [data.name]
 
-    const {rows} = await db.query(query, values)
-    return rows[0]
+  const { rows } = await db.query(query, values)
+  return rows[0]
 }
-exports.update = async function(id, data){
-    const query = `
+exports.update = async function (id, data) {
+  const query = `
   UPDATE "${table}" 
   SET 
   "name" = COALESCE(NULLIF($2, ''), "name")
   WHERE "id" = $1 
   RETURNING *
   `
-    const values= [id, data.name]
+  const values = [id, data.name]
 
-    const {rows} = await db.query(query, values)
-    return rows[0]
+  const { rows } = await db.query(query, values)
+  return rows[0]
 }
-exports.updateById = async function(id, data){
-    const query = `
+exports.updateById = async function (id, data) {
+  const query = `
 UPDATE "${table}" 
 SET 
 "name" = COALESCE(NULLIF($2, ''), "name")
 WHERE "id" = $1 
 RETURNING *
 `
-    const values= [id, data.name]
+  const values = [id, data.name]
 
-    const {rows} = await db.query(query, values)
-    return rows[0]
+  const { rows } = await db.query(query, values)
+  return rows[0]
 }
 
-
-exports.findOne = async function(id){
-    const query =`
+exports.findOne = async function (id) {
+  const query = `
 SELECT * FROM  "${table}" WHERE id=$1
 `
-    const values = [id]
-    const {rows} = await db.query(query, values)
-    return rows[0]
+  const values = [id]
+  const { rows } = await db.query(query, values)
+  return rows[0]
 }
-exports.findOneCategory = async function(id){
-    const query =`
+exports.findOneCategory = async function (id) {
+  const query = `
 SELECT * FROM  "${table}" WHERE id=$1
 `
-    const values = [id]
-    const {rows} = await db.query(query, values)
-    return rows[0]
+  const values = [id]
+  const { rows } = await db.query(query, values)
+  return rows[0]
 }
 
-exports.findCategory = async function(){
-    const query =`
+exports.findCategory = async function () {
+  const query = `
 SELECT * FROM  "${table}" 
 `
-    const {rows} = await db.query(query)
-    return rows
+  const { rows } = await db.query(query)
+  return rows
 }
 
-exports.findOneByEmail = async function(email){
-    const query =`
+exports.findOneByEmail = async function (email) {
+  const query = `
 SELECT * FROM  "${table}" WHERE email=$1
 `
-    const values = [email]
-    const {rows} = await db.query(query, values)
-    return rows[0]
+  const values = [email]
+  const { rows } = await db.query(query, values)
+  return rows[0]
 }

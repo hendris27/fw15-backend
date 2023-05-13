@@ -1,26 +1,26 @@
-const db = require ("../helpers/db.helper")
+const db = require("../helpers/db.helper")
 
 const table = "profile"
 
-exports.findAll = async function(page, limit, search, sort, sortBy){
-    page = parseInt(page) || 1
-    limit =parseInt(limit) || 5
-    search = search || ""
-    sort = sort || "id"
-    sortBy = sortBy || "ASC"
+exports.findAll = async function (page, limit, search, sort, sortBy) {
+  page = parseInt(page) || 1
+  limit = parseInt(limit) || 5
+  search = search || ""
+  sort = sort || "id"
+  sortBy = sortBy || "ASC"
 
-    const offset = (page - 1) * limit
+  const offset = (page - 1) * limit
 
-    const query = ` SELECT * FROM "${table}" WHERE "fullName" LIKE $3 ORDER BY "${sort}" ${sortBy} LIMIT $1 OFFSET $2`
-  
-    const values= [limit, offset, `%${search}%`]
+  const query = ` SELECT * FROM "${table}" WHERE "fullName" LIKE $3 ORDER BY "${sort}" ${sortBy} LIMIT $1 OFFSET $2`
 
-    const {rows} = await db.query(query, values)
-    return rows 
+  const values = [limit, offset, `%${search}%`]
+
+  const { rows } = await db.query(query, values)
+  return rows
 }
 
-exports.insert = async function(data){
-    const query =`
+exports.insert = async function (data) {
+  const query = `
   INSERT INTO "${table}"
    ("picture",
     "fullName", 
@@ -33,20 +33,21 @@ exports.insert = async function(data){
    )
   VALUES ($1, $2,$3,$4, $5,$6,$7,$8) RETURNING *
   `
-    const values=[
-        data.picture, 
-        data.fullName,
-        data.phoneNumber,
-        data.gender,
-        data.profession,
-        data.Nationality,
-        data.birthDate,
-        data.userId]
-    const {rows} = await db.query(query, values)
-    return rows[0]
+  const values = [
+    data.picture,
+    data.fullName,
+    data.phoneNumber,
+    data.gender,
+    data.profession,
+    data.Nationality,
+    data.birthDate,
+    data.userId
+  ]
+  const { rows } = await db.query(query, values)
+  return rows[0]
 }
-exports.update = async function(id, data){
-    const query = `
+exports.update = async function (id, data) {
+  const query = `
   UPDATE "${table}"  SET 
   "picture" = COALESCE(NULLIF($2, ''), "picture"),
   "fullName" = COALESCE(NULLIF($3, ''), "fullName"),    
@@ -59,21 +60,23 @@ exports.update = async function(id, data){
      WHERE "id" = $1 
   RETURNING *
   `
-    const values=[id, 
-        data.picture, 
-        data.fullName,
-        data.phoneNumber,
-        data.gender,
-        data.profession,
-        data.Nationality,
-        data.birthDate,
-        data.userId]
+  const values = [
+    id,
+    data.picture,
+    data.fullName,
+    data.phoneNumber,
+    data.gender,
+    data.profession,
+    data.Nationality,
+    data.birthDate,
+    data.userId
+  ]
 
-    const {rows} = await db.query(query, values)
-    return rows[0]
+  const { rows } = await db.query(query, values)
+  return rows[0]
 }
-exports.updateByUserId = async function(userId, data){
-    const query = `
+exports.updateByUserId = async function (userId, data) {
+  const query = `
 UPDATE "${table}"  SET 
 "picture" = COALESCE(NULLIF($2, ''), "picture"),
 "fullName" = COALESCE(NULLIF($3, ''), "fullName"),    
@@ -85,42 +88,45 @@ UPDATE "${table}"  SET
    WHERE "userId" = $1 
 RETURNING *
 `
-    const values=[userId, 
-        data.picture, 
-        data.fullName,
-        data.phoneNumber,
-        data.gender,
-        data.profession,
-        data.Nationality,
-        data.birthDate]
+  const values = [
+    userId,
+    data.picture,
+    data.fullName,
+    data.phoneNumber,
+    data.gender,
+    data.profession,
+    data.Nationality,
+    data.birthDate
+  ]
 
-    const {rows} = await db.query(query, values)
-    return rows[0]
+  const { rows } = await db.query(query, values)
+  return rows[0]
 }
 
-exports.destroy = async function(id){
-    const query = `
+exports.destroy = async function (id) {
+  const query = `
   DELETE from "${table}" WHERE "id"=$1 RETURNING *
 `
-    const values= [id]
+  const values = [id]
 
-    const {rows} = await db.query(query, values)
-    return rows[0]
+  const { rows } = await db.query(query, values)
+  return rows[0]
 }
 
-exports.findOne = async function(id){
-    const query =`
+exports.findOne = async function (id) {
+  const query = `
 SELECT * FROM  "${table}" WHERE id=$1
 `
-    const values = [id]
-    const {rows} = await db.query(query, values)
-    return rows[0]
+  const values = [id]
+  const { rows } = await db.query(query, values)
+  return rows[0]
 }
-exports.findOneByUserId = async function(userId){
-    const query =`
+exports.findOneByUserId = async function (userId) {
+  const query = `
 SELECT 
 "u"."id",
 "p"."fullName",
+"p"."picture",
 "u"."username",
 "u"."email",
 "p"."phoneNumber",
@@ -134,17 +140,16 @@ FROM  "${table}" "p"
 JOIN "users" "u" ON u."id" = "p"."userId"
 WHERE "p"."userId"=$1
 `
-    const values = [userId]
-    const {rows} = await db.query(query, values)
-    return rows[0]
+  const values = [userId]
+  const { rows } = await db.query(query, values)
+  return rows[0]
 }
 
-exports.findPict = async function(id){
-    const query =`
+exports.findPict = async function (id) {
+  const query = `
 SELECT "picture" FROM "${table}" WHERE "id" = $1
 `
-    const values = [id]
-    const {rows} = await db.query(query, values)
-    return rows[0]
+  const values = [id]
+  const { rows } = await db.query(query, values)
+  return rows[0]
 }
-

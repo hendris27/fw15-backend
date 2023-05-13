@@ -8,23 +8,20 @@ const argon = require("argon2")
 
 exports.register = async (request, response) => {
   try {
-    const { termAndConditions, fullName, password, confirmPassword } =
-      request.body
+    const { fullName, password, confirmPassword } = request.body
     if (password !== confirmPassword) {
       throw Error("password unmatch")
     }
-    if (termAndConditions !== 1) {
-      throw Error("termAndConditions must be ceklis")
-    }
+
     const hash = await argon.hash(password)
     const data = {
       ...request.body,
-      password: hash,
+      password: hash
     }
     const user = await userModel.insert(data)
     const profileData = {
       fullName,
-      userId: user.id,
+      userId: user.id
     }
 
     await profileModel.insert(profileData)
@@ -32,7 +29,7 @@ exports.register = async (request, response) => {
     return response.json({
       succes: true,
       message: "Register Succes",
-      results: { token },
+      results: { token }
     })
   } catch (err) {
     if (err) return errorHandler(err, response)
@@ -53,7 +50,7 @@ exports.login = async (request, response) => {
     return response.json({
       succes: true,
       message: "Login Succes",
-      results: { token },
+      results: { token }
     })
   } catch (err) {
     if (err) return errorHandler(err, response)
@@ -73,14 +70,14 @@ exports.forgotPassword = async (request, response) => {
 
     const forgot = await forgotRequestModel.insert({
       email: user.email,
-      code: padded,
+      code: padded
     })
     if (!forgot) {
       throw Error("forgot_failed")
     }
     return response.json({
       succes: true,
-      message: "Request reset password succes",
+      message: "Request reset password succes"
     })
   } catch (err) {
     if (err) return errorHandler(err, response)
@@ -96,7 +93,7 @@ exports.resetPassword = async (request, response) => {
     }
     const selectedUser = await userModel.findOneByEmail(email)
     const data = {
-      password: await argon.hash(password),
+      password: await argon.hash(password)
     }
     const user = await userModel.update(selectedUser.id, data)
     if (!user) {
@@ -105,7 +102,7 @@ exports.resetPassword = async (request, response) => {
     await forgotRequestModel.destroy(find.id)
     return response.json({
       succes: true,
-      message: "reset password succes",
+      message: "reset password succes"
     })
   } catch (err) {
     if (err) return errorHandler(err, response)

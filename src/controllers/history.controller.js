@@ -9,7 +9,7 @@ exports.gethistory = async (request, res) => {
     return res.json({
       success: true,
       message: "List of all History",
-      results: data,
+      results: data
     })
   } catch (err) {
     if (err) return errorHandler(err, res)
@@ -22,7 +22,7 @@ exports.getDetailhistory = async (request, response) => {
     return response.json({
       success: true,
       message: "List of all Detail History",
-      results: data,
+      results: data
     })
   } catch (err) {
     if (err) return errorHandler(err, response)

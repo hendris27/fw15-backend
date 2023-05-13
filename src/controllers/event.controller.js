@@ -10,10 +10,10 @@ exports.createEvents = async (request, response) => {
 
     const data = {
       ...request.body,
-      createdBy: id,
+      createdBy: id
     }
     const dataNew = {
-      ...data,
+      ...data
     }
     // return    console.log(request.file)
     if (request.file) {
@@ -37,7 +37,7 @@ exports.createEvents = async (request, response) => {
     return response.json({
       succes: true,
       message: "create events succesfully",
-      results: Events,
+      results: Events
     })
   } catch (err) {
     fileRemover(request.file)
@@ -49,10 +49,10 @@ exports.updateEvent = async (request, response) => {
     const { id } = request.user
     const data = {
       ...request.body,
-      createdBy: id,
+      createdBy: id
     }
     const dataNew = {
-      ...data,
+      ...data
     }
     const user = await eventModel.findOneById(id)
 
@@ -72,7 +72,7 @@ exports.updateEvent = async (request, response) => {
       return response.json({
         succes: true,
         message: "Update events succesfully",
-        results: Events,
+        results: Events
       })
     }
     throw Error("update_event_failed")
@@ -84,15 +84,15 @@ exports.updateEvent = async (request, response) => {
 
 exports.getEvent = async (req, res) => {
   try {
-    const event = await eventModel.findOneById(req.params.id)
-    // return console.log(id)
-    if (!event) {
+    const { id } = req.params
+    const data = await eventModel.findOneById(id)
+    if (!data) {
       throw Error("event Not Found!")
     }
     return res.json({
       succes: true,
       message: "Detail Event",
-      results: event,
+      results: data
     })
   } catch (err) {
     if (err) return errorHandler(err, res)
@@ -109,7 +109,7 @@ exports.getOwnedEvent = async (req, res) => {
     return res.json({
       succes: true,
       message: "Owned Event",
-      results: event,
+      results: event
     })
   } catch (err) {
     if (err) return errorHandler(err, res)
@@ -129,7 +129,7 @@ exports.getDetailEvent = async (req, res) => {
     return res.json({
       succes: true,
       message: "Detail Event",
-      results: event,
+      results: event
     })
   } catch (err) {
     if (err) return errorHandler(err, res)
@@ -149,7 +149,7 @@ exports.getAllEvents = async (request, response) => {
     return response.json({
       succes: true,
       message: "list of all events",
-      results: data,
+      results: data
     })
   } catch (err) {
     if (err) return errorHandler(err, response)
@@ -162,13 +162,13 @@ exports.deletedEvent = async (request, response) => {
       return response.json({
         success: true,
         message: "Deleted wishlist successfully",
-        results: data,
+        results: data
       })
     }
 
     return response.status(404).json({
       success: false,
-      message: "wishlist not found",
+      message: "wishlist not found"
     })
   } catch (err) {
     if (err) return errorHandler(err, response)

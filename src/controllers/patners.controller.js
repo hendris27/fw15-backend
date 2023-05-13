@@ -11,7 +11,7 @@ exports.getPatners = async (req, res) => {
     return res.json({
       succes: true,
       message: "Detail Patners",
-      results: patners,
+      results: patners
     })
   } catch (err) {
     if (err) return errorHandler(err, res)

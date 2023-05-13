@@ -13,7 +13,7 @@ exports.getWishlist = async (req, res) => {
     return res.json({
       succes: true,
       message: "Detail wishlist",
-      results: wishlist,
+      results: wishlist
     })
   } catch (err) {
     if (err) return errorHandler(err, res)
@@ -25,10 +25,10 @@ exports.createWishlist = async (req, res) => {
 
     const data = {
       ...req.body,
-      userId: id,
+      userId: id
     }
     const dataNew = {
-      ...data,
+      ...data
     }
 
     const wishlistEvent = await eventModel.findOne(req.body.eventId)
@@ -43,7 +43,7 @@ exports.createWishlist = async (req, res) => {
     return res.json({
       succes: true,
       message: "Add wishlist succesfully",
-      results: updatedwishlist,
+      results: updatedwishlist
     })
   } catch (err) {
     if (err) return errorHandler(err, res)
@@ -56,13 +56,13 @@ exports.delWishlist = async (request, response) => {
       return response.json({
         success: true,
         message: "Deleted wishlist successfully",
-        results: data,
+        results: data
       })
     }
 
     return response.status(404).json({
       success: false,
-      message: "wishlist not found",
+      message: "wishlist not found"
     })
   } catch (err) {
     if (err) return errorHandler(err, response)

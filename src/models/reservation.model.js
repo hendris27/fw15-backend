@@ -77,7 +77,7 @@ exports.insert = async function (data) {
     data.eventId,
     data.userId,
     data.statusId,
-    data.paymentMethodId,
+    data.paymentMethodId
   ]
 
   const { rows } = await db.query(query, values)
@@ -100,7 +100,7 @@ exports.update = async function (id, data) {
     data.eventId,
     data.userId,
     data.statusId,
-    data.paymentMethodId,
+    data.paymentMethodId
   ]
 
   const { rows } = await db.query(query, values)

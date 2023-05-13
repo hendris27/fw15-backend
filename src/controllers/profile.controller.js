@@ -7,7 +7,7 @@ exports.updateProfil = async (req, res) => {
     const { id } = req.user
     const user = await profileModel.findOneByUserId(id)
     const data = {
-      ...req.body,
+      ...req.body
     }
     if (req.file) {
       if (user.picture) {
@@ -24,7 +24,7 @@ exports.updateProfil = async (req, res) => {
     return res.json({
       succes: true,
       message: "update profile succesfully",
-      results: profile,
+      results: profile
     })
   } catch (err) {
     if (err) return errorHandler(err, res)
@@ -40,7 +40,7 @@ exports.getProfile = async (req, res) => {
     return res.json({
       succes: true,
       message: "Detail Profle",
-      results: profile,
+      results: profile
     })
   } catch (err) {
     if (err) return errorHandler(err, res)

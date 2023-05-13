@@ -11,7 +11,7 @@ exports.createPayment = async (request, res) => {
     const reservationStatus = 2
     const data = {
       ...request.body,
-      statusId: reservationStatus,
+      statusId: reservationStatus
     }
     const reservations = await reservationModel.findOne(data.reservationId)
     // return console.log(reservations)
@@ -29,7 +29,7 @@ exports.createPayment = async (request, res) => {
     return res.json({
       success: true,
       message: "Create Payment successfully",
-      results: updatePayment,
+      results: updatePayment
     })
   } catch (err) {
     return errorHandler(err, res)

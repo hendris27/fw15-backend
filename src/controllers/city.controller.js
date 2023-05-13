@@ -11,7 +11,7 @@ exports.getCity = async (req, res) => {
     return res.json({
       succes: true,
       message: "Detail City",
-      results: City,
+      results: City
     })
   } catch (err) {
     if (err) return errorHandler(err, res)

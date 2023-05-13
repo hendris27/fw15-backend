@@ -21,7 +21,7 @@ exports.index = async (request, response) => {
     }
 
     const data = {
-      password: await argon.hash(newPassword),
+      password: await argon.hash(newPassword)
     }
     const updatePassword = await usersModel.update(user.id, data)
     if (!updatePassword) {
@@ -30,7 +30,7 @@ exports.index = async (request, response) => {
     return response.json({
       succes: true,
       message: "change password succes",
-      results: updatePassword,
+      results: updatePassword
     })
   } catch (err) {
     if (err) return errorHandler(err, response)

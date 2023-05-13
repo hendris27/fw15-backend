@@ -21,7 +21,7 @@ exports.createreservations = async (request, response) => {
       ...request.body,
       userId: id,
       statusId: status,
-      paymentMethodId: paymentMethod,
+      paymentMethodId: paymentMethod
     }
 
     const reservation = await reservationModel.insert(data)
@@ -46,12 +46,12 @@ exports.createreservations = async (request, response) => {
     const results = {
       sections,
       quantity,
-      totalPayment,
+      totalPayment
     }
     return response.json({
       succes: true,
       message: "create reservation succesfully",
-      results: results,
+      results: results
     })
   } catch (err) {
     fileRemover(request.file)
