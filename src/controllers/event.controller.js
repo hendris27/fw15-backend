@@ -6,6 +6,7 @@ const errorHandler = require("../helpers/errorHandler.helper")
 
 exports.createEvents = async (request, response) => {
   try {
+    console.log(request.file)
     const { id } = request.user
 
     const data = {
@@ -18,6 +19,7 @@ exports.createEvents = async (request, response) => {
     // return    console.log(request.file)
     if (request.file) {
       data.picture = request.file.filename
+      // data.picture = request.file.path
     }
     // return console.log(dataNew)
     const cityId = await cityModel.findOnecity(data.cityId)
@@ -40,7 +42,7 @@ exports.createEvents = async (request, response) => {
       results: Events
     })
   } catch (err) {
-    fileRemover(request.file)
+    // fileRemover(request.file)
     if (err) return errorHandler(err, response)
   }
 }
@@ -62,9 +64,10 @@ exports.updateEvent = async (request, response) => {
     }
     if (request.file) {
       if (user.picture) {
-        fileRemover({ filename: user.picture })
+        // fileRemover({ filename: user.picture })
       }
       data.picture = request.file.filename
+      // data.picture = request.file.path
     }
 
     const Events = await eventModel.update(request.params.id, dataNew)

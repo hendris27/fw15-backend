@@ -48,7 +48,8 @@ exports.createCities = async (request, response) => {
     }
 
     if (request.file) {
-      data.picture = request.file.filename
+      // data.picture = request.file.filename
+      data.picture = request.file.path
     }
 
     const Cities = await citiesModel.insert(data)
@@ -70,7 +71,8 @@ exports.updateCities = async (request, response) => {
     }
 
     if (request.file) {
-      data.picture = request.file.filename
+      // data.picture = request.file.filename
+      data.picture = request.file.path
     }
     const Cities = await citiesModel.update(request.params.id, data)
     if (Cities) {

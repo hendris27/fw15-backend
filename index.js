@@ -9,8 +9,8 @@ const app = express()
 app.use(express.urlencoded({ extended: false }))
 app.use(
   cors({
-    // origin: "http://localhost:5173",
-    // optionsSuccessStatus: 200
+    origin: "http://localhost:5173",
+    optionsSuccessStatus: 200
   })
 )
 
