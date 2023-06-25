@@ -202,7 +202,7 @@ const errorHandler = (err, response) => {
   if(err?.message?.includes("wrong_credentials")){
     return response.status(400).json({
       succes: false,
-      message:"Wrong Name or email or password!"
+      message:"Wrong Password or  new Password!"
     })
   }
   if(err?.message?.includes("unauthorized")){
