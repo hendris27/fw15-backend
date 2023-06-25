@@ -24,7 +24,7 @@ const rules = {
     body ("password").isLength({min:1}).withMessage("Password length is invalid")
   ],
   createUser:[
-    body("username").isLength({min:3, max :20}).withMessage ("username is length invalid"),
+    body("fullName").isLength({min:3, max :20}).withMessage ("fullname is length invalid"),
     emailFormat,
     strongPasword
   ],
@@ -160,6 +160,8 @@ const rules = {
       .isInt({min: 1}).withMessage("ID have to be more than 0")
   ],
   resetPassword:[
+    strongPasword,
+    body("code").isLength({min:6, max :20}).withMessage ("code is length invalid"),
     body ("confirmPassword").custom((value, {req}) => {
       return value === req.body.password
     }).withMessage("Confrim password unmatch")

@@ -125,6 +125,7 @@ exports.findOneByUserId = async function (userId) {
   const query = `
 SELECT 
 "u"."id",
+"u"."username",
 "p"."fullName",
 "p"."picture",
 "u"."username",

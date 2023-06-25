@@ -8,7 +8,7 @@ exports.createreservations = async (request, response) => {
   try {
     const { id } = request.user
     const status = 1
-    const paymentMethod = 5
+    const paymentMethod = null
 
     const sectionId = await reservationSectionModel.findOne(
       request.body.sectionId
