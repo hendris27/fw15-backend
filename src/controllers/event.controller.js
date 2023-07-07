@@ -1,38 +1,41 @@
-const fileRemover = require("../helpers/fileRemover.helper")
+// const fileRemover = require("../helpers/fileRemover.helper")
 const eventModel = require("../models/events.model")
 const cityModel = require("../models/cities.model")
+const deviceTokenModel = require("../models/deviceToken.model")
 // const categoryModel = require("../models/categories.model")
 const errorHandler = require("../helpers/errorHandler.helper")
+const admin = require ("../helpers/firebase")
+const categoryModel = require("../models/categories.model")
 
 exports.createEvents = async (request, response) => {
   try {
-    console.log(request.file)
     const { id } = request.user
 
     const data = {
       ...request.body,
       createdBy: id
     }
-    const dataNew = {
-      ...data
-    }
-    // return    console.log(request.file)
+   
     if (request.file) {
-      data.picture = request.file.filename
-      // data.picture = request.file.path
+      data.picture = request.file.path
     }
-    // return console.log(dataNew)
+    const listToken = await deviceTokenModel.findAll(1,1000)
+    const message = listToken.map(item => ({token: item.token, notification:{title:"there is new event", body:`${request.body.tittle} will be held at ${request.body.date}, check it out!` }}))
+    const messaging = admin.messaging()
+    messaging.sendEach(message)
+   
     const cityId = await cityModel.findOnecity(data.cityId)
     if (!cityId) {
       throw Error("cityId_not_found!")
     }
+    const categoriesId = await categoryModel.findOne(request.body.categoryId)
+    if(!categoriesId){
 
-    // const categoryId = await categoryModel.findOneCategory(data.categoryId)
-    // if(!categoryId){
-    //     throw Error ("categoryId_not_found!")
-    // }
+      throw Error ("categoryId_not_found!")
+    }
+    console.log(data)
+    const Events = await eventModel.createEvents(data)
 
-    const Events = await eventModel.createEvents(dataNew)
     if (!Events) {
       throw Error("create events failed")
     }
@@ -42,7 +45,6 @@ exports.createEvents = async (request, response) => {
       results: Events
     })
   } catch (err) {
-    // fileRemover(request.file)
     if (err) return errorHandler(err, response)
   }
 }
@@ -53,24 +55,22 @@ exports.updateEvent = async (request, response) => {
       ...request.body,
       createdBy: id
     }
-    const dataNew = {
-      ...data
-    }
-    const user = await eventModel.findOneById(id)
-
+   
+    const user = await eventModel.findOneByIdAndUserId(request.params.id, id)
+    console.log(user)
     const cityId = await cityModel.findOnecity(data.cityId)
     if (!cityId) {
       throw Error("cityId_not_found!")
     }
     if (request.file) {
-      if (user.picture) {
+      if (data.picture) {
         // fileRemover({ filename: user.picture })
       }
-      data.picture = request.file.filename
-      // data.picture = request.file.path
+      data.picture = request.file.path
+
     }
 
-    const Events = await eventModel.update(request.params.id, dataNew)
+    const Events = await eventModel.update(request.params.id, data)
     if (Events) {
       return response.json({
         succes: true,
@@ -80,7 +80,7 @@ exports.updateEvent = async (request, response) => {
     }
     throw Error("update_event_failed")
   } catch (err) {
-    fileRemover(request.file)
+    // fileRemover(request.file)
     if (err) return errorHandler(err, response)
   }
 }
