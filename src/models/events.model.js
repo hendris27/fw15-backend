@@ -27,15 +27,17 @@ exports.insert = async function (data) {
     "date", 
     "cityId", 
     "descriptions"
+    "categoryId"
    )
-  VALUES ($1, $2,$3,$4, $5) RETURNING *
+  VALUES ($1,$2,$3,$4,$5,$6) RETURNING *
   `
   const values = [
     data.picture,
     data.tittle,
     data.date,
     data.cityId,
-    data.descriptions
+    data.descriptions,
+    data.categoryId
   ]
   const { rows } = await db.query(query, values)
   return rows[0]
@@ -187,9 +189,10 @@ INSERT INTO "${table}"
   "date", 
   "cityId", 
   "descriptions",
-  "createdBy"
+  "createdBy",
+  "categoryId"
  )
-VALUES ($1, $2,$3,$4, $5, $6) RETURNING *
+VALUES ($1, $2,$3,$4, $5, $6, $7) RETURNING *
 `
   const values = [
     data.picture,
@@ -197,7 +200,8 @@ VALUES ($1, $2,$3,$4, $5, $6) RETURNING *
     data.date,
     data.cityId,
     data.descriptions,
-    data.createdBy
+    data.createdBy,
+    data.categoryId
   ]
   const { rows } = await db.query(query, values)
   return rows[0]
