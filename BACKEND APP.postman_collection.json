@@ -2172,22 +2172,22 @@
 							"urlencoded": [
 								{
 									"key": "fullName",
-									"value": "hendri",
+									"value": "h",
 									"type": "text"
 								},
 								{
 									"key": "email",
-									"value": "deni11@gmail.com",
+									"value": "ceyni1179@gmail.com",
 									"type": "text"
 								},
 								{
 									"key": "password",
-									"value": "Jn1.",
+									"value": "J",
 									"type": "text"
 								},
 								{
 									"key": "confirmPassword",
-									"value": "Jn1.",
+									"value": "J",
 									"type": "text"
 								},
 								{
@@ -2557,11 +2557,11 @@
 										{
 											"key": "picture",
 											"type": "file",
-											"src": "/C:/Users/hendri/Downloads/WhatsApp Image 2023-04-18 at 11.57.20.jpeg"
+											"src": "/C:/Users/hendri/Downloads/user2.jpg"
 										},
 										{
 											"key": "tittle",
-											"value": "naruto",
+											"value": "naruto4",
 											"type": "text"
 										},
 										{
@@ -2571,12 +2571,17 @@
 										},
 										{
 											"key": "cityId",
-											"value": "6",
+											"value": "1",
 											"type": "text"
 										},
 										{
 											"key": "descriptions",
-											"value": "manga",
+											"value": "mangaku",
+											"type": "text"
+										},
+										{
+											"key": "categoryId",
+											"value": "",
 											"type": "text"
 										}
 									]
@@ -2919,10 +2924,73 @@
 			]
 		},
 		{
+			"name": "Sections",
+			"item": [
+				{
+					"name": "GET SECTION",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/section",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"section"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "DEVICE TOKEN",
+			"item": [
+				{
+					"name": "SAVE TOKEN",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "token",
+									"value": "ddd",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{url}}/device-token",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"device-token"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
 			"name": "New Request",
 			"request": {
 				"method": "GET",
-				"header": []
+				"header": [],
+				"url": {
+					"raw": "{{url}}/section",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"section"
+					]
+				}
 			},
 			"response": []
 		}
@@ -2965,7 +3033,7 @@
 		},
 		{
 			"key": "url",
-			"value": "\nhttps://aggressive-plum-ant.cyclic.app",
+			"value": "https://vivacious-duck-sweatsuit.cyclic.app",
 			"type": "string",
 			"disabled": true
 		}
