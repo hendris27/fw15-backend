@@ -10,7 +10,7 @@ exports.index = async (request, response) => {
 
     const verify = await argon.verify(user.password, oldPassword)
     if (!verify) {
-      throw Error("wrong_credentials")
+      throw Error("changepassword_verify")
     }
     if (newPassword === oldPassword) {
       throw Error("cant_same_password")
