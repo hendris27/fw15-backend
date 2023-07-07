@@ -112,7 +112,7 @@ const errorHandler = (err, response) => {
   if(err?.message?.includes("no_find_forgot_password_request")){
     return response.status(400).json({
       succes: false,
-      message:"code for forgot password has used!"
+      message:"code or email is invalid"
     })
   }
   if(err?.message?.includes("Patners Not Found!")){
@@ -203,6 +203,12 @@ const errorHandler = (err, response) => {
     return response.status(400).json({
       succes: false,
       message:"Wrong Password or  new Password!"
+    })
+  }
+  if(err?.message?.includes("changepassword_verify")){
+    return response.status(400).json({
+      succes: false,
+      message:"old password wrong!"
     })
   }
   if(err?.message?.includes("unauthorized")){
