@@ -95,7 +95,8 @@ const rules = {
     body("tittle").isLength({min:3, max :20}).withMessage ("tittle is length invalid"),
     body("date").isDate({format: "DD-MM-YYYY"}).withMessage("date format is invalid"),
     body("cityId").isNumeric().withMessage("cityId is invalid").isInt({min:1}).withMessage("cityId have to be more than 0"),
-    body("descriptions").isLength({min:3, max :20}).withMessage ("Descriptions is length invalid")
+    body("descriptions").isLength({min:3, max :20}).withMessage ("Descriptions is length invalid"),
+    body("categoryId").isNumeric().withMessage("categoryId is invalid").isInt({min:1}).withMessage("category have to be more than 0")
   ],
   updateEvent:[
     body("tittle").optional().isLength({min:3, max :20}).withMessage ("tittle is length invalid"),
@@ -116,12 +117,7 @@ const rules = {
     body("fullName").optional().isLength({min:3, max :20}).withMessage ("fullName is length invalid"),
     body("phoneNumber").optional().isNumeric().toInt().withMessage("phoneNumber is invalid"),
     // body("gender").isBoolean().withMessage("Gender must be a boolean value"),
-    body("gender").optional().isString().withMessage("Gender must be a string value").custom((value) => {
-      if (value.toLowerCase() === "male" || value.toLowerCase() === "female") {
-        return true 
-      }
-      throw new Error("Invalid gender value")
-    }),
+    body("gender").optional().isBoolean().withMessage("Gender is invalid! Use 1 for fimale and 0 for male"),
     body("profession").optional().isLength({min:3, max :20}).withMessage ("profession is length invalid"),
     body("nationality").optional().isLength({min:3, max :20}).withMessage ("Nationality is length invalid"),
     body("birthDate").optional().isDate({format: "DD-MM-YYYY"}).withMessage("birthDate format is invalid"),
@@ -130,13 +126,8 @@ const rules = {
   createProfil:[
     body("fullName").isLength({min:3, max :20}).withMessage ("fullName is length invalid"),
     body("phoneNumber").isNumeric().toInt().withMessage("phoneNumber is invalid"),
-    // body("gender").isBoolean().withMessage("Gender must be a boolean value"),
-    body("gender").isString().withMessage("Gender must be a string value").custom((value) => {
-      if (value.toLowerCase() === "male" || value.toLowerCase() === "female") {
-        return true 
-      }
-      throw new Error("Invalid gender value")
-    }),
+    body("gender").isBoolean().withMessage("Gender must be a boolean value"),
+   
     body("profession").isLength({min:3, max :20}).withMessage ("profession is length invalid"),
     body("nationality").isLength({min:3, max :20}).withMessage ("Nationality is length invalid"),
     body("birthDate").isDate({format: "DD-MM-YYYY"}).withMessage("birthDate format is invalid"),
