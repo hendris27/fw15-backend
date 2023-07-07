@@ -52,7 +52,7 @@ exports.update = async function (id, data) {
   "picture" = COALESCE(NULLIF($2, ''), "picture"),
   "fullName" = COALESCE(NULLIF($3, ''), "fullName"),    
   "phoneNumber" = COALESCE(NULLIF($4, ''), "phoneNumber"),
-  "gender" = COALESCE(NULLIF($5, ''), "gender"),
+  "gender" = COALESCE(NULLIF($5::BOOLEAN, NULL), "gender"),
   "profession" = COALESCE(NULLIF($6, ''), "profession"),
   "Nationality" = COALESCE(NULLIF($7, ''), "Nationality"),
   "birthDate" = COALESCE(NULLIF($8::DATE, NULL), "birthDate"),
@@ -81,7 +81,7 @@ UPDATE "${table}"  SET
 "picture" = COALESCE(NULLIF($2, ''), "picture"),
 "fullName" = COALESCE(NULLIF($3, ''), "fullName"),    
 "phoneNumber" = COALESCE(NULLIF($4, ''), "phoneNumber"),
-"gender" = COALESCE(NULLIF($5, ''), "gender"),
+"gender" = COALESCE(NULLIF($5::BOOLEAN, NULL), "gender"),
 "profession" = COALESCE(NULLIF($6, ''), "profession"),
 "Nationality" = COALESCE(NULLIF($7, ''), "Nationality"),
 "birthDate" = COALESCE(NULLIF($8::DATE, NULL), "birthDate")
