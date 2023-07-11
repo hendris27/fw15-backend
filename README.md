@@ -4,9 +4,8 @@ Getting Started Running Backend App
 1. Select Dropdown nav 'Code', then copy link HTTPS or SSH
 2. open your file location for save project
 3. Right Click in your file location, choose GIT BASE HERE
-4. After be open, type "git clone + paste link HTTPS or SSH", click ENTER
+4. After be open, type "git clone + paste link HTTPS or SSH", click ENTER, Example:
    
-   Example:
    ![alt text](https://github.com/hendris27/fw15-backend/blob/main/uploads/git%20terminal.PNG?raw=true)
    
 6. open your project in VS Code
