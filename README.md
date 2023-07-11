@@ -10,4 +10,5 @@ Getting Started Running Backend App
 6. open your project in VS Code
 7. open your terminal in VS Code, type 'npm i', for install all package
 8. type 'npm run dev', for running the backend
-9. finish
+
+ ![alt text](https://github.com/hendris27/fw15-backend/blob/main/uploads/run%20backend%20app.PNG?raw=true)
