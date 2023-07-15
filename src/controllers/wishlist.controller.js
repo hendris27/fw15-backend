@@ -7,14 +7,35 @@ exports.getWishlist = async (req, res) => {
   try {
     const { id } = req.user
     const wishlist = await wishlistModel.findOneById(id)
+    
     if (!wishlist) {
       throw Error("wishlist Not Found!")
     }
     return res.json({
       succes: true,
-      message: "Detail wishlist",
+      message: "Detail All Wishlist",
       results: wishlist
     })
+  } catch (err) {
+    if (err) return errorHandler(err, res)
+  }
+}
+exports.getDetailWishlist = async (request, res) => {
+  try {
+    console.log(request.params)
+
+    const { id } = request.user
+    const wishlist = await wishlistModel.findOne(request.params.id, id)
+    if (!wishlist) {
+      return res.json({
+        status: false
+      })
+    } else {
+      return res.json({
+        status: true
+      })
+
+    }
   } catch (err) {
     if (err) return errorHandler(err, res)
   }

@@ -6,6 +6,7 @@ const deviceTokenModel = require("../models/deviceToken.model")
 const errorHandler = require("../helpers/errorHandler.helper")
 const admin = require ("../helpers/firebase")
 const categoryModel = require("../models/categories.model")
+const eventCategoryModel = require("../models/eventCategories.model")
 
 exports.createEvents = async (request, response) => {
   try {
@@ -35,7 +36,10 @@ exports.createEvents = async (request, response) => {
     }
     console.log(data)
     const Events = await eventModel.createEvents(data)
-
+    const dataCategoriesEvent = {
+      eventId: Events.id, categoryId: data.categoryId
+    }
+    await eventCategoryModel.insert(dataCategoriesEvent)
     if (!Events) {
       throw Error("create events failed")
     }
@@ -80,7 +84,6 @@ exports.updateEvent = async (request, response) => {
     }
     throw Error("update_event_failed")
   } catch (err) {
-    // fileRemover(request.file)
     if (err) return errorHandler(err, response)
   }
 }

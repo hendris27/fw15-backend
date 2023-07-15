@@ -44,6 +44,7 @@ exports.createreservations = async (request, response) => {
 
     // console.log(totalPayment)
     const results = {
+      reservationId: reservation.id,
       sections,
       quantity,
       totalPayment
