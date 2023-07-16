@@ -49,7 +49,8 @@ exports.update = async function (id, data) {
   "tittle" = COALESCE(NULLIF($3, ''), "tittle"),    
   "date" = COALESCE(NULLIF($4::DATE, NULL), "date"),    
   "cityId" = COALESCE(NULLIF($5::INTEGER, NULL), "cityId"), 
-  "descriptions" = COALESCE(NULLIF($6, ''), "descriptions")
+  "descriptions" = COALESCE(NULLIF($6, ''), "descriptions"),
+  "categoryId" = COALESCE(NULLIF($7::INTEGER, NULL), "categoryId")
      WHERE "id" = $1 
   RETURNING *
   `
@@ -59,7 +60,8 @@ exports.update = async function (id, data) {
     data.tittle,
     data.date,
     data.cityId,
-    data.descriptions
+    data.descriptions,
+    data.categoryId
   ]
 
   const { rows } = await db.query(query, values)
