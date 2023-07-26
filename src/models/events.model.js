@@ -118,7 +118,7 @@ exports.findAllEvent = async function (
   sortBy
 ) {
   page = parseInt(page) || 1
-  limit = parseInt(limit) || 10
+  limit = parseInt(limit) || 6
   searchByName = searchByName || ""
   searchByCategory = searchByCategory || ""
   searchByLocation = searchByLocation || ""
@@ -166,7 +166,17 @@ SELECT * FROM  "${table}" WHERE id=$1
 
 exports.findOwnedEvent = async function (createdBy) {
   const query = `
-  SELECT * FROM  "${table}" WHERE "createdBy" = $1
+  SELECT 
+   "${table}".id,
+   "${table}".date,
+   "${table}".tittle,
+   "${table}"."createdAt",
+   "cities"."name" as "location"
+    FROM  "${table}" 
+  
+  INNER JOIN "cities" ON "cities"."id" = "${table}"."cityId"
+  WHERE "createdBy" = $1
+  
   `
   const values = [createdBy]
   const { rows } = await db.query(query, values)
