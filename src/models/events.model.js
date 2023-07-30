@@ -124,6 +124,7 @@ exports.findAllEvent = async function (
   searchByLocation = searchByLocation || ""
   sort = sort || "id"
   sortBy = sortBy || "DESC"
+  
 
   const offset = (page - 1) * limit
 
@@ -140,7 +141,7 @@ FROM "eventCategories" "ec"
 JOIN "events" "e" ON "e"."id" = "ec"."eventId"
 JOIN "categories" "c" ON "c"."id" = "ec"."categoryId"
 JOIN "cities" "ci" ON "ci"."id" = "e"."cityId"
-WHERE "e"."tittle" LIKE $3 AND "c"."name" LIKE $4 AND "ci"."name" LIKE $5
+WHERE LOWER("e"."tittle") LIKE $3 AND "c"."name" LIKE $4 AND "ci"."name" LIKE $5
  ORDER BY "${sort}" ${sortBy} LIMIT $1 OFFSET $2
 `
   const values = [
