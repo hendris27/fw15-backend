@@ -19,6 +19,18 @@ const errorHandler = (err, response) => {
       message:"category not found"
     })
   }
+  if(err?.message?.includes("event_not_found")){
+    return response.status(400).json({
+      succes: false,
+      message:"event_not_found"
+    })
+  }
+  if(err?.message?.includes("data don't be empty")){
+    return response.status(400).json({
+      succes: false,
+      message:"data don't be empty"
+    })
+  }
   if(err?.message?.includes("Detail wishlist Not Found!")){
     return response.status(400).json({
       succes: false,
