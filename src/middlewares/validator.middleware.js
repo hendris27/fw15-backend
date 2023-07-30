@@ -102,7 +102,9 @@ const rules = {
     body("tittle").optional().isLength({min:3, max :20}).withMessage ("tittle is length invalid"),
     body("date").optional().isDate({format: "DD-MM-YYYY"}).withMessage("date format is invalid"),
     body("cityId").optional().isNumeric().withMessage("cityId is invalid").isInt({min:1}).withMessage("cityId have to be more than 0"),
-    body("descriptions").optional().isLength({min:3, max :20}).withMessage ("Descriptions is length invalid")
+    body("descriptions").optional().isLength({min:3, max :20}).withMessage ("Descriptions is length invalid"),
+    body("categoryId").optional().isNumeric().withMessage("categoryId is invalid").isInt({min:1}).withMessage("category have to be more than 0")
+
   ],
   createResSection:[
     body("name").isLength({min:5, max :20}).withMessage ("name is length invalid"),
