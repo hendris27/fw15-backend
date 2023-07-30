@@ -43,20 +43,35 @@ exports.getDetailWishlist = async (request, res) => {
 exports.createWishlist = async (req, res) => {
   try {
     const { id } = req.user
-
-    const data = {
-      ...req.body,
+    const { eventId } = req.body
+    const dataWishlist = await eventModel.findOne(eventId)
+    if (!dataWishlist) {
+      throw Error("event_not_found")
+    }
+    const wishlistData = {
+      eventId,
       userId: id
     }
-    const dataNew = {
-      ...data
+    const checkDuplicate = await wishlistModel.findOneByUserIdAndEventId(
+      id,
+      eventId
+    )
+    if (checkDuplicate) {
+      const deleteMyWishlist = await wishlistModel.deleteByUserIdAndEventId(
+        id,
+        eventId
+      )
+      return res.json({
+        success: true,
+        message: "deleted wishlist successfully!",
+        results: deleteMyWishlist
+      })
     }
-
     const wishlistEvent = await eventModel.findOne(req.body.eventId)
     if (!wishlistEvent) {
       throw Error("wishlistEvent not found!")
     }
-    const updatedwishlist = await wishlistModel.createById(dataNew)
+    const updatedwishlist = await wishlistModel.createById(wishlistData)
     if (!updatedwishlist) {
       throw Error("create_wishlist_failed")
     }
@@ -88,4 +103,26 @@ exports.delWishlist = async (request, response) => {
   } catch (err) {
     if (err) return errorHandler(err, response)
   }
+}
+
+exports.checkingWishlist = async (req, res) => {
+  const { id } = req.user
+  const event = req.query
+  const eventId = event.eventId
+  const checkWislist = await wishlistModel.findOneByUserIdAndEventId(
+    id,
+    eventId
+  )
+  if (!checkWislist) {
+    return res.json({
+      success: false,
+      message: `Wishlist event ${eventId} by user ${id} not found`,
+      results: false
+    })
+  }
+  return res.json({
+    success: true,
+    message: `Wishlist event ${eventId} by user ${id} found`,
+    results: true
+  })
 }
