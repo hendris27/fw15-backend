@@ -3,6 +3,8 @@ const eventRouter = require("express").Router()
 const uploadMiddleware = require("../middlewares/upload.middleware")
 const eventController = require("../controllers/event.controller")
 const autMiddleware = require("../middlewares/auth.middleware")
+const validate = require("../middlewares/validator.middleware")
+
 
 eventRouter.get("/manage", autMiddleware, eventController.getOwnedEvent)
 eventRouter.get("/:id", eventController.getEvent)
@@ -18,6 +20,7 @@ eventRouter.post(
 eventRouter.patch(
   "/manageupdate/:id",
   autMiddleware,
+  validate("updateEvent"),
   uploadMiddleware("picture"),
   eventController.updateEvent
 )
