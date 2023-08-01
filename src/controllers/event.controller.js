@@ -20,6 +20,9 @@ exports.createEvents = async (request, response) => {
     if (request.file) {
       data.picture = request.file.path
     }
+    else {
+      throw Error ("data don't be empty")
+    }
     const listToken = await deviceTokenModel.findAll(1,1000)
     const message = listToken.map(item => ({token: item.token, notification:{title:"there is new event", body:`${request.body.tittle} will be held at ${request.body.date}, check it out!` }}))
     const messaging = admin.messaging()
@@ -62,10 +65,10 @@ exports.updateEvent = async (request, response) => {
    
     const user = await eventModel.findOneByIdAndUserId(request.params.id, id)
     console.log(user)
-    const cityId = await cityModel.findOnecity(data.cityId)
-    if (!cityId) {
-      throw Error("cityId_not_found!")
-    }
+    // const cityId = await cityModel.findOnecity(data.cityId)
+    // if (!cityId) {
+    //   throw Error("cityId_not_found!")
+    // }
     if (request.file) {
       if (data.picture) {
         // fileRemover({ filename: user.picture })
@@ -143,19 +146,17 @@ exports.getDetailEvent = async (req, res) => {
 }
 exports.getAllEvents = async (request, response) => {
   try {
-    const data = await eventModel.findAllEvent(
-      request.query.page,
-      request.query.limit,
-      request.query.searchByName,
-      request.query.searchByCategory,
-      request.query.searchByLocation,
-      request.query.sort,
-      request.query.sortBy
-    )
+    const {searchByName,searchByCategory, searchByLocation, page, limit, sort, sortBy} = request.query
+    const data = await eventModel.findAllEvent(page, limit,searchByName, searchByCategory, searchByLocation,  sort, sortBy)
+    const countEvent = await eventModel.countEvent(searchByName, searchByCategory, searchByLocation)
+    const totalPage = Math.ceil(parseInt(countEvent.totalData)/parseInt(limit || 6))
+    console.log(totalPage, "total page")
     return response.json({
       succes: true,
       message: "list of all events",
-      results: data
+      results: data,
+      totalPage: totalPage
+
     })
   } catch (err) {
     if (err) return errorHandler(err, response)

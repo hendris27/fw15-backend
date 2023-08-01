@@ -124,7 +124,6 @@ exports.findAllEvent = async function (
   searchByLocation = searchByLocation || ""
   sort = sort || "id"
   sortBy = sortBy || "DESC"
-  
 
   const offset = (page - 1) * limit
 
@@ -144,6 +143,8 @@ JOIN "cities" "ci" ON "ci"."id" = "e"."cityId"
 WHERE LOWER("e"."tittle") LIKE $3 AND "c"."name" LIKE $4 AND "ci"."name" LIKE $5
  ORDER BY "${sort}" ${sortBy} LIMIT $1 OFFSET $2
 `
+  console.log(query)
+
   const values = [
     limit,
     offset,
@@ -153,7 +154,10 @@ WHERE LOWER("e"."tittle") LIKE $3 AND "c"."name" LIKE $4 AND "ci"."name" LIKE $5
   ]
 
   const { rows } = await db.query(query, values)
+  console.log(rows)
+
   return rows
+
 }
 
 exports.findOne = async function (id) {
@@ -217,5 +221,24 @@ VALUES ($1, $2,$3,$4, $5, $6, $7) RETURNING *
     data.categoryId
   ]
   const { rows } = await db.query(query, values)
+  return rows[0]
+}
+exports.countEvent = async (searchByName, searchByCategory, searchByLocation) => {
+
+  searchByName = searchByName || ""
+  searchByCategory = searchByCategory || ""
+  searchByLocation = searchByLocation || ""
+  
+  const queries = `
+  SELECT
+  COUNT(*) AS "totalData"
+  FROM "eventCategories" "ec"
+  JOIN "events" "e" ON "e"."id" = "ec"."eventId"
+  JOIN "categories" "c" ON "c"."id" = "ec"."categoryId"
+  JOIN "cities" "city" ON "city"."id" = "e"."cityId"
+  WHERE "e"."tittle" LIKE $1 AND "c"."name" LIKE $2 AND "city"."name" LIKE $3
+`
+  const values = [`%${searchByName}%`, `%${searchByCategory}%`, `%${searchByLocation}%`]
+  const {rows} = await db.query(queries, values)
   return rows[0]
 }
